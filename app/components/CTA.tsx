@@ -5,58 +5,50 @@ import { FadeIn } from "./AnimationWrapper";
 
 export default function CTA() {
   return (
-    <section id="cta" className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="cta" className="relative py-28 sm:py-36 overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-accent/[0.03] to-transparent" />
       <motion.div
-        className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-        animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-20 left-1/4 h-[400px] w-[400px] rounded-full bg-primary/[0.07] blur-[100px]"
+        animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl"
-        animate={{ x: [0, -50, 0], y: [0, 30, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -bottom-20 right-1/4 h-[360px] w-[360px] rounded-full bg-accent/[0.07] blur-[100px]"
+        animate={{ x: [0, -40, 0], y: [0, 20, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <FadeIn className="text-center">
-          <div className="p-10 sm:p-16 rounded-3xl border border-border bg-card/80 backdrop-blur-sm">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              Ready to modernize <br className="hidden sm:block" />
-              <span className="gradient-text">your cooperative?</span>
+          <div className="rounded-3xl border border-border bg-card/80 p-10 shadow-xl shadow-primary/[0.03] backdrop-blur-md sm:p-16">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+              Start Managing Your Cooperative{" "}
+              <span className="gradient-text">Smarter Today</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-              Join hundreds of cooperatives that have already transformed their
-              operations. Start your free trial today — no credit card required.
+            <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-muted-foreground">
+              No paperwork. No stress. Just complete control.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.a
-                href="#"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-primary text-primary-foreground font-medium text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Start Managing Your Cooperative Today
-                <svg
-                  className="ml-2 w-5 h-5"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 10h12M12 6l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </motion.a>
-            </div>
+            <motion.a
+              href="#"
+              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-[0_4px_24px_-4px] shadow-primary/30 transition-shadow hover:shadow-primary/50"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Get Started Now
+              <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.a>
 
-            <p className="text-xs text-muted-foreground mt-6">
+            <p className="mt-5 text-xs text-muted-foreground">
               Free 14-day trial &bull; No credit card required &bull; Cancel
               anytime
             </p>

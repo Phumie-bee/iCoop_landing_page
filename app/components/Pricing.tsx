@@ -8,7 +8,7 @@ const plans = [
     name: "Starter",
     price: "Free",
     period: "",
-    description: "Perfect for small cooperatives just getting started.",
+    tagline: "Perfect for small cooperatives just getting started.",
     features: [
       "Up to 50 members",
       "Basic loan tracking",
@@ -22,8 +22,8 @@ const plans = [
   {
     name: "Professional",
     price: "₱2,499",
-    period: "/month",
-    description: "For growing cooperatives needing advanced features.",
+    period: "/mo",
+    tagline: "Best for growing organisations that need real visibility.",
     features: [
       "Up to 500 members",
       "Advanced loan management",
@@ -40,7 +40,7 @@ const plans = [
     name: "Enterprise",
     price: "Custom",
     period: "",
-    description: "For large cooperatives with complex requirements.",
+    tagline: "For large cooperatives with complex, multi-branch needs.",
     features: [
       "Unlimited members",
       "Multi-branch support",
@@ -57,69 +57,67 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="text-xs font-medium text-primary">Pricing</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Simple, transparent <span className="gradient-text">pricing</span>
+    <section id="pricing" className="relative py-28 sm:py-36">
+      <div className="section-line mx-auto max-w-5xl" />
+
+      <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-semibold text-primary mb-5">
+            Pricing
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            Transparent pricing,{" "}
+            <span className="gradient-text">no surprises</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Choose the plan that fits your cooperative. No hidden fees, no
-            surprises.
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+            Pick the plan that matches your cooperative&apos;s size. Upgrade or
+            downgrade anytime.
           </p>
         </FadeIn>
 
         <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start"
-          staggerDelay={0.15}
+          className="mt-16 grid items-start gap-6 md:grid-cols-3 lg:gap-8"
+          staggerDelay={0.12}
         >
           {plans.map((plan) => (
             <StaggerItem key={plan.name}>
               <motion.div
-                className={`relative p-8 rounded-2xl border h-full flex flex-col ${
+                className={`relative flex h-full flex-col rounded-2xl border p-8 transition-shadow ${
                   plan.highlighted
-                    ? "border-primary bg-card shadow-xl shadow-primary/10 ring-1 ring-primary/20"
-                    : "border-border bg-card"
+                    ? "border-primary bg-card shadow-xl shadow-primary/[0.08] ring-1 ring-primary/20"
+                    : "border-border bg-card hover:shadow-lg hover:shadow-primary/[0.04]"
                 }`}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.25 }}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-[11px] font-bold text-primary-foreground">
                     Most Popular
                   </div>
                 )}
 
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {plan.name}
-                  </h3>
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-4xl font-bold text-foreground">
-                      {plan.price}
+                <h3 className="text-lg font-semibold text-foreground">
+                  {plan.name}
+                </h3>
+                <div className="mt-3 flex items-baseline gap-1">
+                  <span className="text-4xl font-extrabold text-foreground">
+                    {plan.price}
+                  </span>
+                  {plan.period && (
+                    <span className="text-sm text-muted-foreground">
+                      {plan.period}
                     </span>
-                    {plan.period && (
-                      <span className="text-muted-foreground text-sm">
-                        {plan.period}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {plan.description}
-                  </p>
+                  )}
                 </div>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {plan.tagline}
+                </p>
 
-                <ul className="space-y-3 mb-8 flex-1">
-                  {plan.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-3 text-sm"
-                    >
+                <ul className="mt-7 flex-1 space-y-3">
+                  {plan.features.map((feat) => (
+                    <li key={feat} className="flex items-start gap-2.5 text-sm">
                       <svg
-                        className="w-5 h-5 text-primary shrink-0 mt-0.5"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -129,16 +127,16 @@ export default function Pricing() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-foreground">{feature}</span>
+                      <span className="text-foreground">{feat}</span>
                     </li>
                   ))}
                 </ul>
 
                 <motion.a
                   href="#cta"
-                  className={`block w-full text-center py-3 rounded-full font-medium text-sm transition-all ${
+                  className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition-all ${
                     plan.highlighted
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40"
+                      ? "bg-primary text-primary-foreground shadow-[0_4px_20px_-4px] shadow-primary/30 hover:shadow-primary/50"
                       : "bg-muted text-foreground hover:bg-border"
                   }`}
                   whileHover={{ scale: 1.02 }}

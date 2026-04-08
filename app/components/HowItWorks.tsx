@@ -6,10 +6,9 @@ import { FadeIn } from "./AnimationWrapper";
 
 const steps = [
   {
-    step: "01",
-    title: "Sign Up & Configure",
+    title: "Add Members",
     description:
-      "Create your cooperative account in minutes. Set up member roles, savings plans, and loan parameters tailored to your organization.",
+      "Import your roster or invite members individually. Everyone gets a secure personal portal in minutes.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -18,7 +17,7 @@ const steps = [
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-7 h-7"
+        className="w-6 h-6"
       >
         <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
         <circle cx="9" cy="7" r="4" />
@@ -27,10 +26,9 @@ const steps = [
     ),
   },
   {
-    step: "02",
-    title: "Onboard Members",
+    title: "Manage Finances",
     description:
-      "Invite members via email or bulk import. Each member gets a personalized portal to view their accounts, loans, and contributions.",
+      "Process loans, track savings, and record every transaction. Automated workflows handle the busywork.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -39,19 +37,18 @@ const steps = [
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-7 h-7"
+        className="w-6 h-6"
       >
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+        <rect x="2" y="5" width="20" height="14" rx="2" />
+        <path d="M2 10h20" />
+        <path d="M12 15h4" />
       </svg>
     ),
   },
   {
-    step: "03",
-    title: "Manage & Track",
+    title: "Generate Reports",
     description:
-      "Process loans, monitor savings, and record transactions with ease. Automated workflows keep everything organized and compliant.",
+      "One-click reports for your board, auditors, and members. Export to PDF or CSV anytime.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -60,117 +57,98 @@ const steps = [
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-7 h-7"
+        className="w-6 h-6"
       >
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
-      </svg>
-    ),
-  },
-  {
-    step: "04",
-    title: "Analyze & Grow",
-    description:
-      "Leverage powerful analytics to understand trends, predict cash flow, and make data-driven decisions for cooperative growth.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-7 h-7"
-      >
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        <path d="M21 21H4.6c-.56 0-.84 0-1.054-.109a1 1 0 01-.437-.437C3 20.24 3 19.96 3 19.4V3" />
+        <path d="M7 14l4-4 4 4 6-6" />
+        <path d="M17 8h4v4" />
       </svg>
     ),
   },
 ];
 
-function ConnectorLine({ index }: { index: number }) {
-  const ref = useRef<SVGSVGElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+function ConnectorArrow({ index }: { index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
 
   if (index >= steps.length - 1) return null;
 
   return (
-    <svg
-      ref={ref}
-      className="hidden lg:block absolute top-12 -right-[calc(50%-24px)] w-[calc(100%-48px)] h-[2px] z-0"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <motion.line
-        x1="0"
-        y1="1"
-        x2="100%"
-        y2="1"
-        className="stroke-primary/30"
-        strokeWidth="2"
-        strokeDasharray="6 4"
-        initial={{ pathLength: 0 }}
-        animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
-        transition={{
-          duration: 1,
-          delay: 0.5 + index * 0.3,
-          ease: "easeInOut",
-        }}
-      />
-    </svg>
+    <div ref={ref} className="hidden lg:flex items-center justify-center">
+      <motion.div
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+        transition={{ duration: 0.4, delay: 0.3 + index * 0.2 }}
+      >
+        <svg className="h-4 w-4 text-primary" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M3 8h10M9 4l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </motion.div>
+    </div>
   );
 }
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative py-24 sm:py-32 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="text-xs font-medium text-primary">
-              How It Works
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Get started in{" "}
-            <span className="gradient-text">four simple steps</span>
+    <section
+      id="how-it-works"
+      className="relative py-28 sm:py-36 bg-surface/50"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-semibold text-primary mb-5">
+            How It Works
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            Three steps to{" "}
+            <span className="gradient-text">operational clarity</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            From setup to full operation, iCoop makes it seamless to digitize
-            your cooperative.
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+            From sign-up to full visibility, iCoop gets out of the way so you
+            can focus on your members.
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-          {steps.map((step, index) => (
-            <FadeIn key={step.step} delay={0.15 * index} className="relative">
-              <ConnectorLine index={index} />
-              <motion.div
-                className="relative z-10 text-center lg:text-left"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
+        {/* Steps grid: step — arrow — step — arrow — step */}
+        <div className="mt-16 grid items-start gap-8 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:gap-0">
+          {steps.map((step, i) => (
+            <>
+              <FadeIn
+                key={step.title}
+                delay={0.1 + i * 0.15}
+                className="relative"
               >
-                {/* Step number indicator */}
-                <div className="flex items-center justify-center lg:justify-start mb-6">
-                  <div className="relative">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                      {step.icon}
-                    </div>
-                    <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
-                      {index + 1}
-                    </span>
+                <motion.div
+                  className="group rounded-2xl border border-border bg-card p-8 text-center transition-shadow hover:shadow-lg hover:shadow-primary/[0.04] lg:text-left"
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {/* Step number */}
+                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/[0.08] text-primary lg:mx-0">
+                    {step.icon}
                   </div>
-                </div>
-
-                <h3 className="text-lg font-semibold mb-2 text-foreground">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {step.description}
-                </p>
-              </motion.div>
-            </FadeIn>
+                  <span className="mb-2 inline-block rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-primary">
+                    STEP {i + 1}
+                  </span>
+                  <h3 className="mt-1 text-xl font-semibold text-foreground">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {step.description}
+                  </p>
+                </motion.div>
+              </FadeIn>
+              {i < steps.length - 1 && (
+                <ConnectorArrow key={`arrow-${i}`} index={i} />
+              )}
+            </>
           ))}
         </div>
       </div>

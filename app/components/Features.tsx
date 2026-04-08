@@ -7,7 +7,7 @@ const features = [
   {
     title: "Member Management",
     description:
-      "Effortlessly onboard, organize, and manage all cooperative members with detailed profiles and role-based access.",
+      "Onboard hundreds of members in minutes and give each one a personal dashboard with real-time account visibility.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -23,13 +23,15 @@ const features = [
         <path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
       </svg>
     ),
-    gradient: "from-blue-500/20 to-cyan-500/20",
+    color: "blue",
     iconBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    stat: "1,247",
+    statLabel: "active members",
   },
   {
     title: "Loan Tracking",
     description:
-      "Track loan applications, disbursements, repayment schedules, and outstanding balances with automated reminders.",
+      "Track every loan in real time — from application to final repayment — with automated reminders so nothing slips through.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -45,13 +47,15 @@ const features = [
         <path d="M12 15h4" />
       </svg>
     ),
-    gradient: "from-emerald-500/20 to-teal-500/20",
+    color: "emerald",
     iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    stat: "₱8.4M",
+    statLabel: "disbursed",
   },
   {
     title: "Savings Management",
     description:
-      "Monitor individual and group savings accounts, automate contributions tracking, and visualize growth trends.",
+      "Visualize individual and pooled savings growth, automate contribution schedules, and keep every peso accounted for.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -62,18 +66,18 @@ const features = [
         strokeLinejoin="round"
         className="w-6 h-6"
       >
-        <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2" />
-        <path d="M2 9.1C1.1 9.3 1 10.1 1 12c0 2 .5 3.3 1.5 4.5" />
-        <circle cx="16.5" cy="9.5" r=".5" fill="currentColor" />
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
       </svg>
     ),
-    gradient: "from-violet-500/20 to-purple-500/20",
+    color: "violet",
     iconBg: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
+    stat: "₱24.1M",
+    statLabel: "total savings",
   },
   {
-    title: "Financial Reports & Analytics",
+    title: "Financial Reports",
     description:
-      "Generate comprehensive reports and gain deep insights with real-time dashboards, charts, and exportable data.",
+      "Generate board-ready reports in seconds — crystal-clear dashboards with exportable data so every stakeholder stays informed.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -89,75 +93,91 @@ const features = [
         <path d="M17 8h4v4" />
       </svg>
     ),
-    gradient: "from-amber-500/20 to-orange-500/20",
+    color: "amber",
     iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    stat: "30+",
+    statLabel: "report templates",
   },
 ];
 
+const colorMap: Record<string, string> = {
+  blue: "group-hover:shadow-blue-500/[0.08]",
+  emerald: "group-hover:shadow-emerald-500/[0.08]",
+  violet: "group-hover:shadow-violet-500/[0.08]",
+  amber: "group-hover:shadow-amber-500/[0.08]",
+};
+
 export default function Features() {
   return (
-    <section id="features" className="relative py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="text-xs font-medium text-primary">Features</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+    <section id="features" className="relative py-28 sm:py-36">
+      {/* subtle top divider */}
+      <div className="section-line mx-auto max-w-5xl" />
+
+      <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-semibold text-primary mb-5">
+            Features
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
             Everything you need to{" "}
             <span className="gradient-text">run your cooperative</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Powerful tools designed specifically for cooperative organizations.
-            Simplify operations, increase transparency, and drive growth.
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+            Purpose-built tools that simplify operations, increase transparency,
+            and help your cooperative grow — not just survive.
           </p>
         </FadeIn>
 
         <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          staggerDelay={0.15}
+          className="mt-16 grid gap-5 sm:grid-cols-2 lg:gap-6"
+          staggerDelay={0.12}
         >
-          {features.map((feature) => (
-            <StaggerItem key={feature.title}>
+          {features.map((f) => (
+            <StaggerItem key={f.title}>
               <motion.div
-                className="group relative p-8 rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 h-full"
-                whileHover={{ y: -4 }}
+                className={`group relative flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-shadow duration-300 hover:border-primary/20 ${colorMap[f.color]} hover:shadow-xl`}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.25 }}
               >
-                {/* Hover gradient bg */}
-                <div
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
-
-                <div className="relative z-10">
+                {/* icon + mini stat */}
+                <div className="flex items-start justify-between">
                   <div
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${feature.iconBg} mb-5`}
+                    className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${f.iconBg}`}
                   >
-                    {feature.icon}
+                    {f.icon}
                   </div>
-
-                  <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-foreground transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-
-                  <div className="mt-5 flex items-center text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Learn more
-                    <svg
-                      className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-foreground leading-none">
+                      {f.stat}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {f.statLabel}
+                    </p>
                   </div>
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-foreground">
+                  {f.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground flex-1">
+                  {f.description}
+                </p>
+
+                <div className="mt-5 flex items-center text-sm font-medium text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  Learn more
+                  <svg
+                    className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
               </motion.div>
             </StaggerItem>

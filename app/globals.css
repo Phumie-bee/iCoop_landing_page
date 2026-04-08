@@ -3,29 +3,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --primary: #4f46e5;
+  --background: #fafbff;
+  --foreground: #0c0e1a;
+  --muted: #f0f2f8;
+  --muted-foreground: #5c6078;
+  --primary: #4338ca;
   --primary-foreground: #ffffff;
   --accent: #7c3aed;
-  --border: #e2e8f0;
+  --border: #e4e6ef;
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #0c0e1a;
+  --surface: #f5f6fc;
 }
 
 .dark {
-  --background: #030712;
-  --foreground: #f1f5f9;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --primary: #818cf8;
-  --primary-foreground: #030712;
+  --background: #06060f;
+  --foreground: #eef0f6;
+  --muted: #12142a;
+  --muted-foreground: #8e91ab;
+  --primary: #7c6cf8;
+  --primary-foreground: #06060f;
   --accent: #a78bfa;
-  --border: #1e293b;
-  --card: #0f172a;
-  --card-foreground: #f1f5f9;
+  --border: #1c1e36;
+  --card: #0d0f1e;
+  --card-foreground: #eef0f6;
+  --surface: #0f1128;
 }
 
 @theme inline {
@@ -39,6 +41,7 @@
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-surface: var(--surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -63,37 +66,34 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Glassmorphism utility */
+/* ── Glassmorphism ────────────────────────────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
-
 .dark .glass {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Gradient text utility */
+/* ── Gradient text ────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a78bfa 100%);
+  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 50%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Grid background pattern */
-.grid-pattern {
-  background-image:
-    linear-gradient(rgba(79, 70, 229, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79, 70, 229, 0.03) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-.dark .grid-pattern {
-  background-image:
-    linear-gradient(rgba(129, 140, 248, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(129, 140, 248, 0.05) 1px, transparent 1px);
+/* ── Section divider ──────────────────────────────── */
+.section-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border) 30%,
+    var(--border) 70%,
+    transparent 100%
+  );
 }

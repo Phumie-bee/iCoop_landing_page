@@ -3,67 +3,89 @@
 import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, StaggerItem } from "./AnimationWrapper";
 
+/* ── Testimonials ────────────────────────────────────── */
 const testimonials = [
   {
     quote:
-      "iCoop has completely transformed how we manage our savings cooperative. We went from spreadsheets and confusion to a streamlined, transparent system in a single week.",
+      "iCoop replaced our wall of spreadsheets with a system our entire board actually uses. Transparency went through the roof.",
     name: "Maria Santos",
     role: "Treasurer, AgriCoop Philippines",
     avatar: "MS",
   },
   {
     quote:
-      "The loan tracking feature alone has saved us dozens of hours per month. Our members love the self-service portal and real-time balance updates.",
+      "The loan tracking alone saved us dozens of hours each month. Members love seeing real-time balances on their own portal.",
     name: "James Okonkwo",
     role: "Manager, Unity Credit Union",
     avatar: "JO",
   },
   {
     quote:
-      "We tried three other solutions before finding iCoop. None of them understood cooperative-specific workflows like member dividends and patronage tracking.",
+      "We tried three platforms before iCoop. None understood cooperative-specific workflows like dividends, patronage, and member equity.",
     name: "Priya Sharma",
     role: "Director, Women's Empowerment Co-op",
     avatar: "PS",
   },
 ];
 
+/* ── Impact stats ────────────────────────────────────── */
+const stats = [
+  { value: "₱50M+", label: "Transactions managed" },
+  { value: "500+", label: "Active cooperatives" },
+  { value: "99.9%", label: "Uptime guarantee" },
+  { value: "4.9/5", label: "User satisfaction" },
+];
+
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="text-xs font-medium text-primary">
-              Testimonials
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Loved by cooperatives{" "}
+    <section id="testimonials" className="relative py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* ── Header ── */}
+        <FadeIn className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-semibold text-primary mb-5">
+            Social Proof
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            Trusted by cooperatives{" "}
             <span className="gradient-text">worldwide</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            See what our users are saying about how iCoop has transformed their
-            organizations.
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+            Real feedback from organisations that switched to iCoop.
           </p>
         </FadeIn>
 
+        {/* ── Stats bar ── */}
+        <FadeIn delay={0.15} className="mt-14">
+          <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6 rounded-2xl border border-border bg-card p-6 sm:grid-cols-4 sm:p-8">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-2xl font-bold text-foreground sm:text-3xl">
+                  {s.value}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* ── Testimonial cards ── */}
         <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          staggerDelay={0.15}
+          className="mt-14 grid gap-6 md:grid-cols-3"
+          staggerDelay={0.12}
         >
           {testimonials.map((t) => (
             <StaggerItem key={t.name}>
               <motion.div
-                className="relative p-8 rounded-2xl border border-border bg-card h-full flex flex-col group"
-                whileHover={{ y: -4, borderColor: "var(--primary)" }}
-                transition={{ duration: 0.2 }}
+                className="group relative flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-shadow hover:shadow-lg hover:shadow-primary/[0.04]"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.25 }}
               >
                 {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
+                <div className="flex gap-0.5 mb-4">
+                  {[0, 1, 2, 3, 4].map((i) => (
                     <svg
                       key={i}
-                      className="w-4 h-4 text-yellow-500"
+                      className="h-4 w-4 text-amber-400"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -72,21 +94,19 @@ export default function Testimonials() {
                   ))}
                 </div>
 
-                <blockquote className="text-foreground leading-relaxed flex-1 mb-6">
+                <blockquote className="flex-1 text-[0.95rem] leading-relaxed text-foreground">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-sm font-bold shrink-0">
+                <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-bold text-white">
                     {t.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold text-sm text-foreground">
+                    <p className="text-sm font-semibold text-foreground">
                       {t.name}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {t.role}
-                    </div>
+                    </p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
                   </div>
                 </div>
               </motion.div>
