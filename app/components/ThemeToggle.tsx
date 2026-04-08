@@ -1,32 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 
+const listeners = new Set<() => void>();
+function emitChange() {
+  listeners.forEach((fn) => fn());
+}
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  return () => {
+    listeners.delete(cb);
+  };
+}
+function getSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+function getServerSnapshot() {
+  return false;
+}
+
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const dark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    setMounted(true);
     const stored = localStorage.getItem("theme");
     if (
       stored === "dark" ||
       (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
-      setDark(true);
       document.documentElement.classList.add("dark");
+      emitChange();
     }
   }, []);
 
   const toggle = () => {
-    const next = !dark;
-    setDark(next);
+    const next = !document.documentElement.classList.contains("dark");
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
+    emitChange();
   };
-
-  if (!mounted) return <div className="w-9 h-9" />;
 
   return (
     <motion.button
