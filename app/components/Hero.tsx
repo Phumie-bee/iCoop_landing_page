@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -11,173 +10,358 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease: EASE },
 });
 
+const slideIn = (delay = 0) => ({
+  initial: { opacity: 0, x: 40 } as const,
+  animate: { opacity: 1, x: 0 } as const,
+  transition: { duration: 0.8, delay, ease: EASE },
+});
+
+/* ── Background ──────────────────────────────────────────── */
+function HeroBackground() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      aria-hidden="true"
+    >
+      <motion.div
+        className="absolute -top-32 -left-24 h-[440px] w-[440px] rounded-full bg-primary/[0.06] blur-[100px]"
+        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute -bottom-40 -right-24 h-[380px] w-[380px] rounded-full bg-accent/[0.05] blur-[90px]"
+        animate={{ x: [0, -20, 0], y: [0, 15, 0] }}
+        transition={{
+          duration: 28,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 3,
+        }}
+      />
+      <svg
+        className="absolute inset-0 h-full w-full opacity-[0.18]"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            id="hero-grid"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="1" cy="1" r="0.5" className="fill-foreground/[0.05]" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#hero-grid)" />
+      </svg>
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
+    </div>
+  );
+}
+
+/* ── Mini bar chart ──────────────────────────────────────── */
+function MiniBarChart() {
+  const bars = [28, 40, 34, 54, 46, 65, 56, 74, 68, 82];
+  return (
+    <div className="flex items-end gap-[4px] h-14">
+      {bars.map((h, i) => (
+        <motion.div
+          key={i}
+          className="flex-1 rounded-sm bg-gradient-to-t from-primary/70 to-primary/20"
+          initial={{ height: 0 }}
+          animate={{ height: `${h}%` }}
+          transition={{ duration: 0.5, delay: 0.9 + i * 0.05, ease: "easeOut" }}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ── Product preview (right column) ──────────────────────── */
+function ProductPreview() {
+  return (
+    <div className="relative">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[55%] w-[70%] rounded-3xl bg-primary/[0.04] blur-2xl" />
+
+      <motion.div
+        className="relative rounded-xl border border-border/50 bg-card/80 shadow-xl shadow-black/[0.04] backdrop-blur-xl"
+        {...slideIn(0.35)}
+      >
+        <div className="flex items-center gap-2 border-b border-border/40 px-4 py-2.5">
+          <div className="flex gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-red-400/60" />
+            <span className="h-2 w-2 rounded-full bg-amber-400/60" />
+            <span className="h-2 w-2 rounded-full bg-green-400/60" />
+          </div>
+          <span className="mx-auto text-[10px] font-medium text-muted-foreground tracking-wide">
+            app.icoop.ng
+          </span>
+        </div>
+
+        <div className="space-y-4 p-4">
+          <div className="grid grid-cols-3 gap-2.5">
+            {[
+              {
+                label: "Total Savings",
+                value: "₦48.2M",
+                change: "+8.3%",
+                up: true,
+              },
+              {
+                label: "Active Loans",
+                value: "342",
+                change: "12 pending",
+                up: false,
+              },
+              {
+                label: "Members",
+                value: "1,247",
+                change: "+23 this mo.",
+                up: true,
+              },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className="rounded-lg bg-surface/80 px-2.5 py-2.5"
+              >
+                <p className="text-[9px] text-muted-foreground leading-tight">
+                  {s.label}
+                </p>
+                <p className="mt-0.5 text-sm font-semibold text-foreground">
+                  {s.value}
+                </p>
+                <p
+                  className={`text-[9px] ${s.up ? "text-primary" : "text-muted-foreground"}`}
+                >
+                  {s.change}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-lg border border-border/30 bg-surface/50 p-3">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-[10px] font-medium text-foreground">
+                Monthly Collections
+              </span>
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-semibold text-primary">
+                +18.2%
+              </span>
+            </div>
+            <MiniBarChart />
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-[9px] font-medium text-muted-foreground uppercase tracking-wider">
+              Recent Activity
+            </p>
+            {[
+              {
+                text: "Dues collected — Adebayo Yusuf",
+                time: "2m ago",
+                dot: "bg-primary",
+              },
+              {
+                text: "Loan approved — Fatima Bello",
+                time: "8m ago",
+                dot: "bg-accent",
+              },
+              {
+                text: "New member — Chioma Okafor",
+                time: "14m ago",
+                dot: "bg-primary/60",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between text-[10px]"
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`h-1.5 w-1.5 shrink-0 rounded-full ${item.dot}`}
+                  />
+                  <span className="text-foreground/80">{item.text}</span>
+                </div>
+                <span className="text-muted-foreground">{item.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Floating — active members */}
+      <motion.div
+        className="absolute -right-2 -top-3 z-10 rounded-lg border border-border/60 bg-card/90 px-3 py-2 shadow-md backdrop-blur-xl sm:-right-4 sm:-top-4"
+        {...slideIn(0.8)}
+      >
+        <motion.div
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+            </span>
+            <div>
+              <p className="text-[9px] text-muted-foreground">Active now</p>
+              <p className="text-xs font-semibold text-foreground">
+                128 members
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Floating — loan approved */}
+      <motion.div
+        className="absolute -left-3 bottom-12 z-10 rounded-lg border border-border/60 bg-card/90 px-3 py-2 shadow-md backdrop-blur-xl sm:-left-6"
+        {...slideIn(1.0)}
+      >
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="h-3.5 w-3.5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+            <div>
+              <p className="text-[9px] text-muted-foreground">Loan approved</p>
+              <p className="text-xs font-semibold text-foreground">₦450,000</p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/*  HERO                                                     */
+/* ══════════════════════════════════════════════════════════ */
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-12 sm:pt-24" aria-label="Hero">
-      {/* Subtle background */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -top-32 -left-24 h-[400px] w-[400px] rounded-full bg-primary/[0.04] blur-[100px]" />
-        <div className="absolute -bottom-32 -right-24 h-[350px] w-[350px] rounded-full bg-accent/[0.04] blur-[90px]" />
-      </div>
+    <section
+      className="relative min-h-screen overflow-hidden pt-16"
+      aria-label="Hero"
+    >
+      <HeroBackground />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Image composite area ── */}
-        <motion.div
-          className="relative mx-auto max-w-5xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
-        >
-          {/* "Trusted by" badge — top right */}
-          <motion.div
-            className="absolute -top-2 right-0 z-20 sm:-top-3 sm:right-4 lg:right-0"
-            initial={{ opacity: 0, y: -12, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
-          >
-            <span className="inline-flex items-center gap-2 rounded-full bg-amber-50 border border-amber-200/60 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-400">
-                <svg className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </span>
-              Trusted by 1500+ Cooperatives
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-20 lg:px-8 lg:py-32">
+        {/* ── LEFT ── */}
+        <div className="max-w-xl lg:max-w-none">
+          <motion.div {...fadeUp(0.05)} className="mb-5">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/[0.05] px-3.5 py-1.5 text-xs font-medium text-primary backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+              Built for cooperatives in Nigeria
             </span>
           </motion.div>
 
-          {/* Images container */}
-          <div className="relative mt-10 sm:mt-12">
-            {/* Main people image — left */}
-            <motion.div
-              className="relative w-[58%] sm:w-[55%]"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-            >
-              <div className="overflow-hidden rounded-2xl shadow-xl shadow-slate-900/8">
-                <Image
-                  src="/three_people.png"
-                  alt="Team of cooperative members collaborating"
-                  width={700}
-                  height={467}
-                  className="h-auto w-full object-cover"
-                  priority
-                />
-              </div>
-            </motion.div>
+          <motion.h1
+            {...fadeUp(0.14)}
+            className="text-[2.1rem] font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-5xl md:text-[3.25rem] xl:text-[3.5rem]"
+          >
+            Run your cooperative
+            <br className="hidden sm:block" />
+            <span className="text-muted-foreground font-bold">
+              {" "}
+              without the paperwork,
+            </span>
+            <br className="hidden sm:block" />
+            <span className="text-muted-foreground font-bold">
+              {" "}
+              delays, or confusion
+            </span>
+          </motion.h1>
 
-            {/* Dashboard card — right, overlapping */}
-            <motion.div
-              className="absolute right-0 top-[5%] w-[52%] sm:w-[55%] sm:top-[3%] lg:w-[55%]"
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
-            >
-              <div className="rounded-2xl bg-white shadow-2xl shadow-slate-900/10 ring-1 ring-slate-100 overflow-hidden">
-                <Image
-                  src="/side_image.png"
-                  alt="iCoop dashboard showing cooperative management features"
-                  width={650}
-                  height={433}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-            </motion.div>
+          <motion.p
+            {...fadeUp(0.26)}
+            className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-[1.05rem]"
+          >
+            Collect dues, approve loans, and keep members informed — all from
+            one place. Built for the way Nigerian cooperatives, unions, and
+            thrift groups actually work.
+          </motion.p>
 
-            {/* "3 New Requests" badge */}
-            <motion.div
-              className="absolute right-[2%] top-[2%] z-20 sm:right-[1%] sm:-top-[1%]"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
-            >
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-red-500/25">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-red-400 text-[9px] font-bold">
-                  13
-                </span>
-                New Requests
-              </span>
-            </motion.div>
-
-            {/* Floating "Next Meeting" card — bottom right */}
-            <motion.div
-              className="absolute bottom-[3%] right-[5%] z-20 sm:bottom-[5%] sm:right-[3%]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
-            >
-              <motion.div
-                animate={{ y: [0, -4, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="flex items-center gap-3 rounded-xl bg-[#2c4a6e] px-4 py-2.5 shadow-xl shadow-slate-900/15"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/15">
-                  <svg className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-xs font-semibold text-white">Next Meeting</p>
-                  <p className="text-[10px] text-blue-200">Today at 3:00 PM!</p>
-                </div>
-                <span className="ml-1 flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
-                  <svg className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </span>
-              </motion.div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* ── Bottom row: CTAs + Feature highlights ── */}
-        <motion.div
-          {...fadeUp(0.5)}
-          className="mt-12 flex flex-wrap items-center justify-between gap-6 sm:mt-14 lg:mt-16"
-        >
           {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-5">
+          <motion.div
+            {...fadeUp(0.38)}
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+          >
             <motion.a
               href="#cta"
-              className="inline-flex items-center justify-center rounded-xl bg-[#2d8a4e] px-8 py-4 text-base font-semibold text-white shadow-md shadow-green-600/20 transition-all hover:bg-[#247a42] hover:shadow-lg hover:shadow-green-600/30"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition-shadow hover:shadow-md"
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
             >
-              Get Started Now
+              Start managing smarter
+              <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </motion.a>
             <motion.a
               href="#how-it-works"
-              className="text-base font-semibold text-[#1e293b] underline decoration-slate-300 underline-offset-4 transition-colors hover:decoration-slate-500"
-              whileHover={{ x: 2 }}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Watch a Demo
+              See how it works
             </motion.a>
-          </div>
+          </motion.div>
 
-          {/* Feature highlights */}
-          <div className="flex flex-wrap items-center gap-8">
+          {/* Trust indicators */}
+          <motion.div
+            {...fadeUp(0.48)}
+            className="mt-9 flex flex-wrap items-center gap-5"
+          >
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100">
-                <svg className="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              <span className="text-base font-semibold text-[#1e293b]">
-                No More<br />Paperwork
-              </span>
+              <div className="flex -space-x-2">
+                {["AY", "FB", "CO", "KA"].map((initials, i) => (
+                  <div
+                    key={initials}
+                    className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-background bg-surface text-[9px] font-semibold text-foreground"
+                    style={{ zIndex: 4 - i }}
+                  >
+                    {initials}
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                <span className="font-medium text-foreground">500+</span>{" "}
+                cooperatives on board
+              </p>
             </div>
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100">
-                <svg className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                  <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-                </svg>
-              </span>
-              <span className="text-base font-semibold text-[#1e293b]">
-                Better<br />Engagement
-              </span>
-            </div>
-          </div>
+            <span className="hidden sm:block h-4 w-px bg-border" />
+            <p className="text-xs text-muted-foreground">
+              No setup fees · Cancel anytime
+            </p>
+          </motion.div>
+        </div>
+
+        {/* ── RIGHT ── */}
+        <motion.div {...slideIn(0.2)} className="lg:pl-4">
+          <ProductPreview />
         </motion.div>
       </div>
     </section>

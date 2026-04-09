@@ -20,22 +20,53 @@ function MockDashboard() {
       <div className="p-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: "Total Members", value: "1,247", change: "+12%", color: "text-blue-500" },
-            { label: "Active Loans", value: "₦1.6B", change: "+5.2%", color: "text-emerald-500" },
-            { label: "Total Savings", value: "₦4.8B", change: "+8.7%", color: "text-violet-500" },
-            { label: "Revenue", value: "₦240M", change: "+15%", color: "text-amber-500" },
+            {
+              label: "Total Members",
+              value: "1,247",
+              change: "+12%",
+              color: "text-primary",
+            },
+            {
+              label: "Active Loans",
+              value: "₦1.6B",
+              change: "+5.2%",
+              color: "text-primary",
+            },
+            {
+              label: "Total Savings",
+              value: "₦4.8B",
+              change: "+8.7%",
+              color: "text-primary",
+            },
+            {
+              label: "Revenue",
+              value: "₦240M",
+              change: "+15%",
+              color: "text-primary",
+            },
           ].map((stat) => (
-            <div key={stat.label} className="p-4 rounded-xl bg-muted/50 border border-border">
-              <div className="text-xs text-muted-foreground mb-1">{stat.label}</div>
-              <div className="text-xl font-bold text-foreground">{stat.value}</div>
-              <div className={`text-xs font-medium ${stat.color}`}>{stat.change}</div>
+            <div
+              key={stat.label}
+              className="p-4 rounded-xl bg-muted/50 border border-border"
+            >
+              <div className="text-xs text-muted-foreground mb-1">
+                {stat.label}
+              </div>
+              <div className="text-xl font-bold text-foreground">
+                {stat.value}
+              </div>
+              <div className={`text-xs font-medium ${stat.color}`}>
+                {stat.change}
+              </div>
             </div>
           ))}
         </div>
 
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 p-4 rounded-xl bg-muted/50 border border-border">
-            <div className="text-sm font-medium text-foreground mb-4">Savings Growth</div>
+            <div className="text-sm font-medium text-foreground mb-4">
+              Savings Growth
+            </div>
             <div className="flex items-end gap-2 h-32">
               {[40, 55, 45, 60, 52, 70, 65, 80, 75, 90, 85, 95].map((h, i) => (
                 <motion.div
@@ -58,21 +89,41 @@ function MockDashboard() {
           </div>
 
           <div className="w-full md:w-64 p-4 rounded-xl bg-muted/50 border border-border">
-            <div className="text-sm font-medium text-foreground mb-4">Recent Activity</div>
+            <div className="text-sm font-medium text-foreground mb-4">
+              Recent Activity
+            </div>
             <div className="space-y-3">
               {[
-                { action: "Loan approved", member: "A. Yusuf", amount: "₦800K" },
-                { action: "Deposit received", member: "F. Bello", amount: "₦50K" },
+                {
+                  action: "Loan approved",
+                  member: "A. Yusuf",
+                  amount: "₦800K",
+                },
+                {
+                  action: "Deposit received",
+                  member: "F. Bello",
+                  amount: "₦50K",
+                },
                 { action: "New member", member: "C. Okafor", amount: "" },
-                { action: "Payment received", member: "K. Abubakar", amount: "₦125K" },
+                {
+                  action: "Payment received",
+                  member: "K. Abubakar",
+                  amount: "₦125K",
+                },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-xs">
                   <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-foreground font-medium truncate">{item.action}</div>
+                    <div className="text-foreground font-medium truncate">
+                      {item.action}
+                    </div>
                     <div className="text-muted-foreground">{item.member}</div>
                   </div>
-                  {item.amount && <div className="text-foreground font-medium">{item.amount}</div>}
+                  {item.amount && (
+                    <div className="text-foreground font-medium">
+                      {item.amount}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -91,7 +142,9 @@ export default function DashboardPreview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="text-xs font-medium text-primary">Your dashboard</span>
+            <span className="text-xs font-medium text-primary">
+              Your dashboard
+            </span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             Everything your board needs,{" "}

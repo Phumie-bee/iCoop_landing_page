@@ -47,7 +47,8 @@ export default function Testimonials() {
             <span className="gradient-text">switched and stayed</span>
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            Hear from the treasurers, managers, and board members who made the move.
+            Hear from the treasurers, managers, and board members who made the
+            move.
           </p>
         </FadeIn>
 
@@ -55,14 +56,21 @@ export default function Testimonials() {
           <div className="mx-auto grid max-w-3xl grid-cols-2 gap-4 rounded-xl border border-border bg-card p-5 sm:grid-cols-4 sm:p-6">
             {stats.map((s) => (
               <div key={s.label} className="text-center">
-                <p className="text-xl font-bold text-foreground sm:text-2xl">{s.value}</p>
-                <p className="mt-0.5 text-[10px] text-muted-foreground">{s.label}</p>
+                <p className="text-xl font-bold text-foreground sm:text-2xl">
+                  {s.value}
+                </p>
+                <p className="mt-0.5 text-[10px] text-muted-foreground">
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
         </FadeIn>
 
-        <StaggerContainer className="mt-12 grid gap-5 md:grid-cols-3" staggerDelay={0.1}>
+        <StaggerContainer
+          className="mt-12 grid gap-5 md:grid-cols-3"
+          staggerDelay={0.1}
+        >
           {testimonials.map((t) => (
             <StaggerItem key={t.name}>
               <motion.div
@@ -72,7 +80,12 @@ export default function Testimonials() {
               >
                 <div className="flex gap-0.5 mb-3">
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <svg key={i} className="h-3.5 w-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      key={i}
+                      className="h-3.5 w-3.5 text-accent"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
@@ -87,8 +100,12 @@ export default function Testimonials() {
                     {t.avatar}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">{t.name}</p>
-                    <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {t.name}
+                    </p>
+                    <p className="text-[11px] text-muted-foreground">
+                      {t.role}
+                    </p>
                   </div>
                 </div>
               </motion.div>

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -61,7 +60,6 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <ThemeToggle />
           <a
             href="#pricing"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-4 py-2"
@@ -80,7 +78,6 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <div className="flex md:hidden items-center gap-2">
-          <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2 text-foreground"

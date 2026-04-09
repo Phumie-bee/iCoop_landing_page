@@ -1,33 +1,17 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --background: #f8fafc;
-  --foreground: #1e293b;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --primary: #4f6e8b;
+  --background: #ffffff;
+  --foreground: #2d3436;
+  --muted: #fbe3e8;
+  --muted-foreground: #636e72;
+  --primary: #5cbdb9;
   --primary-foreground: #ffffff;
-  --accent: #e89b5e;
-  --border: #e2e8f0;
+  --accent: #fbe3e8;
+  --border: #e8e8e8;
   --card: #ffffff;
-  --card-foreground: #1e293b;
-  --surface: #f1f5f9;
-}
-
-.dark {
-  --background: #0f1419;
-  --foreground: #e2e8f0;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --primary: #7ba4c7;
-  --primary-foreground: #0f1419;
-  --accent: #e8a76e;
-  --border: #1e293b;
-  --card: #151d27;
-  --card-foreground: #e2e8f0;
-  --surface: #1a2332;
+  --card-foreground: #2d3436;
+  --surface: #ebf6f5;
 }
 
 @theme inline {
@@ -72,10 +56,6 @@ html {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.dark .glass {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* ── Gradient text ────────────────────────────────── */
