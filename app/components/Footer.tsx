@@ -66,8 +66,8 @@ export default function Footer() {
                 <span className="text-lg font-bold text-foreground">iCoop</span>
               </a>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                Cooperative management that&apos;s calm, clear, and built for
-                the people who actually use it.
+                Cooperative management built for Nigerian cooperatives, unions,
+                and thrift groups. Calm, clear, and actually useful.
               </p>
               <div className="mt-5 flex gap-2">
                 {socials.map((s) => (

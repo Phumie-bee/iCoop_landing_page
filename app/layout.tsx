@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "iCoop — Simplify Cooperative Management",
+  title: "iCoop — Run your cooperative without the paperwork",
   description:
-    "The all-in-one platform to manage members, track loans, monitor savings, and generate insightful financial reports for your cooperative.",
+    "Collect dues, approve loans, and keep members informed. Built for the way Nigerian cooperatives, unions, and thrift groups actually work.",
 };
 
 export default function RootLayout({

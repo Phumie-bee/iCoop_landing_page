@@ -74,7 +74,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Get Started
+            Start managing smarter
           </motion.a>
         </div>
 
@@ -130,7 +130,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-medium bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-center mt-2"
               >
-                Get Started
+                Start managing smarter
               </a>
             </div>
           </motion.div>

@@ -27,8 +27,8 @@ export default function CTA() {
               <span className="gradient-text">spreadsheets behind?</span>
             </h2>
             <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-muted-foreground">
-              Join hundreds of cooperatives that already made the switch. Free
-              trial, no credit card, no commitment.
+              Join 500+ cooperatives that already made the switch. Free trial,
+              no credit card, no surprises.
             </p>
 
             <motion.a
@@ -37,7 +37,7 @@ export default function CTA() {
               whileHover={{ scale: 1.03, y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
-              Start Your Free Trial
+              Start managing smarter
               <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M3 8h10M9 4l4 4-4 4"
