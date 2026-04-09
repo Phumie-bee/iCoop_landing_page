@@ -39,7 +39,7 @@ export default function Navbar() {
           aria-label="iCoop home"
         >
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-            <span className="text-white font-bold text-sm">iC</span>
+            <span className="text-white font-bold text-xs">iC</span>
           </div>
           <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
             iCoop

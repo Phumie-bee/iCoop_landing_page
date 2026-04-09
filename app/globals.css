@@ -3,31 +3,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #fafbff;
-  --foreground: #0c0e1a;
-  --muted: #f0f2f8;
-  --muted-foreground: #5c6078;
-  --primary: #4338ca;
+  --background: #f8faf9;
+  --foreground: #0f172a;
+  --muted: #e6f4f1;
+  --muted-foreground: #4b6358;
+  --primary: #2e7d6b;
   --primary-foreground: #ffffff;
-  --accent: #7c3aed;
-  --border: #e4e6ef;
+  --accent: #4bbfa5;
+  --border: #d1e0db;
   --card: #ffffff;
-  --card-foreground: #0c0e1a;
-  --surface: #f5f6fc;
+  --card-foreground: #0f172a;
+  --surface: #eef6f3;
 }
 
 .dark {
-  --background: #06060f;
-  --foreground: #eef0f6;
-  --muted: #12142a;
-  --muted-foreground: #8e91ab;
-  --primary: #7c6cf8;
-  --primary-foreground: #06060f;
-  --accent: #a78bfa;
-  --border: #1c1e36;
-  --card: #0d0f1e;
-  --card-foreground: #eef0f6;
-  --surface: #0f1128;
+  --background: #0a100e;
+  --foreground: #e2ebe7;
+  --muted: #142420;
+  --muted-foreground: #7fa396;
+  --primary: #5bbaa8;
+  --primary-foreground: #0a100e;
+  --accent: #7edcc8;
+  --border: #1e3830;
+  --card: #0f1a17;
+  --card-foreground: #e2ebe7;
+  --surface: #121f1b;
 }
 
 @theme inline {
@@ -80,7 +80,7 @@ html {
 
 /* ── Gradient text ────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 50%, #c084fc 100%);
+  background: linear-gradient(135deg, #2e7d6b 0%, #4bbfa5 60%, #34d399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

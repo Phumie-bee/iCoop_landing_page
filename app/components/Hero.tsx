@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 36 } as const,
+  initial: { opacity: 0, y: 32 } as const,
   animate: { opacity: 1, y: 0 } as const,
   transition: { duration: 0.8, delay, ease: EASE },
 });
 
 const slideIn = (delay = 0) => ({
-  initial: { opacity: 0, x: 60 } as const,
+  initial: { opacity: 0, x: 50 } as const,
   animate: { opacity: 1, x: 0 } as const,
   transition: { duration: 0.9, delay, ease: EASE },
 });
@@ -19,53 +19,74 @@ const slideIn = (delay = 0) => ({
 /* ── Background ──────────────────────────────────────────── */
 function HeroBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      aria-hidden="true"
+    >
       {/* Primary blob — top-left */}
       <motion.div
-        className="absolute -top-40 -left-40 h-[640px] w-[640px] rounded-full bg-primary/[0.14] blur-[140px]"
-        animate={{ x: [0, 50, 0], y: [0, -40, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-40 -left-32 h-[560px] w-[560px] rounded-full bg-primary/[0.08] blur-[120px]"
+        animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.06, 1] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
       />
       {/* Accent blob — bottom-right */}
       <motion.div
-        className="absolute -bottom-60 -right-40 h-[520px] w-[520px] rounded-full bg-accent/[0.12] blur-[120px]"
-        animate={{ x: [0, -40, 0], y: [0, 30, 0], scale: [1, 1.08, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        className="absolute -bottom-48 -right-32 h-[480px] w-[480px] rounded-full bg-accent/[0.07] blur-[100px]"
+        animate={{ x: [0, -30, 0], y: [0, 20, 0], scale: [1, 1.05, 1] }}
+        transition={{
+          duration: 26,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 4,
+        }}
       />
-      {/* Indigo glow — centre */}
+      {/* Subtle warm tint — centre */}
       <motion.div
-        className="absolute left-1/2 top-1/3 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-indigo-500/[0.06] blur-[100px]"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute left-1/2 top-1/4 h-[280px] w-[280px] -translate-x-1/2 rounded-full bg-emerald-400/[0.04] blur-[80px]"
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
       />
       {/* Dot grid */}
-      <svg className="absolute inset-0 h-full w-full opacity-[0.35]" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className="absolute inset-0 h-full w-full opacity-[0.25]"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
-          <pattern id="hero-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.6" className="fill-foreground/[0.07]" />
+          <pattern
+            id="hero-grid"
+            width="32"
+            height="32"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="1" cy="1" r="0.5" className="fill-foreground/[0.06]" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#hero-grid)" />
       </svg>
       {/* Vignettes */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-5%,transparent_40%,var(--background)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
     </div>
   );
 }
 
 /* ── Mini bar chart ──────────────────────────────────────── */
 function MiniBarChart() {
-  const bars = [28, 42, 36, 58, 48, 72, 64, 86, 78, 94];
+  const bars = [24, 38, 32, 52, 44, 68, 58, 78, 70, 88];
   return (
-    <div className="flex items-end gap-[5px] h-20">
+    <div className="flex items-end gap-[4px] h-16">
       {bars.map((h, i) => (
         <motion.div
           key={i}
-          className="flex-1 rounded-sm bg-gradient-to-t from-primary to-primary/30"
+          className="flex-1 rounded-sm bg-gradient-to-t from-primary to-accent/40"
           initial={{ height: 0 }}
           animate={{ height: `${h}%` }}
-          transition={{ duration: 0.5, delay: 0.9 + i * 0.06, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.9 + i * 0.05, ease: "easeOut" }}
         />
       ))}
     </div>
@@ -77,7 +98,7 @@ function FloatingCard({
   children,
   className = "",
   delay = 0,
-  drift = [0, -9, 0],
+  drift = [0, -8, 0],
 }: {
   children: React.ReactNode;
   className?: string;
@@ -86,14 +107,19 @@ function FloatingCard({
 }) {
   return (
     <motion.div
-      className={`absolute rounded-2xl border border-border/50 bg-card/80 p-4 shadow-xl shadow-black/[0.04] backdrop-blur-2xl dark:bg-card/60 dark:shadow-black/20 ${className}`}
+      className={`absolute rounded-xl border border-border/60 bg-card/90 p-3.5 shadow-lg shadow-black/[0.03] backdrop-blur-xl dark:bg-card/70 dark:shadow-black/20 ${className}`}
       {...slideIn(delay)}
-      whileHover={{ scale: 1.05, boxShadow: "0 24px 48px -12px rgba(67,56,202,.16)" }}
+      whileHover={{ scale: 1.04 }}
       transition={{ duration: 0.25 }}
     >
       <motion.div
         animate={{ y: drift }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: delay * 0.5 }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: delay * 0.4,
+        }}
       >
         {children}
       </motion.div>
@@ -104,105 +130,188 @@ function FloatingCard({
 /* ── Product preview (right column) ──────────────────────── */
 function ProductPreview() {
   return (
-    <div className="relative h-[500px] w-full sm:h-[560px] lg:h-[600px]">
+    <div className="relative h-[480px] w-full sm:h-[540px] lg:h-[560px]">
       {/* Glow behind main card */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[70%] w-[80%] rounded-3xl bg-primary/[0.06] blur-3xl" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[65%] w-[75%] rounded-3xl bg-primary/[0.05] blur-2xl" />
 
       {/* Main dashboard card */}
       <motion.div
-        className="absolute inset-x-4 top-10 mx-auto max-w-[420px] rounded-2xl border border-border/40 bg-card/70 shadow-2xl shadow-primary/[0.04] backdrop-blur-2xl dark:bg-card/50 lg:left-6 lg:mx-0"
-        {...slideIn(0.4)}
+        className="absolute inset-x-4 top-8 mx-auto max-w-[400px] rounded-xl border border-border/50 bg-card/80 shadow-xl shadow-primary/[0.03] backdrop-blur-xl dark:bg-card/60 lg:left-6 lg:mx-0"
+        {...slideIn(0.35)}
       >
         {/* Chrome */}
-        <div className="flex items-center gap-2 border-b border-border/40 px-5 py-3">
+        <div className="flex items-center gap-2 border-b border-border/40 px-4 py-2.5">
           <div className="flex gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+            <span className="h-2 w-2 rounded-full bg-red-400/70" />
+            <span className="h-2 w-2 rounded-full bg-amber-400/70" />
+            <span className="h-2 w-2 rounded-full bg-green-400/70" />
           </div>
-          <span className="mx-auto text-[11px] font-medium text-muted-foreground tracking-wide">
-            iCoop Dashboard
+          <span className="mx-auto text-[10px] font-medium text-muted-foreground tracking-wide">
+            dashboard.icoop.ph
           </span>
         </div>
 
-        <div className="space-y-5 p-5">
+        <div className="space-y-4 p-4">
           {/* Quick stats */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-2.5">
             {[
-              { icon: "👥", value: "1,247", label: "Members", color: "text-blue-500" },
-              { icon: "💳", value: "₱8.4M", label: "Loans", color: "text-emerald-500" },
-              { icon: "🏦", value: "₱24.1M", label: "Savings", color: "text-violet-500" },
+              {
+                label: "Total Savings",
+                value: "₱24.1M",
+                change: "+8.3%",
+                up: true,
+              },
+              {
+                label: "Active Loans",
+                value: "342",
+                change: "12 pending",
+                up: false,
+              },
+              {
+                label: "Members",
+                value: "1,247",
+                change: "+23 this mo.",
+                up: true,
+              },
             ].map((s) => (
-              <div key={s.label} className="rounded-xl bg-surface px-3 py-3 text-center">
-                <span className="text-lg">{s.icon}</span>
-                <p className={`mt-1 text-sm font-bold ${s.color}`}>{s.value}</p>
-                <p className="text-[10px] text-muted-foreground">{s.label}</p>
+              <div
+                key={s.label}
+                className="rounded-lg bg-surface/80 px-2.5 py-2.5"
+              >
+                <p className="text-[9px] text-muted-foreground leading-tight">
+                  {s.label}
+                </p>
+                <p className="mt-0.5 text-sm font-semibold text-foreground">
+                  {s.value}
+                </p>
+                <p
+                  className={`text-[9px] ${s.up ? "text-primary" : "text-muted-foreground"}`}
+                >
+                  {s.change}
+                </p>
               </div>
             ))}
           </div>
 
           {/* Chart */}
-          <div className="rounded-xl border border-border/30 bg-surface/60 p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-xs font-semibold text-foreground">Monthly Savings</span>
-              <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-500">
+          <div className="rounded-lg border border-border/30 bg-surface/50 p-3">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-[10px] font-medium text-foreground">
+                Monthly Collections
+              </span>
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-semibold text-primary">
                 +18.2%
               </span>
             </div>
             <MiniBarChart />
           </div>
 
-          {/* Activity feed */}
-          <div className="space-y-2.5">
+          {/* Recent activity */}
+          <div className="space-y-2">
+            <p className="text-[9px] font-medium text-muted-foreground uppercase tracking-wider">
+              Recent Activity
+            </p>
             {[
-              { text: "Loan approved — J. Cruz", dot: "bg-emerald-400" },
-              { text: "Deposit — M. Reyes ₱5,000", dot: "bg-primary" },
-              { text: "New member — A. Garcia", dot: "bg-amber-400" },
+              {
+                text: "Loan approved — Juan Cruz",
+                time: "2m ago",
+                dot: "bg-primary",
+              },
+              {
+                text: "Savings deposit — Maria Reyes",
+                time: "8m ago",
+                dot: "bg-accent",
+              },
+              {
+                text: "New member — Ana Garcia",
+                time: "14m ago",
+                dot: "bg-amber-400",
+              },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2.5 text-[11px]">
-                <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${item.dot}`} />
-                <span className="text-muted-foreground">{item.text}</span>
+              <div
+                key={i}
+                className="flex items-center justify-between text-[10px]"
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`h-1.5 w-1.5 shrink-0 rounded-full ${item.dot}`}
+                  />
+                  <span className="text-foreground/80">{item.text}</span>
+                </div>
+                <span className="text-muted-foreground">{item.time}</span>
               </div>
             ))}
           </div>
         </div>
       </motion.div>
 
-      {/* Floating — online members */}
-      <FloatingCard className="right-0 top-0 z-10 w-[172px] lg:-right-2 lg:-top-2" delay={0.85} drift={[0, -8, 0]}>
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+      {/* Floating — live members */}
+      <FloatingCard
+        className="right-0 top-0 z-10 w-[160px] lg:-right-2 lg:-top-1"
+        delay={0.8}
+        drift={[0, -7, 0]}
+      >
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
           </div>
           <div>
-            <p className="text-[10px] text-muted-foreground">Online now</p>
-            <p className="text-sm font-bold text-foreground">128 members</p>
+            <p className="text-[9px] text-muted-foreground">Active now</p>
+            <p className="text-xs font-semibold text-foreground">128 members</p>
           </div>
         </div>
       </FloatingCard>
 
       {/* Floating — loan disbursed */}
-      <FloatingCard className="right-0 bottom-28 z-10 w-[200px] sm:right-2 lg:-right-6 lg:bottom-36" delay={1.1} drift={[0, -11, 0]}>
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" /></svg>
+      <FloatingCard
+        className="right-0 bottom-24 z-10 w-[180px] sm:right-2 lg:-right-4 lg:bottom-32"
+        delay={1.05}
+        drift={[0, -9, 0]}
+      >
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-3.5 w-3.5"
+            >
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+            </svg>
           </div>
           <div>
-            <p className="text-[10px] text-muted-foreground">Loan disbursed</p>
-            <p className="text-sm font-bold text-foreground">₱250,000</p>
+            <p className="text-[9px] text-muted-foreground">Loan disbursed</p>
+            <p className="text-xs font-semibold text-foreground">₱250,000</p>
           </div>
         </div>
       </FloatingCard>
 
       {/* Floating — savings growth */}
-      <FloatingCard className="left-0 bottom-6 z-10 w-[184px] sm:left-2 lg:-left-6 lg:bottom-10" delay={1.3} drift={[0, -7, 0]}>
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/10 text-violet-500">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+      <FloatingCard
+        className="left-0 bottom-4 z-10 w-[168px] sm:left-2 lg:-left-4 lg:bottom-8"
+        delay={1.2}
+        drift={[0, -6, 0]}
+      >
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-3.5 w-3.5"
+            >
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
           </div>
           <div>
-            <p className="text-[10px] text-muted-foreground">Savings growth</p>
-            <p className="text-sm font-bold text-emerald-500">+12.4%</p>
+            <p className="text-[9px] text-muted-foreground">Savings growth</p>
+            <p className="text-xs font-semibold text-primary">+12.4%</p>
           </div>
         </div>
       </FloatingCard>
@@ -215,87 +324,94 @@ function ProductPreview() {
 /* ══════════════════════════════════════════════════════════ */
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden pt-16" aria-label="Hero">
+    <section
+      className="relative min-h-screen overflow-hidden pt-16"
+      aria-label="Hero"
+    >
       <HeroBackground />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-8 lg:py-40">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16 lg:px-8 lg:py-36">
         {/* ── LEFT ── */}
         <div className="max-w-xl lg:max-w-none">
-          <motion.div {...fadeUp(0.05)} className="mb-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-xs font-semibold tracking-wide text-primary backdrop-blur-sm">
+          <motion.div {...fadeUp(0.05)} className="mb-4">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3.5 py-1.5 text-xs font-medium tracking-wide text-primary backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Trusted by modern cooperatives
+              Trusted by 500+ cooperatives
             </span>
           </motion.div>
 
           <motion.h1
             {...fadeUp(0.14)}
-            className="text-[2.5rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl xl:text-[4rem]"
+            className="text-[2.25rem] font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-[3.5rem] xl:text-[3.75rem]"
           >
-            Manage Your Cooperative{" "}
-            <br className="hidden md:block" />
-            <span className="gradient-text">Without the Chaos</span>
+            Finally, a Better Way to <br className="hidden md:block" />
+            <span className="gradient-text">Run Your Cooperative</span>
           </motion.h1>
 
           <motion.p
             {...fadeUp(0.26)}
-            className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-[1.15rem]"
+            className="mt-5 max-w-lg text-[1.05rem] leading-relaxed text-muted-foreground"
           >
-            Track members, loans, savings, and financial reports in one
-            powerful, easy-to-use platform.
+            Stay on top of members, loans, and savings — without the stress,
+            spreadsheets, or manual errors.
           </motion.p>
 
           {/* CTAs */}
-          <motion.div {...fadeUp(0.38)} className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
+          <motion.div
+            {...fadeUp(0.38)}
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-3"
+          >
             <motion.a
               href="#cta"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_4px_24px_-4px] shadow-primary/30 transition-shadow hover:shadow-primary/50"
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-shadow hover:shadow-lg hover:shadow-primary/30"
+              whileHover={{ scale: 1.03, y: -1 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Get Started
-              <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              Start Free Trial
+              <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </motion.a>
             <motion.a
-              href="#cta"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card/60 px-7 py-3.5 text-base font-semibold text-foreground backdrop-blur-sm transition-colors hover:bg-muted"
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              href="#features"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-7 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Request Demo
+              See How It Works
             </motion.a>
           </motion.div>
 
-          {/* Social proof */}
-          <motion.div {...fadeUp(0.52)} className="mt-12 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
-            <div className="flex -space-x-2.5">
-              {[0, 1, 2, 3, 4].map((i) => (
+          {/* Trust nudge */}
+          <motion.div {...fadeUp(0.5)} className="mt-8 flex items-center gap-4">
+            <div className="flex -space-x-2">
+              {["ES", "MC", "JR", "AG"].map((initials, i) => (
                 <div
-                  key={i}
-                  className="h-8 w-8 rounded-full border-2 border-background bg-gradient-to-br from-primary/50 to-accent/50"
-                  style={{ zIndex: 5 - i }}
-                />
+                  key={initials}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-surface text-[10px] font-semibold text-foreground"
+                  style={{ zIndex: 4 - i }}
+                >
+                  {initials}
+                </div>
               ))}
             </div>
-            <span>
-              <strong className="text-foreground">500+</strong> cooperatives
-            </span>
-            <span className="hidden text-border sm:inline">|</span>
-            <div className="flex items-center gap-0.5">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <svg key={i} className="h-3.5 w-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-              <span className="ml-1 font-medium">4.9/5</span>
-            </div>
+            <p className="text-xs text-muted-foreground">
+              <span className="font-medium text-foreground">500+</span>{" "}
+              cooperatives already on board
+            </p>
           </motion.div>
         </div>
 
         {/* ── RIGHT ── */}
-        <div className="relative mx-auto w-full max-w-lg lg:mx-0 lg:max-w-none">
+        <motion.div {...slideIn(0.2)}>
           <ProductPreview />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

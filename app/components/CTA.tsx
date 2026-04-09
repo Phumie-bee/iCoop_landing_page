@@ -5,39 +5,40 @@ import { FadeIn } from "./AnimationWrapper";
 
 export default function CTA() {
   return (
-    <section id="cta" className="relative py-28 sm:py-36 overflow-hidden">
+    <section id="cta" className="relative py-24 sm:py-32 overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-accent/[0.03] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-accent/[0.02] to-transparent" />
       <motion.div
-        className="absolute -top-20 left-1/4 h-[400px] w-[400px] rounded-full bg-primary/[0.07] blur-[100px]"
-        animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-16 left-1/4 h-[360px] w-[360px] rounded-full bg-primary/[0.05] blur-[100px]"
+        animate={{ x: [0, 30, 0], y: [0, -15, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute -bottom-20 right-1/4 h-[360px] w-[360px] rounded-full bg-accent/[0.07] blur-[100px]"
-        animate={{ x: [0, -40, 0], y: [0, 20, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -bottom-16 right-1/4 h-[320px] w-[320px] rounded-full bg-accent/[0.05] blur-[100px]"
+        animate={{ x: [0, -30, 0], y: [0, 15, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
         <FadeIn className="text-center">
-          <div className="rounded-3xl border border-border bg-card/80 p-10 shadow-xl shadow-primary/[0.03] backdrop-blur-md sm:p-16">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              Start Managing Your Cooperative{" "}
-              <span className="gradient-text">Smarter Today</span>
+          <div className="rounded-2xl border border-border bg-card/80 p-8 shadow-lg shadow-primary/[0.02] backdrop-blur-md sm:p-14">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+              Ready to leave the{" "}
+              <span className="gradient-text">spreadsheets behind?</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-muted-foreground">
-              No paperwork. No stress. Just complete control.
+            <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-muted-foreground">
+              Join hundreds of cooperatives that already made the switch. Free
+              trial, no credit card, no commitment.
             </p>
 
             <motion.a
               href="#"
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-[0_4px_24px_-4px] shadow-primary/30 transition-shadow hover:shadow-primary/50"
-              whileHover={{ scale: 1.04, y: -2 }}
+              className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-shadow hover:shadow-lg hover:shadow-primary/30"
+              whileHover={{ scale: 1.03, y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
-              Get Started Now
-              <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
+              Start Your Free Trial
+              <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M3 8h10M9 4l4 4-4 4"
                   stroke="currentColor"
@@ -48,8 +49,8 @@ export default function CTA() {
               </svg>
             </motion.a>
 
-            <p className="mt-5 text-xs text-muted-foreground">
-              Free 14-day trial &bull; No credit card required &bull; Cancel
+            <p className="mt-4 text-[11px] text-muted-foreground">
+              14-day free trial &middot; No credit card required &middot; Cancel
               anytime
             </p>
           </div>

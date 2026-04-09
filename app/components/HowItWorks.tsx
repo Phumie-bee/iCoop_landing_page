@@ -6,9 +6,9 @@ import { FadeIn } from "./AnimationWrapper";
 
 const steps = [
   {
-    title: "Add Members",
+    title: "Add your members",
     description:
-      "Import your roster or invite members individually. Everyone gets a secure personal portal in minutes.",
+      "Import a spreadsheet or add people one by one. Each member gets their own secure portal within minutes.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -26,9 +26,9 @@ const steps = [
     ),
   },
   {
-    title: "Manage Finances",
+    title: "Manage the money",
     description:
-      "Process loans, track savings, and record every transaction. Automated workflows handle the busywork.",
+      "Track loans, record deposits, and schedule reminders. The busywork handles itself so you don't have to.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -46,9 +46,9 @@ const steps = [
     ),
   },
   {
-    title: "Generate Reports",
+    title: "See the full picture",
     description:
-      "One-click reports for your board, auditors, and members. Export to PDF or CSV anytime.",
+      "One-click reports for your board, auditors, and members. Always know exactly where things stand.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -67,28 +67,29 @@ const steps = [
   },
 ];
 
-function ConnectorArrow({ index }: { index: number }) {
+function ConnectorLine({ index }: { index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
 
   if (index >= steps.length - 1) return null;
 
   return (
-    <div ref={ref} className="hidden lg:flex items-center justify-center">
+    <div ref={ref} className="hidden lg:flex items-center justify-center px-2">
       <motion.div
-        className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-        transition={{ duration: 0.4, delay: 0.3 + index * 0.2 }}
+        className="relative flex items-center"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
       >
-        <svg className="h-4 w-4 text-primary" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M3 8h10M9 4l4 4-4 4"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        {/* Dashed line */}
+        <div className="w-12 border-t-2 border-dashed border-primary/20" />
+        {/* Arrow head */}
+        <svg
+          className="h-3 w-3 -ml-0.5 text-primary/30"
+          viewBox="0 0 12 12"
+          fill="currentColor"
+        >
+          <path d="M2 1l8 5-8 5V1z" />
         </svg>
       </motion.div>
     </div>
@@ -99,54 +100,52 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="relative py-28 sm:py-36 bg-surface/50"
+      className="relative py-24 sm:py-32 bg-surface/40"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-semibold text-primary mb-5">
-            How It Works
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-medium text-primary mb-4">
+            How it works
           </span>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            Three steps to{" "}
-            <span className="gradient-text">operational clarity</span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Up and running <span className="gradient-text">in three steps</span>
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            From sign-up to full visibility, iCoop gets out of the way so you
-            can focus on your members.
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+            No training sessions. No complicated setup. Just sign up and start
+            managing.
           </p>
         </FadeIn>
 
-        {/* Steps grid: step — arrow — step — arrow — step */}
-        <div className="mt-16 grid items-start gap-8 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:gap-0">
+        {/* Steps grid */}
+        <div className="mt-14 grid items-start gap-6 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:gap-0">
           {steps.map((step, i) => (
             <>
               <FadeIn
                 key={step.title}
-                delay={0.1 + i * 0.15}
+                delay={0.1 + i * 0.12}
                 className="relative"
               >
                 <motion.div
-                  className="group rounded-2xl border border-border bg-card p-8 text-center transition-shadow hover:shadow-lg hover:shadow-primary/[0.04] lg:text-left"
-                  whileHover={{ y: -4 }}
+                  className="group rounded-xl border border-border bg-card p-6 text-center transition-all hover:shadow-md hover:shadow-primary/[0.03] lg:text-left"
+                  whileHover={{ y: -3 }}
                   transition={{ duration: 0.25 }}
                 >
-                  {/* Step number */}
-                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/[0.08] text-primary lg:mx-0">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary lg:mx-0">
                     {step.icon}
                   </div>
-                  <span className="mb-2 inline-block rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-primary">
-                    STEP {i + 1}
+                  <span className="mb-1.5 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold tracking-wider text-primary uppercase">
+                    Step {i + 1}
                   </span>
-                  <h3 className="mt-1 text-xl font-semibold text-foreground">
+                  <h3 className="mt-1 text-lg font-semibold text-foreground">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                     {step.description}
                   </p>
                 </motion.div>
               </FadeIn>
               {i < steps.length - 1 && (
-                <ConnectorArrow key={`arrow-${i}`} index={i} />
+                <ConnectorLine key={`line-${i}`} index={i} />
               )}
             </>
           ))}

@@ -8,7 +8,7 @@ const plans = [
     name: "Starter",
     price: "Free",
     period: "",
-    tagline: "Perfect for small cooperatives just getting started.",
+    tagline: "For small cooperatives finding their feet.",
     features: [
       "Up to 50 members",
       "Basic loan tracking",
@@ -23,7 +23,7 @@ const plans = [
     name: "Professional",
     price: "₱2,499",
     period: "/mo",
-    tagline: "Best for growing organisations that need real visibility.",
+    tagline: "For established cooperatives that need full visibility.",
     features: [
       "Up to 500 members",
       "Advanced loan management",
@@ -40,7 +40,7 @@ const plans = [
     name: "Enterprise",
     price: "Custom",
     period: "",
-    tagline: "For large cooperatives with complex, multi-branch needs.",
+    tagline: "For multi-branch cooperatives with complex needs.",
     features: [
       "Unlimited members",
       "Multi-branch support",
@@ -50,57 +50,56 @@ const plans = [
       "On-premise deployment option",
       "SLA guarantee",
     ],
-    cta: "Contact Sales",
+    cta: "Talk to Us",
     highlighted: false,
   },
 ];
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative py-28 sm:py-36">
+    <section id="pricing" className="relative py-24 sm:py-32">
       <div className="section-line mx-auto max-w-5xl" />
 
-      <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-semibold text-primary mb-5">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-medium text-primary mb-4">
             Pricing
           </span>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            Transparent pricing,{" "}
-            <span className="gradient-text">no surprises</span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Simple, honest <span className="gradient-text">pricing</span>
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Pick the plan that matches your cooperative&apos;s size. Upgrade or
-            downgrade anytime.
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+            Pick the plan that matches your size. No hidden fees, no lock-in.
+            Upgrade or downgrade whenever you need to.
           </p>
         </FadeIn>
 
         <StaggerContainer
-          className="mt-16 grid items-start gap-6 md:grid-cols-3 lg:gap-8"
-          staggerDelay={0.12}
+          className="mt-14 grid items-start gap-5 md:grid-cols-3 lg:gap-6"
+          staggerDelay={0.1}
         >
           {plans.map((plan) => (
             <StaggerItem key={plan.name}>
               <motion.div
-                className={`relative flex h-full flex-col rounded-2xl border p-8 transition-shadow ${
+                className={`relative flex h-full flex-col rounded-xl border p-7 transition-all ${
                   plan.highlighted
-                    ? "border-primary bg-card shadow-xl shadow-primary/[0.08] ring-1 ring-primary/20"
-                    : "border-border bg-card hover:shadow-lg hover:shadow-primary/[0.04]"
+                    ? "border-primary bg-card shadow-lg shadow-primary/[0.06] ring-1 ring-primary/15"
+                    : "border-border bg-card hover:shadow-md hover:shadow-primary/[0.03]"
                 }`}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -4 }}
                 transition={{ duration: 0.25 }}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-[11px] font-bold text-primary-foreground">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3.5 py-0.5 text-[10px] font-bold text-primary-foreground">
                     Most Popular
                   </div>
                 )}
 
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="text-base font-semibold text-foreground">
                   {plan.name}
                 </h3>
-                <div className="mt-3 flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold text-foreground">
+                <div className="mt-2 flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold text-foreground">
                     {plan.price}
                   </span>
                   {plan.period && (
@@ -109,13 +108,13 @@ export default function Pricing() {
                     </span>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-1.5 text-sm text-muted-foreground">
                   {plan.tagline}
                 </p>
 
-                <ul className="mt-7 flex-1 space-y-3">
+                <ul className="mt-6 flex-1 space-y-2.5">
                   {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2.5 text-sm">
+                    <li key={feat} className="flex items-start gap-2 text-sm">
                       <svg
                         className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                         viewBox="0 0 20 20"
@@ -127,16 +126,16 @@ export default function Pricing() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-foreground">{feat}</span>
+                      <span className="text-foreground/90">{feat}</span>
                     </li>
                   ))}
                 </ul>
 
                 <motion.a
                   href="#cta"
-                  className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition-all ${
+                  className={`mt-7 block w-full rounded-full py-3 text-center text-sm font-semibold transition-all ${
                     plan.highlighted
-                      ? "bg-primary text-primary-foreground shadow-[0_4px_20px_-4px] shadow-primary/30 hover:shadow-primary/50"
+                      ? "bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
                       : "bg-muted text-foreground hover:bg-border"
                   }`}
                   whileHover={{ scale: 1.02 }}
