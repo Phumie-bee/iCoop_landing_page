@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "What is iCoop?", href: "#features" },
-  { label: "Solutions", href: "#how-it-works" },
+  { label: "What is iCoop?", href: "#about" },
+  { label: "Why iCoop?", href: "#whyicoop" },
+  { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Resources", href: "#testimonials" },
 ];
 
 export default function Navbar() {
