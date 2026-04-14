@@ -19,12 +19,13 @@ export default function Home() {
         <Hero />
         <AboutIcoop />
         <WhyIcoop />
-        {/* <Problem />
         <Features />
+        <Pricing />
+        {/* <Problem />
+        
         <HowItWorks />
         <DashboardPreview />
         <Testimonials />
-        <Pricing />
         <CTA /> */}
       </main>
       <Footer />
