@@ -3,232 +3,238 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 } as const,
-  animate: { opacity: 1, y: 0 } as const,
-  transition: { duration: 0.7, delay, ease: EASE },
-});
-
-const fadeIn = (delay = 0) => ({
-  initial: { opacity: 0 } as const,
-  animate: { opacity: 1 } as const,
-  transition: { duration: 0.8, delay, ease: EASE },
-});
-
-const KEY_POINTS = [
-  { text: "Web-based platform — access from any device" },
-  { text: "Built specifically for cooperatives" },
-  { text: "Intuitive and easy to use" },
+const avatarUrls = [
+  "https://images.unsplash.com/photo-1642257834579-eee89ff3e9fd?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1637684666587-91e51b10a555?q=80&w=762&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1601611900876-391151003440?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://plus.unsplash.com/premium_photo-1726704078400-18b97334e355?q=80&w=2028&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 ];
 
-/* ══════════════════════════════════════════════════════════ */
-/*  HERO                                                     */
-/* ══════════════════════════════════════════════════════════ */
+const heroMask = `radial-gradient(circle at 50% 50%, black 40%, rgba(0,0,0,0.4) 48%, rgba(0,0,0,0.1) 53%, transparent 58%)`;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.15, ease: "easeOut" as const },
+  }),
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, delay: 0.3, ease: "easeOut" as const },
+  },
+};
+
 export default function Hero() {
   return (
     <section
-      className="relative min-h-screen overflow-hidden"
-      aria-label="Hero"
+      className="relative min-h-screen overflow-hidden font-sans selection:bg-primary selection:text-white"
+      style={{
+        backgroundImage: "linear-gradient(135deg, #E6EEF5, #DCE8F3, #E9E6F4)",
+      }}
     >
-      {/* ── Background ── */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <Image
-          src="/bg_image.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-linear-to-r from-[#2c3e50]/60 via-[#34495e]/40 to-transparent" />
-        <div className="absolute inset-0 bg-[#2c3e50]/20" />
-        {/* Subtle animated glow */}
-        <motion.div
-          className="absolute top-1/4 right-1/3 h-125 w-125 rounded-full bg-primary/8 blur-[120px]"
-          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* Background Ambiance */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-1/2 h-1/2 bg-white/60 blur-[100px] rounded-full" />
       </div>
 
-      {/* ── Content ── */}
-      <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-center gap-8 px-6 pt-24 pb-16 md:px-16 lg:grid-cols-2 lg:gap-16 lg:pt-0 lg:pb-0">
-        {/* ── LEFT: Image ── */}
-        <motion.div
-          className="order-1 flex justify-center lg:order-0 lg:justify-start"
-          {...fadeIn(0.1)}
-        >
-          <motion.div
-            className="relative w-full max-w-lg lg:max-w-none"
-            animate={{ y: [0, -10, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <div className="absolute -inset-4 rounded-3xl bg-white/6 blur-2xl" />
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/30">
-              <Image
-                src="/three_peepz.png"
-                alt="Cooperative members collaborating"
-                width={640}
-                height={440}
-                className="h-auto w-full object-cover"
-                priority
-              />
-            </div>
-            {/* Floating stat card */}
-            <motion.div
-              className="absolute -right-3 -bottom-4 z-10 rounded-2xl border border-white/10 bg-white/10 px-5 py-3.5 shadow-lg backdrop-blur-xl sm:-right-6 sm:-bottom-5"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
-            >
-              <p className="text-[11px] font-medium text-white/70">
-                Active cooperatives
-              </p>
-              <p className="text-xl font-bold text-white">500+</p>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+      {/* Mobile/Tablet Background Image */}
+      <div
+        className="lg:hidden absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
+        style={{ backgroundImage: "url(/two_people.png)" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#E6EEF5]/95 via-[#DCE8F3]/90 to-[#E9E6F4]/95" />
+      </div>
 
-        {/* ── RIGHT: Content ── */}
-        <div className="order-2 text-center lg:order-0 lg:text-left">
-          <motion.div {...fadeUp(0.1)} className="mb-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-medium text-white/90 backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Built for cooperatives in Nigeria
+      {/* Right Image — desktop only, absolutely positioned with float animation */}
+      <motion.div
+        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[55%] h-full pointer-events-none"
+        variants={scaleIn}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.img
+          src="/two_people.png"
+          alt="Two people smiling and shaking hands"
+          className="w-full h-full object-contain"
+          style={{
+            WebkitMaskImage: heroMask,
+            maskImage: heroMask,
+          }}
+          animate={{ y: [0, -12, 0] }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pt-44 lg:pb-28">
+        <div className="max-w-none sm:max-w-xl">
+          {/* Badge */}
+          <motion.div
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white shadow-sm mb-4 sm:mb-6 border border-white/80 cursor-default"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
+            </span>
+            <span className="text-xs sm:text-sm font-bold text-primary tracking-wide">
+              iCoop, future of cooperative management, is here!
             </span>
           </motion.div>
 
+          {/* Headline */}
           <motion.h1
-            {...fadeUp(0.2)}
-            className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl xl:text-[3.4rem]"
-          >
-            Smarter Cooperative{" "}
-            <span className="text-primary">Management,</span>
-            <br className="hidden sm:block" />
-            All in One Platform
-          </motion.h1>
-
-          <motion.p
-            {...fadeUp(0.32)}
-            className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg lg:mx-0"
-          >
-            iCoop helps cooperatives manage savings, loans, and members
-            seamlessly — anytime, anywhere.
-          </motion.p>
-
-          {/* Key points */}
-          <motion.ul
-            className="mx-auto mt-8 flex max-w-md flex-col gap-3 lg:mx-0"
+            className="text-[1.75rem] leading-[1.15] sm:text-[3rem] md:text-[3.5rem] lg:text-[4.5rem] xl:text-[5rem] font-extrabold text-foreground sm:leading-[1.08] tracking-tight mb-3 sm:mb-6"
+            variants={fadeUp}
             initial="hidden"
             animate="visible"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.12, delayChildren: 0.45 },
-              },
-            }}
+            custom={1}
           >
-            {KEY_POINTS.map((point) => (
-              <motion.li
-                key={point.text}
-                className="flex items-center gap-3 text-left text-sm text-white/80 sm:text-base"
-                variants={{
-                  hidden: { opacity: 0, x: -20 },
-                  visible: {
-                    opacity: 1,
-                    x: 0,
-                    transition: { duration: 0.5, ease: EASE },
-                  },
-                }}
-              >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20">
-                  <svg
-                    className="h-3.5 w-3.5 text-primary"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-                {point.text}
-              </motion.li>
-            ))}
-          </motion.ul>
+            Modern Cooperative{" "}
+            <span className="text-primary">Management, </span>
+            <br className="hidden sm:block" />
+            Simplified.
+          </motion.h1>
 
-          {/* CTAs */}
-          <motion.div
-            {...fadeUp(0.55)}
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start"
+          {/* Subtext */}
+          <motion.p
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-text-secondary mb-6 sm:mb-10 max-w-md lg:max-w-lg leading-relaxed font-medium"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={2}
           >
-            <motion.a
-              href="#cta"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(92,189,185,0.3)",
-              }}
+            iCoop is a powerful web-based thrift and loan management platform
+            designed to automate operations, enforce policies, and deliver a
+            seamless experience for both cooperators and administrators.
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 w-full sm:w-auto"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={3}
+          >
+            <motion.button
+              className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-primary hover:bg-primary-hover text-white font-bold text-sm sm:text-base shadow-lg shadow-(--primary)/30 transition-colors flex items-center justify-center gap-2"
+              whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
             >
-              Get Started
-              <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
+              Start Free Trial
+              <motion.svg
+                className="w-5 h-5 ml-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                initial={{ x: 0 }}
+                whileHover={{ x: 4 }}
+              >
                 <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
                 />
-              </svg>
-            </motion.a>
-            <motion.a
-              href="#how-it-works"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/6 px-8 py-4 text-sm font-medium text-white backdrop-blur-sm transition-all hover:bg-white/12"
-              whileHover={{ scale: 1.05 }}
+              </motion.svg>
+            </motion.button>
+            <motion.button
+              className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-white hover:bg-gray-50 text-foreground font-bold text-sm sm:text-base shadow-sm transition-colors flex items-center justify-center gap-2 border border-black/5"
+              whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
             >
-              Request Demo
-            </motion.a>
+              <svg
+                className="w-5 h-5 text-foreground opacity-70"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Watch Demo
+            </motion.button>
           </motion.div>
 
-          {/* Trust bar */}
+          {/* Social Proof */}
           <motion.div
-            {...fadeUp(0.65)}
-            className="mt-10 flex flex-wrap items-center justify-center gap-6 lg:justify-start"
+            className="mt-8 sm:mt-12 flex flex-wrap items-center gap-3 sm:gap-4"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={4}
           >
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2.5">
-                {["AY", "FB", "CO", "KA"].map((initials, i) => (
-                  <div
-                    key={initials}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/20 bg-white/10 text-[10px] font-semibold text-white backdrop-blur-sm"
-                    style={{ zIndex: 4 - i }}
+            <div className="flex -space-x-3 drop-shadow-sm">
+              {avatarUrls.map((url, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 + i * 0.1, duration: 0.4 }}
+                  whileHover={{ y: -4, zIndex: 10 }}
+                >
+                  <Image
+                    src={url}
+                    alt="User avatar"
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover bg-white"
+                    unoptimized
+                  />
+                </motion.div>
+              ))}
+            </div>
+            <div>
+              <div className="flex items-center gap-1 text-[#f59e0b] mb-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <motion.svg
+                    key={i}
+                    className="w-4 h-4 fill-current drop-shadow-sm"
+                    viewBox="0 0 20 20"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      delay: 1.1 + i * 0.08,
+                      type: "spring",
+                      stiffness: 300,
+                    }}
                   >
-                    {initials}
-                  </div>
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </motion.svg>
                 ))}
               </div>
-              <p className="text-xs text-white/60">
-                <span className="font-semibold text-white">500+</span>{" "}
-                cooperatives on board
+              <p className="text-sm font-semibold text-text-secondary">
+                Trusted by 500+ cooperatives
               </p>
             </div>
-            <span className="hidden h-4 w-px bg-white/20 sm:block" />
-            <p className="text-xs text-white/50">
-              No setup fees · Cancel anytime
-            </p>
           </motion.div>
         </div>
       </div>
-
-      {/* Bottom fade to page background */}
     </section>
   );
 }

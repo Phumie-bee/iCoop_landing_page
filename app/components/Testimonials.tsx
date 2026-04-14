@@ -39,7 +39,7 @@ export default function Testimonials() {
     <section id="testimonials" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-medium text-primary mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/6 px-3 py-1 text-xs font-medium text-primary mb-4">
             Don&apos;t take our word for it
           </span>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -74,7 +74,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <StaggerItem key={t.name}>
               <motion.div
-                className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-6 transition-all hover:shadow-md hover:shadow-primary/[0.03]"
+                className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-6 transition-all hover:shadow-md hover:shadow-primary/3"
                 whileHover={{ y: -3 }}
                 transition={{ duration: 0.25 }}
               >
@@ -82,7 +82,7 @@ export default function Testimonials() {
                   {[0, 1, 2, 3, 4].map((i) => (
                     <svg
                       key={i}
-                      className="h-3.5 w-3.5 text-accent"
+                      className="h-3.5 w-3.5 text-amber-400"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -96,7 +96,7 @@ export default function Testimonials() {
                 </blockquote>
 
                 <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-[10px] font-bold text-white">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-primary to-accent text-[10px] font-bold text-white">
                     {t.avatar}
                   </div>
                   <div>

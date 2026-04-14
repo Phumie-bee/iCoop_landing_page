@@ -8,6 +8,7 @@ import Testimonials from "./components/Testimonials";
 import Pricing from "./components/Pricing";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
+import AboutIcoop from "./components/AboutIcoop";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <AboutIcoop />
         <Problem />
         <Features />
         <HowItWorks />

@@ -60,7 +60,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2"
                 aria-label="iCoop home"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-linear-to-br from-primary to-accent">
                   <span className="text-xs font-bold text-white">iC</span>
                 </div>
                 <span className="text-lg font-bold text-foreground">iCoop</span>

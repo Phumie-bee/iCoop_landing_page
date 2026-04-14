@@ -7,21 +7,21 @@ export default function CTA() {
   return (
     <section id="cta" className="relative py-24 sm:py-32 overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-accent/[0.02] to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/3 via-accent/2 to-transparent" />
       <motion.div
-        className="absolute -top-16 left-1/4 h-[360px] w-[360px] rounded-full bg-primary/[0.05] blur-[100px]"
+        className="absolute -top-16 left-1/4 h-90 w-90 rounded-full bg-primary/5 blur-[100px]"
         animate={{ x: [0, 30, 0], y: [0, -15, 0] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute -bottom-16 right-1/4 h-[320px] w-[320px] rounded-full bg-accent/[0.05] blur-[100px]"
+        className="absolute -bottom-16 right-1/4 h-80 w-80 rounded-full bg-accent/5 blur-[100px]"
         animate={{ x: [0, -30, 0], y: [0, 15, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="relative z-10 mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
         <FadeIn className="text-center">
-          <div className="rounded-2xl border border-border bg-card/80 p-8 shadow-lg shadow-primary/[0.02] backdrop-blur-md sm:p-14">
+          <div className="rounded-2xl border border-border bg-card/80 p-8 shadow-lg shadow-primary/2 backdrop-blur-md sm:p-14">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
               Ready to leave the{" "}
               <span className="gradient-text">spreadsheets behind?</span>

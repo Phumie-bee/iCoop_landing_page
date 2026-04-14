@@ -28,7 +28,8 @@ const plans: Plan[] = [
     priceNGN: 0,
     period: "",
     tagline: "Getting started shouldn\u2019t cost anything.",
-    benefit: "Everything you need to digitize a small cooperative in under 10 minutes.",
+    benefit:
+      "Everything you need to digitize a small cooperative in under 10 minutes.",
     features: [
       "Up to 50 members",
       "Basic loan tracking",
@@ -45,7 +46,8 @@ const plans: Plan[] = [
     priceNGN: 45000,
     period: "/mo",
     tagline: "When spreadsheets stop making sense.",
-    benefit: "Full visibility into finances, automated reminders, and a self-service member portal.",
+    benefit:
+      "Full visibility into finances, automated reminders, and a self-service member portal.",
     features: [
       "Up to 500 members",
       "Advanced loan management",
@@ -65,7 +67,8 @@ const plans: Plan[] = [
     priceNGN: null,
     period: "",
     tagline: "Multi-branch, compliance-ready, fully yours.",
-    benefit: "Dedicated support, custom integrations, and deployment options that fit your scale.",
+    benefit:
+      "Dedicated support, custom integrations, and deployment options that fit your scale.",
     features: [
       "Unlimited members",
       "Multi-branch support",
@@ -144,19 +147,21 @@ export default function Pricing() {
 
       <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1 text-xs font-medium text-primary mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/6 px-3 py-1 text-xs font-medium text-primary mb-4">
             Pricing
           </span>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Honest pricing,{" "}
-            <span className="gradient-text">no surprises</span>
+            Honest pricing, <span className="gradient-text">no surprises</span>
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
             Pick the plan that fits your size. No hidden fees, no contracts.
             Upgrade or downgrade whenever you need to.
           </p>
           <div className="mt-6 flex justify-center">
-            <CurrencyToggle currency={currency} onChange={handleCurrencyChange} />
+            <CurrencyToggle
+              currency={currency}
+              onChange={handleCurrencyChange}
+            />
           </div>
         </FadeIn>
 
@@ -169,16 +174,16 @@ export default function Pricing() {
               <motion.div
                 className={`relative flex h-full flex-col rounded-xl border p-7 transition-all ${
                   plan.highlighted
-                    ? "border-primary/40 bg-card shadow-lg shadow-primary/[0.05] ring-1 ring-primary/10"
+                    ? "border-primary/40 bg-card shadow-lg shadow-primary/5 ring-1 ring-primary/10"
                     : idx === 0
-                      ? "border-border bg-card hover:shadow-md hover:shadow-black/[0.02]"
-                      : "border-border bg-surface/30 hover:shadow-md hover:shadow-black/[0.02]"
+                      ? "border-border bg-card hover:shadow-md hover:shadow-black/2"
+                      : "border-border bg-surface/30 hover:shadow-md hover:shadow-black/2"
                 }`}
                 whileHover={{ y: -3 }}
                 transition={{ duration: 0.25 }}
               >
                 {plan.badge && (
-                  <div className="absolute -top-3 left-6 rounded-full bg-accent px-3.5 py-0.5 text-[10px] font-bold text-white">
+                  <div className="absolute -top-3 left-6 rounded-full bg-primary px-3.5 py-0.5 text-[10px] font-bold text-white">
                     {plan.badge}
                   </div>
                 )}
@@ -204,7 +209,9 @@ export default function Pricing() {
                     </motion.span>
                   </AnimatePresence>
                   {plan.period && (
-                    <span className="text-sm text-muted-foreground">{plan.period}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {plan.period}
+                    </span>
                   )}
                 </div>
 
@@ -255,20 +262,44 @@ export default function Pricing() {
         <FadeIn delay={0.3} className="mt-10">
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
-              <svg className="h-3.5 w-3.5 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              <svg
+                className="h-3.5 w-3.5 text-primary"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
               No setup fees
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="h-3.5 w-3.5 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              <svg
+                className="h-3.5 w-3.5 text-primary"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
               Cancel anytime
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="h-3.5 w-3.5 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              <svg
+                className="h-3.5 w-3.5 text-primary"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
               Trusted by growing cooperatives
             </span>

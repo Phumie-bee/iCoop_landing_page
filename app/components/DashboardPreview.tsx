@@ -5,7 +5,7 @@ import { FadeIn } from "./AnimationWrapper";
 
 function MockDashboard() {
   return (
-    <div className="w-full bg-card border border-border rounded-2xl overflow-hidden shadow-xl shadow-black/[0.04]">
+    <div className="w-full bg-card border border-border rounded-2xl overflow-hidden shadow-xl shadow-black/4">
       <div className="flex items-center gap-2 px-4 py-3 bg-muted border-b border-border">
         <div className="flex gap-1.5">
           <div className="w-3 h-3 rounded-full bg-red-400/70" />
@@ -71,7 +71,7 @@ function MockDashboard() {
               {[40, 55, 45, 60, 52, 70, 65, 80, 75, 90, 85, 95].map((h, i) => (
                 <motion.div
                   key={i}
-                  className="flex-1 rounded-t bg-gradient-to-t from-primary/60 to-primary/20"
+                  className="flex-1 rounded-t bg-linear-to-t from-primary/60 to-primary/20"
                   initial={{ height: 0 }}
                   whileInView={{ height: `${h}%` }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
@@ -137,7 +137,7 @@ function MockDashboard() {
 export default function DashboardPreview() {
   return (
     <section className="relative py-24 sm:py-32 bg-muted/30 overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn className="text-center mb-12">

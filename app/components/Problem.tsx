@@ -70,7 +70,7 @@ export default function Problem() {
     <section className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium text-accent mb-3">
+          <p className="text-sm font-medium text-primary mb-3">
             Sound familiar?
           </p>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
@@ -91,11 +91,11 @@ export default function Problem() {
           {problems.map((p) => (
             <StaggerItem key={p.pain}>
               <motion.div
-                className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-accent/20 hover:shadow-md hover:shadow-accent/[0.03]"
+                className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/20 hover:shadow-md hover:shadow-primary/5"
                 whileHover={{ y: -3 }}
                 transition={{ duration: 0.25 }}
               >
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/[0.08] text-accent">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
                   {p.icon}
                 </div>
                 <h3 className="mt-4 text-base font-semibold text-foreground">
