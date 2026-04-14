@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "iCoop — Run your cooperative without the paperwork",
   description:
     "Collect dues, approve loans, and keep members informed. Built for the way Nigerian cooperatives, unions, and thrift groups actually work.",
+  icons: {
+    icon: "/icoop_logo.png",
+  },
 };
 
 export default function RootLayout({

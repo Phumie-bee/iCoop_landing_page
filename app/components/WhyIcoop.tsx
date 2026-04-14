@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { X, CheckCircle } from "lucide-react";
 
 /* ─── Custom easing ─── */
@@ -56,7 +56,7 @@ const listItemLeft = {
     x: 0,
     transition: {
       duration: 0.4,
-      delay: 0.35 + i * 0.08,
+      delay: 0.15 + i * 0.06,
       ease: smoothEase,
     },
   }),
@@ -69,7 +69,7 @@ const listItemRight = {
     x: 0,
     transition: {
       duration: 0.4,
-      delay: 0.45 + i * 0.08,
+      delay: 0.2 + i * 0.06,
       ease: smoothEase,
     },
   }),
@@ -79,10 +79,10 @@ const iconPop = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: (i: number) => ({
     opacity: 1,
-    scale: [0.8, 1.1, 1],
+    scale: 1,
     transition: {
-      duration: 0.4,
-      delay: 0.4 + i * 0.08,
+      duration: 0.35,
+      delay: 0.2 + i * 0.06,
       ease: smoothEase,
     },
   }),
@@ -117,7 +117,6 @@ const solutions = [
 
 export default function WhyIcoop() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const prefersReduced = useReducedMotion();
 
   return (
     <motion.section
@@ -128,18 +127,13 @@ export default function WhyIcoop() {
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      {/* Subtle background blobs */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <motion.div
-          className="absolute -top-28 -right-28 w-96 h-96 rounded-full bg-red-200/10 blur-3xl"
-          animate={prefersReduced ? {} : { x: [0, 20, 0], y: [0, 15, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute -bottom-32 -left-32 w-105 h-105 rounded-full bg-primary/4 blur-3xl"
-          animate={prefersReduced ? {} : { x: [0, -20, 0], y: [0, -12, 0] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* Subtle background blobs — desktop only for performance */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden lg:block"
+        aria-hidden
+      >
+        <div className="absolute -top-28 -right-28 w-96 h-96 rounded-full bg-red-200/10 blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-105 h-105 rounded-full bg-primary/4 blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
@@ -175,18 +169,12 @@ export default function WhyIcoop() {
 
           {/* The Problem Card */}
           <motion.div
-            className="rounded-xl bg-white p-6 sm:p-8 will-change-transform"
+            className="rounded-xl bg-white p-6 sm:p-8 will-change-transform transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.1)]"
             style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
             variants={cardSlideLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            whileHover={{
-              y: -6,
-              scale: 1.01,
-              boxShadow: "0 16px 40px -10px rgba(0,0,0,0.1)",
-              transition: { duration: 0.3, ease: "easeOut" as const },
-            }}
             animate={{
               opacity: hoveredCard !== null && hoveredCard !== 0 ? 0.6 : 1,
             }}
@@ -225,18 +213,12 @@ export default function WhyIcoop() {
 
           {/* The Solution Card */}
           <motion.div
-            className="rounded-xl bg-white p-6 sm:p-8 will-change-transform"
+            className="rounded-xl bg-white p-6 sm:p-8 will-change-transform transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_-10px_rgba(34,197,94,0.12)]"
             style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
             variants={cardSlideRight}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            whileHover={{
-              y: -6,
-              scale: 1.01,
-              boxShadow: "0 16px 40px -10px rgba(34,197,94,0.12)",
-              transition: { duration: 0.3, ease: "easeOut" as const },
-            }}
             animate={{
               opacity: hoveredCard !== null && hoveredCard !== 1 ? 0.6 : 1,
             }}

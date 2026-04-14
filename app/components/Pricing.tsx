@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -38,7 +38,7 @@ const featureItem = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, delay: i * 0.04, ease },
+    transition: { duration: 0.3, delay: Math.min(i * 0.03, 0.25), ease },
   }),
 };
 
@@ -47,7 +47,7 @@ const checkPop = {
   visible: (i: number) => ({
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.3, delay: i * 0.04 - 0.02, ease },
+    transition: { duration: 0.25, delay: Math.min(i * 0.03, 0.25), ease },
   }),
 };
 
@@ -103,25 +103,19 @@ const features = [
 
 export default function Pricing() {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const prefersReduced = useReducedMotion();
 
   return (
     <section
       id="pricing"
       className="relative bg-background overflow-hidden py-20 sm:py-28 lg:py-32"
     >
-      {/* Subtle bg blobs */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <motion.div
-          className="absolute -top-40 left-1/4 w-105 h-105 rounded-full bg-primary/3 blur-3xl"
-          animate={prefersReduced ? {} : { x: [0, 20, 0], y: [0, 14, 0] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-slate-200/30 blur-3xl"
-          animate={prefersReduced ? {} : { x: [0, -18, 0], y: [0, -12, 0] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* Subtle bg blobs — desktop only for performance */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden lg:block"
+        aria-hidden
+      >
+        <div className="absolute -top-40 left-1/4 w-105 h-105 rounded-full bg-primary/3 blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-slate-200/30 blur-3xl" />
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6">

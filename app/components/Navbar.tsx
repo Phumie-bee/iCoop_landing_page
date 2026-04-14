@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { label: "What is iCoop?", href: "#about" },
@@ -35,14 +36,14 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 sm:h-16 lg:h-20">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2" aria-label="iCoop home">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm shadow-primary/25">
-            <span className="font-extrabold text-sm text-white tracking-tight">
-              iC
-            </span>
-          </div>
-          <span className="text-xl font-extrabold tracking-tight text-foreground">
-            i<span className="text-primary">Coop</span>
-          </span>
+          <Image
+            src="/icoop_logo_t.png"
+            alt="iCoop logo"
+            width={140}
+            height={56}
+            className="h-14 sm:h-16 w-auto"
+            priority
+          />
         </a>
 
         {/* Desktop nav links */}

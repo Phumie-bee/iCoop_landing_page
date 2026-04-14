@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Globe,
   ShieldCheck,
@@ -30,7 +30,7 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.06, ease },
+    transition: { duration: 0.45, delay: Math.min(i * 0.04, 0.3), ease },
   }),
 };
 
@@ -119,21 +119,18 @@ const tagColors: Record<string, string> = {
 };
 
 export default function Features() {
-  const prefersReduced = useReducedMotion();
-
   return (
     <section
       id="features"
       className="relative bg-background overflow-hidden py-20 sm:py-28 lg:py-32"
     >
       {/* py-20 sm:py-28 lg:py-32 */}
-      {/* Subtle bg blobs */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <motion.div
-          className="absolute top-40 -left-40 w-105 h-105 rounded-full bg-primary/3 blur-3xl"
-          animate={prefersReduced ? {} : { x: [0, 25, 0], y: [0, 18, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* Subtle bg blobs — desktop only for performance */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden lg:block"
+        aria-hidden
+      >
+        <div className="absolute top-40 -left-40 w-105 h-105 rounded-full bg-primary/3 blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
@@ -159,18 +156,13 @@ export default function Features() {
             return (
               <motion.div
                 key={feature.title}
-                className="group relative flex flex-col items-center text-center rounded-xl bg-white p-4 sm:p-5 will-change-transform cursor-default"
+                className="group relative flex flex-col items-center text-center rounded-xl bg-white p-4 sm:p-5 cursor-default transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-6px_rgba(0,0,0,0.08)]"
                 style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
                 custom={i}
-                whileHover={{
-                  y: -3,
-                  boxShadow: "0 8px 24px -6px rgba(0,0,0,0.08)",
-                  transition: { duration: 0.25, ease: "easeOut" as const },
-                }}
               >
                 {/* Category tag */}
                 <span

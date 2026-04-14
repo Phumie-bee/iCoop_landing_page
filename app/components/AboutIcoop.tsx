@@ -55,7 +55,8 @@ const highlights = [
   },
 ];
 
-const cardVariants = {
+/* 3D flip for desktop, simple crossfade for mobile */
+const cardVariantsDesktop = {
   enter: (direction: number) => ({
     rotateY: direction > 0 ? 90 : -90,
     opacity: 0,
@@ -72,8 +73,27 @@ const cardVariants = {
   }),
 };
 
+const cardVariantsMobile = {
+  enter: { opacity: 0, x: 20 },
+  center: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.3, ease },
+  },
+  exit: { opacity: 0, x: -20, transition: { duration: 0.2, ease } },
+};
+
 export default function AboutIcoop() {
   const [[activeIndex, direction], setActiveIndex] = useState([0, 1]);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+    setIsDesktop(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
   // Auto-flip every 4 seconds
   useEffect(() => {
@@ -139,18 +159,25 @@ export default function AboutIcoop() {
             {/* Card container with perspective */}
             <div
               className="relative rounded-2xl border border-border bg-white overflow-hidden"
-              style={{ perspective: "1000px", minHeight: "370px" }}
+              style={{
+                perspective: isDesktop ? "1000px" : undefined,
+                minHeight: "370px",
+              }}
             >
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={activeIndex}
                   className="p-6 sm:p-8"
-                  variants={cardVariants}
+                  variants={
+                    isDesktop ? cardVariantsDesktop : cardVariantsMobile
+                  }
                   initial="enter"
                   animate="center"
                   exit="exit"
                   custom={direction}
-                  style={{ transformOrigin: "center center" }}
+                  style={
+                    isDesktop ? { transformOrigin: "center center" } : undefined
+                  }
                 >
                   <div className="flex items-center gap-3 mb-5">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">

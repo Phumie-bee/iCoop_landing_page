@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const avatarUrls = [
   "https://images.unsplash.com/photo-1642257834579-eee89ff3e9fd?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -31,6 +31,8 @@ const scaleIn = {
 };
 
 export default function Hero() {
+  const prefersReduced = useReducedMotion();
+
   return (
     <section
       className="relative min-h-screen overflow-hidden font-sans selection:bg-primary selection:text-white"
@@ -38,8 +40,8 @@ export default function Hero() {
         backgroundImage: "linear-gradient(135deg, #E6EEF5, #DCE8F3, #E9E6F4)",
       }}
     >
-      {/* Background Ambiance */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Background Ambiance — hidden on mobile for performance */}
+      <div className="hidden lg:block absolute inset-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-1/2 h-1/2 bg-white/60 blur-[100px] rounded-full" />
       </div>
 
@@ -69,7 +71,7 @@ export default function Hero() {
             WebkitMaskImage: heroMask,
             maskImage: heroMask,
           }}
-          animate={{ y: [0, -12, 0] }}
+          animate={prefersReduced ? {} : { y: [0, -12, 0] }}
           transition={{
             duration: 5,
             repeat: Infinity,
