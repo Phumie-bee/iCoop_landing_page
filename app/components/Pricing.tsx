@@ -55,7 +55,7 @@ const tiers = [
   {
     name: "Starter Cooperative",
     range: "0 – 50 members",
-    price: "₦25,000",
+    price: "₦12,000",
     unit: "/ member / annum",
     cta: "Get Started",
     recommended: false,
@@ -71,7 +71,7 @@ const tiers = [
   {
     name: "Established Cooperative",
     range: "200 – 500 members",
-    price: "₦12,000",
+    price: "₦25,000",
     unit: "/ member / annum",
     cta: "Get Started",
     recommended: false,

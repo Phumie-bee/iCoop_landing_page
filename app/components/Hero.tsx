@@ -44,10 +44,15 @@ export default function Hero() {
       </div>
 
       {/* Mobile/Tablet Background Image */}
-      <div
-        className="lg:hidden absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
-        style={{ backgroundImage: "url(/two_people.png)" }}
-      >
+      <div className="lg:hidden absolute inset-0 pointer-events-none">
+        <Image
+          src="/two_people.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-[#E6EEF5]/95 via-[#DCE8F3]/90 to-[#E9E6F4]/95" />
       </div>
 
@@ -58,10 +63,8 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <motion.img
-          src="/two_people.png"
-          alt="Two people smiling and shaking hands"
-          className="w-full h-full object-contain"
+        <motion.div
+          className="w-full h-full"
           style={{
             WebkitMaskImage: heroMask,
             maskImage: heroMask,
@@ -72,7 +75,16 @@ export default function Hero() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-        />
+        >
+          <Image
+            src="/two_people.png"
+            alt="Two people smiling and shaking hands"
+            fill
+            className="object-contain"
+            priority
+            sizes="(min-width: 1024px) 55vw, 0px"
+          />
+        </motion.div>
       </motion.div>
 
       {/* Content */}
@@ -204,7 +216,6 @@ export default function Hero() {
                     width={40}
                     height={40}
                     className="w-10 h-10 rounded-full border-2 border-white object-cover bg-white"
-                    unoptimized
                   />
                 </motion.div>
               ))}

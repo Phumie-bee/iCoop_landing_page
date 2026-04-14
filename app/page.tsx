@@ -1,12 +1,13 @@
+import dynamic from "next/dynamic";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Features from "./components/Features";
 
-import Pricing from "./components/Pricing";
-import CTA from "./components/CTA";
-import Footer from "./components/Footer";
-import AboutIcoop from "./components/AboutIcoop";
-import WhyIcoop from "./components/WhyIcoop";
+const AboutIcoop = dynamic(() => import("./components/AboutIcoop"));
+const WhyIcoop = dynamic(() => import("./components/WhyIcoop"));
+const Features = dynamic(() => import("./components/Features"));
+const Pricing = dynamic(() => import("./components/Pricing"));
+const CTA = dynamic(() => import("./components/CTA"));
+const Footer = dynamic(() => import("./components/Footer"));
 
 export default function Home() {
   return (
