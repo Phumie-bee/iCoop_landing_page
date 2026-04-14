@@ -134,8 +134,8 @@ export default function Pricing() {
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3">
-            Flexible Pricing That Scales With You
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 text-center">
+            Pricing
           </h2>
           <p className="text-base sm:text-lg text-text-secondary max-w-lg">
             Built to grow with cooperatives of every size

@@ -92,7 +92,7 @@ export default function Hero() {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
             </span>
             <span className="text-xs sm:text-sm font-bold text-primary tracking-wide">
-              iCoop, future of cooperative management, is here!
+              The smarter way to run your co-op
             </span>
           </motion.div>
 

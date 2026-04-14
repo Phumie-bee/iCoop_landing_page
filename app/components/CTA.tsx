@@ -1,60 +1,120 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { FadeIn } from "./AnimationWrapper";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.1, ease },
+  }),
+};
 
 export default function CTA() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <section id="cta" className="relative py-24 sm:py-32 overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-linear-to-br from-primary/3 via-accent/2 to-transparent" />
-      <motion.div
-        className="absolute -top-16 left-1/4 h-90 w-90 rounded-full bg-primary/5 blur-[100px]"
-        animate={{ x: [0, 30, 0], y: [0, -15, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -bottom-16 right-1/4 h-80 w-80 rounded-full bg-accent/5 blur-[100px]"
-        animate={{ x: [0, -30, 0], y: [0, 15, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
+    <section
+      id="cta"
+      className="relative py-20 sm:py-28 lg:py-32 bg-white overflow-hidden"
+    >
+      {/* Subtle background blobs */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <motion.div
+          className="absolute -top-32 left-1/3 w-105 h-105 rounded-full bg-primary/3 blur-3xl"
+          animate={prefersReduced ? {} : { x: [0, 20, 0], y: [0, 14, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -bottom-28 right-1/4 w-96 h-96 rounded-full bg-orange-200/20 blur-3xl"
+          animate={prefersReduced ? {} : { x: [0, -16, 0], y: [0, -10, 0] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
 
-      <div className="relative z-10 mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center">
-          <div className="rounded-2xl border border-border bg-card/80 p-8 shadow-lg shadow-primary/2 backdrop-blur-md sm:p-14">
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
-              Ready to leave the{" "}
-              <span className="gradient-text">spreadsheets behind?</span>
-            </h2>
-            <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-muted-foreground">
-              Join 500+ cooperatives that already made the switch. Free trial,
-              no credit card, no surprises.
-            </p>
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
+        {/* Heading */}
+        <motion.h2
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 sm:mb-5 leading-tight"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          custom={0}
+        >
+          Ready to transform your cooperative?
+        </motion.h2>
 
-            <motion.a
-              href="#"
-              className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-shadow hover:shadow-lg hover:shadow-primary/30"
-              whileHover={{ scale: 1.03, y: -1 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Start managing smarter
-              <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </motion.a>
+        {/* Subtitle */}
+        <motion.p
+          className="text-base sm:text-lg text-text-secondary max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          custom={1}
+        >
+          Start using iCoop today and experience smarter, faster, and more
+          reliable operations.
+        </motion.p>
 
-            <p className="mt-4 text-[11px] text-muted-foreground">
-              14-day free trial &middot; No credit card required &middot; Cancel
-              anytime
-            </p>
-          </div>
-        </FadeIn>
+        {/* Buttons */}
+        <motion.div
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          custom={2}
+        >
+          {/* Request a Demo — orange gradient */}
+          <motion.a
+            href="#"
+            className="group inline-flex items-center justify-center gap-2 rounded-xl px-8 sm:px-10 py-4 text-base sm:text-lg font-bold text-white shadow-lg will-change-transform cursor-pointer w-full sm:w-auto"
+            style={{
+              background: "linear-gradient(180deg, #f59e0b 0%, #ea580c 100%)",
+              boxShadow:
+                "0 4px 14px -3px rgba(234,88,12,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
+            }}
+            whileHover={{
+              y: -2,
+              scale: 1.02,
+              boxShadow:
+                "0 8px 24px -4px rgba(234,88,12,0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
+            }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.25, ease: "easeOut" as const }}
+          >
+            Request a Demo
+            <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </motion.a>
+
+          {/* Contact Us — green gradient */}
+          <motion.a
+            href="#"
+            className="group inline-flex items-center justify-center gap-2 rounded-xl px-8 sm:px-10 py-4 text-base sm:text-lg font-bold text-white shadow-lg will-change-transform cursor-pointer w-full sm:w-auto"
+            style={{
+              background: "linear-gradient(180deg, #22c55e 0%, #15803d 100%)",
+              boxShadow:
+                "0 4px 14px -3px rgba(21,128,61,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
+            }}
+            whileHover={{
+              y: -2,
+              scale: 1.02,
+              boxShadow:
+                "0 8px 24px -4px rgba(21,128,61,0.4), inset 0 1px 0 rgba(255,255,255,0.18)",
+            }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.25, ease: "easeOut" as const }}
+          >
+            Contact Us
+            <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
