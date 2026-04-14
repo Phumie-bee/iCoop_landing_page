@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   Globe,
   MonitorSmartphone,
@@ -167,11 +168,13 @@ export default function AboutIcoop() {
 
                   {/* Image */}
                   <div className="flex justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={phase.image}
                       alt={phase.title}
+                      width={400}
+                      height={224}
                       className="w-full max-w-sm h-48 sm:h-56 object-contain"
+                      priority
                     />
                   </div>
                 </motion.div>
