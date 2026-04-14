@@ -1,6 +1,7 @@
 "use client";
 
 import { FadeIn } from "./AnimationWrapper";
+import Image from "next/image";
 
 const footerLinks = {
   Product: [
@@ -60,16 +61,15 @@ export default function Footer() {
                 className="inline-flex items-center gap-2"
                 aria-label="iCoop home"
               >
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm shadow-primary/25">
-                  <span className="font-extrabold text-sm text-white tracking-tight">
-                    iC
-                  </span>
-                </div>
-                <span className="text-xl font-extrabold tracking-tight text-foreground">
-                  i<span className="text-primary">Coop</span>
-                </span>
+                <Image
+                  src="/iCoop_logo_t.png"
+                  alt="iCoop logo"
+                  width={140}
+                  height={56}
+                  className="h-14 w-auto"
+                />
               </a>
-              <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
                 Cooperative management built for Nigerian cooperatives, unions,
                 and thrift groups. Calm, clear, and actually useful.
               </p>
