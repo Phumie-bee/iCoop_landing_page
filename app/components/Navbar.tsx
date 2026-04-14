@@ -37,7 +37,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#" className="flex items-center gap-2" aria-label="iCoop home">
           <Image
-            src="/icoop_logo_t.png"
+            src="/iCoop_logo_t.png"
             alt="iCoop logo"
             width={140}
             height={56}

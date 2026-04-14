@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "Collect dues, approve loans, and keep members informed. Built for the way Nigerian cooperatives, unions, and thrift groups actually work.",
   icons: {
-    icon: "/icoop_logo.png",
+    icon: "/iCoop_logo.png",
   },
 };
 
