@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "What is iCoop?", href: "#about" },
-  { label: "Why iCoop?", href: "#whyicoop" },
+  { label: "Why iCoop?", href: "#why-icoop" },
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
 ];
