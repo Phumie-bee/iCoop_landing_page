@@ -118,9 +118,9 @@ export default function Hero() {
             animate="visible"
             custom={2}
           >
-            iCoop is a powerful web-based thrift and loan management platform
-            designed to automate operations, enforce policies, and deliver a
-            seamless experience for both cooperators and administrators.
+            A purpose-built platform designed to streamline cooperative
+            operations, manage loans and member records, enforce policies, and
+            deliver a seamless experience for both administrators and members.
           </motion.p>
 
           {/* Buttons */}

@@ -34,16 +34,14 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 sm:h-16 lg:h-20">
         {/* Logo */}
-        <a
-          href="#"
-          className="flex items-center gap-2.5"
-          aria-label="iCoop home"
-        >
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-primary text-white shadow-sm">
-            <span className="font-bold text-2xl">i</span>
+        <a href="#" className="flex items-center gap-2" aria-label="iCoop home">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm shadow-primary/25">
+            <span className="font-extrabold text-sm text-white tracking-tight">
+              iC
+            </span>
           </div>
-          <span className="text-2xl font-bold tracking-tight text-foreground">
-            iCoop
+          <span className="text-xl font-extrabold tracking-tight text-foreground">
+            i<span className="text-primary">Coop</span>
           </span>
         </a>
 

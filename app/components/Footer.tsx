@@ -60,10 +60,14 @@ export default function Footer() {
                 className="inline-flex items-center gap-2"
                 aria-label="iCoop home"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-linear-to-br from-primary to-accent">
-                  <span className="text-xs font-bold text-white">iC</span>
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm shadow-primary/25">
+                  <span className="font-extrabold text-sm text-white tracking-tight">
+                    iC
+                  </span>
                 </div>
-                <span className="text-lg font-bold text-foreground">iCoop</span>
+                <span className="text-xl font-extrabold tracking-tight text-foreground">
+                  i<span className="text-primary">Coop</span>
+                </span>
               </a>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
                 Cooperative management built for Nigerian cooperatives, unions,

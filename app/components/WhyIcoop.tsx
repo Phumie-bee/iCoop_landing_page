@@ -109,9 +109,9 @@ const problems = [
 
 const solutions = [
   "Digitized and streamlined processes",
+  "Scalable, sustainable system",
   "Reduced physical congestion",
   "Built-in policy enforcement",
-  "Scalable, sustainable system",
   "Self-service for members & staff",
 ];
 
@@ -152,14 +152,7 @@ export default function WhyIcoop() {
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 sm:mb-4">
-            Why{" "}
-            <span className="relative inline-block">
-              i
-              <span className="absolute left-1/2 -translate-x-1/2 -top-[0.09em] w-[0.32em] h-[0.32em] bg-primary rounded-full" />
-            </span>
-            Coop?
-          </h2>
+          <h2 className="section-heading mb-3 sm:mb-4">Why iCoop?</h2>
           <motion.p
             className="text-base sm:text-lg text-text-secondary"
             variants={fadeUp}

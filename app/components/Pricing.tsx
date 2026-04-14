@@ -134,12 +134,52 @@ export default function Pricing() {
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 text-center">
-            Pricing
-          </h2>
-          <p className="text-base sm:text-lg text-text-secondary max-w-lg">
+          <h2 className="section-heading mb-3 text-center">Pricing</h2>
+          <p className="text-base sm:text-lg text-text-secondary max-w-lg text-center mx-auto">
             Built to grow with cooperatives of every size
           </p>
+        </motion.div>
+
+        {/* ───────── EVERYTHING INCLUDED ───────── */}
+        <motion.div
+          className="mb-12 sm:mb-14"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          custom={1}
+        >
+          <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-2 text-center">
+            Everything Included
+          </h3>
+          <p className="text-sm text-text-secondary mb-8 text-center">
+            All plans come with the full iCoop platform — no feature gating.
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3.5">
+            {features.map((feature, i) => (
+              <motion.div
+                key={feature}
+                className="flex items-center gap-2.5 group"
+                variants={featureItem}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                custom={i}
+              >
+                <motion.div
+                  className="shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center transition-colors duration-200 group-hover:bg-primary/18"
+                  variants={checkPop}
+                  custom={i}
+                >
+                  <Check className="w-3 h-3 text-primary" strokeWidth={2.5} />
+                </motion.div>
+                <span className="text-sm text-text-secondary group-hover:text-foreground transition-colors duration-200">
+                  {feature}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* ───────── PRICING ROWS ───────── */}
@@ -150,7 +190,7 @@ export default function Pricing() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          custom={1}
+          custom={2}
         >
           {/* Table header (desktop) */}
           <div className="hidden sm:grid grid-cols-[1fr_auto_auto] items-center gap-6 px-6 py-3.5 border-b border-border bg-surface/60 text-xs font-semibold text-text-muted uppercase tracking-wider">
@@ -264,47 +304,6 @@ export default function Pricing() {
           Pricing is calculated per member annually, ensuring fairness as your
           cooperative grows.
         </motion.p>
-
-        {/* ───────── EVERYTHING INCLUDED ───────── */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          custom={0}
-        >
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-            Everything Included
-          </h3>
-          <p className="text-sm text-text-secondary mb-8">
-            All plans come with the full iCoop platform — no feature gating.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3.5">
-          {features.map((feature, i) => (
-            <motion.div
-              key={feature}
-              className="flex items-center gap-2.5 group"
-              variants={featureItem}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              custom={i}
-            >
-              <motion.div
-                className="shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center transition-colors duration-200 group-hover:bg-primary/18"
-                variants={checkPop}
-                custom={i}
-              >
-                <Check className="w-3 h-3 text-primary" strokeWidth={2.5} />
-              </motion.div>
-              <span className="text-sm text-text-secondary group-hover:text-foreground transition-colors duration-200">
-                {feature}
-              </span>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -52,7 +52,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family:
-    var(--font-inter),
+    var(--font-plus-jakarta),
     system-ui,
     -apple-system,
     sans-serif;
@@ -65,7 +65,7 @@ h4,
 h5,
 h6 {
   font-family:
-    var(--font-poppins),
+    var(--font-plus-jakarta),
     system-ui,
     -apple-system,
     sans-serif;
@@ -86,6 +86,23 @@ html {
 /* ── Gradient text ────────────────────────────────── */
 .gradient-text {
   background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section heading ──────────────────────────────── */
+.section-heading {
+  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  background: linear-gradient(
+    135deg,
+    #1e293b 0%,
+    #475569 60%,
+    var(--primary) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

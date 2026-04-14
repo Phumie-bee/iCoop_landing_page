@@ -20,7 +20,7 @@ export default function CTA() {
   return (
     <section
       id="cta"
-      className="relative py-20 sm:py-28 lg:py-32 bg-white overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 bg-[#0f172a] overflow-hidden"
     >
       {/* Subtle background blobs */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -39,7 +39,8 @@ export default function CTA() {
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
         {/* Heading */}
         <motion.h2
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 sm:mb-5 leading-tight"
+          className="section-heading mb-4 sm:mb-5 leading-tight !text-white"
+          style={{ WebkitTextFillColor: "white" }}
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -51,7 +52,7 @@ export default function CTA() {
 
         {/* Subtitle */}
         <motion.p
-          className="text-base sm:text-lg text-text-secondary max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
+          className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
