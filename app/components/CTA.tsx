@@ -65,34 +65,24 @@ export default function CTA() {
           viewport={{ once: true, margin: "-60px" }}
           custom={2}
         >
-          {/* Request a Demo — orange gradient */}
+          {/* Request a Demo — primary */}
           <motion.a
             href="#"
-            className="group inline-flex items-center justify-center gap-2 rounded-xl px-8 sm:px-10 py-4 text-base sm:text-lg font-bold text-white shadow-lg will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-4px_rgba(234,88,12,0.4)]"
-            style={{
-              background: "linear-gradient(180deg, #f59e0b 0%, #ea580c 100%)",
-              boxShadow:
-                "0 4px 14px -3px rgba(234,88,12,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
-            }}
-            whileTap={{ scale: 0.97 }}
+            className="group inline-flex items-center justify-center gap-2.5 rounded-lg px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold tracking-wide uppercase text-white bg-primary hover:bg-primary/90 shadow-md will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
+            whileTap={{ scale: 0.98 }}
           >
             Request a Demo
-            <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </motion.a>
 
-          {/* Contact Us — green gradient */}
+          {/* Contact Us — secondary outline */}
           <motion.a
             href="#"
-            className="group inline-flex items-center justify-center gap-2 rounded-xl px-8 sm:px-10 py-4 text-base sm:text-lg font-bold text-white shadow-lg will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-4px_rgba(21,128,61,0.4)]"
-            style={{
-              background: "linear-gradient(180deg, #22c55e 0%, #15803d 100%)",
-              boxShadow:
-                "0 4px 14px -3px rgba(21,128,61,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
-            }}
-            whileTap={{ scale: 0.97 }}
+            className="group inline-flex items-center justify-center gap-2.5 rounded-lg px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold tracking-wide uppercase text-white border border-white/30 hover:border-white/60 hover:bg-white/5 will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
+            whileTap={{ scale: 0.98 }}
           >
             Contact Us
-            <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </motion.a>
         </motion.div>
       </div>
