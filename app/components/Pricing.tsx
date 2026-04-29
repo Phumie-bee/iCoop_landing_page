@@ -187,11 +187,11 @@ export default function Pricing() {
           custom={2}
         >
           {/* Table header (desktop) */}
-          <div className="hidden sm:grid grid-cols-[1fr_auto_auto] items-center gap-6 px-6 py-3.5 border-b border-border bg-surface/60 text-xs font-semibold text-text-muted uppercase tracking-wider">
+          {/* <div className="hidden sm:grid grid-cols-[1fr_auto_auto] items-center gap-6 px-6 py-3.5 border-b border-border bg-surface/60 text-xs font-semibold text-text-muted uppercase tracking-wider">
             <span>Plan</span>
             <span className="w-36 text-right">Price</span>
             <span className="w-32" />
-          </div>
+          </div> */}
 
           {tiers.map((tier, i) => (
             <motion.div

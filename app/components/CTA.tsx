@@ -77,7 +77,7 @@ export default function CTA() {
 
           {/* Contact Us — secondary outline */}
           <motion.a
-            href="#"
+            href="/contact"
             className="group inline-flex items-center justify-center gap-2.5 rounded-lg px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold tracking-wide uppercase text-white border border-white/30 hover:border-white/60 hover:bg-white/5 will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
             whileTap={{ scale: 0.98 }}
           >

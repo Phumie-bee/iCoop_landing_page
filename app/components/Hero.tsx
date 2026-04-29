@@ -93,7 +93,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pt-44 lg:pb-28">
         <div className="max-w-none sm:max-w-xl">
           {/* Badge */}
-          <motion.div
+          {/* <motion.div
             className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white shadow-sm mb-4 sm:mb-6 border border-white/80 cursor-default"
             variants={fadeUp}
             initial="hidden"
@@ -108,7 +108,7 @@ export default function Hero() {
             <span className="text-xs sm:text-sm font-bold text-primary tracking-wide">
               The smarter way to run your co-op
             </span>
-          </motion.div>
+          </motion.div> */}
 
           {/* Headline */}
           <motion.h1

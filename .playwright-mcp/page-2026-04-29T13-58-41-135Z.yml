@@ -1,0 +1,258 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - link "iCoop home" [ref=e4] [cursor=pointer]:
+        - /url: "#"
+        - img "iCoop logo" [ref=e5]
+      - generic [ref=e6]:
+        - link "What is iCoop?" [ref=e7] [cursor=pointer]:
+          - /url: "#about"
+        - link "Why iCoop?" [ref=e8] [cursor=pointer]:
+          - /url: "#why-icoop"
+        - link "Features" [ref=e9] [cursor=pointer]:
+          - /url: "#features"
+        - link "Pricing" [ref=e10] [cursor=pointer]:
+          - /url: "#pricing"
+        - link "Contact" [ref=e11] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e12]:
+        - link "Log in" [ref=e13] [cursor=pointer]:
+          - /url: "#pricing"
+        - link "Get started" [ref=e14] [cursor=pointer]:
+          - /url: "#cta"
+  - main [ref=e15]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - img [ref=e20]
+        - text: Get in Touch
+      - heading "We'd love to hear from you" [level=1] [ref=e23]
+      - paragraph [ref=e24]: Questions about pricing, features, or need a demo — our team is ready to help your cooperative thrive.
+    - generic [ref=e26]:
+      - link "Email us hello@icoop.ng We reply within 24 hours" [ref=e28] [cursor=pointer]:
+        - /url: mailto:hello@icoop.ng
+        - img [ref=e30]
+        - generic [ref=e33]:
+          - paragraph [ref=e34]: Email us
+          - paragraph [ref=e35]: hello@icoop.ng
+          - paragraph [ref=e36]: We reply within 24 hours
+      - link "Call us +234 800 123 4567 Mon–Fri, 9am – 6pm WAT" [ref=e38] [cursor=pointer]:
+        - /url: tel:+2348001234567
+        - img [ref=e40]
+        - generic [ref=e42]:
+          - paragraph [ref=e43]: Call us
+          - paragraph [ref=e44]: +234 800 123 4567
+          - paragraph [ref=e45]: Mon–Fri, 9am – 6pm WAT
+      - link "Visit us Lagos, Nigeria Victoria Island, Lagos State" [ref=e47] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=e49]
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: Visit us
+          - paragraph [ref=e54]: Lagos, Nigeria
+          - paragraph [ref=e55]: Victoria Island, Lagos State
+    - generic [ref=e57]:
+      - generic [ref=e60]:
+        - heading "Send us a message" [level=2] [ref=e61]
+        - paragraph [ref=e62]: Fill in the form and we'll get back to you shortly.
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - generic [ref=e66]: Full name
+              - textbox "Full name" [ref=e67]:
+                - /placeholder: Amaka Okonkwo
+            - generic [ref=e68]:
+              - generic [ref=e69]: Email address
+              - textbox "Email address" [ref=e70]:
+                - /placeholder: amaka@cooperative.ng
+          - generic [ref=e71]:
+            - generic [ref=e72]:
+              - generic [ref=e73]: Phone (optional)
+              - textbox "Phone (optional)" [ref=e74]:
+                - /placeholder: +234 800 000 0000
+            - generic [ref=e75]:
+              - generic [ref=e76]: Topic
+              - generic [ref=e77]:
+                - combobox "Topic" [ref=e78]:
+                  - option "Select a topic" [disabled] [selected]
+                  - option "Sales & Pricing"
+                  - option "Technical Support"
+                  - option "General Inquiry"
+                  - option "Partnerships"
+                  - option "Request a Demo"
+                - img
+          - generic [ref=e79]:
+            - generic [ref=e80]: Message
+            - textbox "Message" [ref=e81]:
+              - /placeholder: Tell us how we can help your cooperative...
+          - button "Send Message" [ref=e82]:
+            - text: Send Message
+            - img [ref=e83]
+          - paragraph [ref=e86]:
+            - text: By submitting, you agree to our
+            - link "Privacy Policy" [ref=e87] [cursor=pointer]:
+              - /url: "#"
+            - text: .
+      - generic [ref=e88]:
+        - generic [ref=e90]:
+          - heading "What to expect" [level=3] [ref=e91]
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - generic [ref=e94]: "01"
+              - generic [ref=e95]:
+                - paragraph [ref=e96]: We receive your message
+                - paragraph [ref=e97]: Your inquiry lands directly in our team's inbox.
+            - generic [ref=e98]:
+              - generic [ref=e99]: "02"
+              - generic [ref=e100]:
+                - paragraph [ref=e101]: We review and assign
+                - paragraph [ref=e102]: The right team member picks up your query.
+            - generic [ref=e103]:
+              - generic [ref=e104]: "03"
+              - generic [ref=e105]:
+                - paragraph [ref=e106]: You get a reply
+                - paragraph [ref=e107]: We respond with a clear, helpful answer within 24 hours.
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - img [ref=e111]
+            - heading "Business hours" [level=3] [ref=e114]
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - generic [ref=e117]: Monday – Friday
+              - generic [ref=e118]: 9:00 AM – 6:00 PM
+            - generic [ref=e119]:
+              - generic [ref=e120]: Saturday
+              - generic [ref=e121]: 10:00 AM – 2:00 PM
+            - generic [ref=e122]:
+              - generic [ref=e123]: Sunday
+              - generic [ref=e124]: Closed
+          - paragraph [ref=e125]: All times are West Africa Time (WAT / UTC+1)
+        - link "Browse our Help Center Find instant answers to common questions" [ref=e127] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e128]:
+            - paragraph [ref=e129]: Browse our Help Center
+            - paragraph [ref=e130]: Find instant answers to common questions
+          - img [ref=e131]
+    - generic [ref=e134]:
+      - generic [ref=e135]:
+        - generic [ref=e136]: FAQ
+        - heading "Frequently asked questions" [level=2] [ref=e137]
+      - generic [ref=e138]:
+        - button "How quickly do you respond?" [ref=e141]:
+          - generic [ref=e142]: How quickly do you respond?
+          - img [ref=e144]
+        - button "Do you offer a free trial?" [ref=e148]:
+          - generic [ref=e149]: Do you offer a free trial?
+          - img [ref=e151]
+        - button "Can I get a personalized demo?" [ref=e155]:
+          - generic [ref=e156]: Can I get a personalized demo?
+          - img [ref=e158]
+        - button "Do you provide onboarding support?" [ref=e162]:
+          - generic [ref=e163]: Do you provide onboarding support?
+          - img [ref=e165]
+  - contentinfo [ref=e167]:
+    - generic [ref=e168]:
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - link "iCoop home" [ref=e172] [cursor=pointer]:
+            - /url: "#"
+            - img "iCoop logo" [ref=e173]
+          - paragraph [ref=e174]: Cooperative management built for Nigerian cooperatives, unions, and thrift groups.
+          - generic [ref=e175]:
+            - link "hello@icoop.ng" [ref=e176] [cursor=pointer]:
+              - /url: mailto:hello@icoop.ng
+              - img [ref=e177]
+              - text: hello@icoop.ng
+            - link "+234 800 123 4567" [ref=e180] [cursor=pointer]:
+              - /url: tel:+2348001234567
+              - img [ref=e181]
+              - text: +234 800 123 4567
+            - paragraph [ref=e183]:
+              - img [ref=e184]
+              - text: Lagos, Nigeria
+          - generic [ref=e187]:
+            - link "Twitter" [ref=e188] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e189]
+            - link "LinkedIn" [ref=e191] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e192]
+            - link "Facebook" [ref=e194] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e195]
+        - generic [ref=e197]:
+          - heading "Product" [level=3] [ref=e198]
+          - list [ref=e199]:
+            - listitem [ref=e200]:
+              - link "Features" [ref=e201] [cursor=pointer]:
+                - /url: "#features"
+            - listitem [ref=e202]:
+              - link "Pricing" [ref=e203] [cursor=pointer]:
+                - /url: "#pricing"
+            - listitem [ref=e204]:
+              - link "Dashboard" [ref=e205] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e206]:
+              - link "Integrations" [ref=e207] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e208]:
+              - link "API" [ref=e209] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e210]:
+          - heading "Company" [level=3] [ref=e211]
+          - list [ref=e212]:
+            - listitem [ref=e213]:
+              - link "About" [ref=e214] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e215]:
+              - link "Blog" [ref=e216] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e217]:
+              - link "Careers" [ref=e218] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e219]:
+              - link "Contact" [ref=e220] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e221]:
+              - link "Press" [ref=e222] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e223]:
+          - heading "Resources" [level=3] [ref=e224]
+          - list [ref=e225]:
+            - listitem [ref=e226]:
+              - link "Documentation" [ref=e227] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e228]:
+              - link "Help Center" [ref=e229] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e230]:
+              - link "Community" [ref=e231] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e232]:
+              - link "Status" [ref=e233] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e234]:
+          - heading "Legal" [level=3] [ref=e235]
+          - list [ref=e236]:
+            - listitem [ref=e237]:
+              - link "Privacy Policy" [ref=e238] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e239]:
+              - link "Terms of Service" [ref=e240] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e241]:
+              - link "Cookie Policy" [ref=e242] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e243]:
+        - generic [ref=e244]:
+          - paragraph [ref=e245]: © 2026 iCoop Technologies Ltd. All rights reserved.
+          - generic [ref=e246]:
+            - img [ref=e247]
+            - generic [ref=e249]: Powered by Connexxion Telecoms
+        - generic [ref=e250]:
+          - link "Privacy" [ref=e251] [cursor=pointer]:
+            - /url: "#"
+          - link "Terms" [ref=e252] [cursor=pointer]:
+            - /url: "#"
+          - link "Cookies" [ref=e253] [cursor=pointer]:
+            - /url: "#"
+  - button "Open Next.js Dev Tools" [ref=e259] [cursor=pointer]:
+    - img [ref=e260]

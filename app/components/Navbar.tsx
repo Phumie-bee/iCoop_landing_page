@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
   { label: "What is iCoop?", href: "#about" },
@@ -35,44 +36,48 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 sm:h-16 lg:h-20">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2" aria-label="iCoop home">
+        <Link
+          href="/"
+          className="flex items-center gap-2"
+          aria-label="iCoop home"
+        >
           <Image
-            src="/iCoop_logo_t.png"
+            src="/iCoop_logo_tc.png"
             alt="iCoop logo"
-            width={140}
-            height={56}
-            className="h-14 sm:h-16 w-auto"
+            width={130}
+            height={52}
+            className="h-7 w-auto"
             priority
           />
-        </a>
+        </Link>
 
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-base font-medium text-slate-500 hover:text-foreground transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* Desktop buttons */}
         <div className="hidden md:flex items-center gap-5">
-          <a
+          <Link
             href="#pricing"
             className="text-base font-semibold text-foreground hover:text-primary transition-colors"
           >
             Log in
-          </a>
-          <a
-            href="#cta"
+          </Link>
+          <Link
+            href="/contact"
             className="text-base font-semibold bg-primary text-white px-6 py-2.5 rounded-full hover:bg-primary/90 transition-colors shadow-sm"
           >
-            Get started
-          </a>
+            Contact Us
+          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -99,30 +104,30 @@ export default function Navbar() {
           >
             <div className="px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <div className="h-px bg-border w-full my-2" />
-              <a
+              <Link
                 href="#pricing"
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 Log in
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#cta"
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-semibold bg-primary text-primary-foreground px-4 py-2.5 rounded-md hover:bg-primary/90 transition-colors text-center shadow-sm"
               >
                 Get started
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

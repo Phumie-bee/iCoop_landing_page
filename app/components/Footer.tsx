@@ -2,6 +2,8 @@
 
 import { FadeIn } from "./AnimationWrapper";
 import Image from "next/image";
+import Link from "next/link";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -15,6 +17,7 @@ const footerLinks = {
     { label: "About", href: "#" },
     { label: "Blog", href: "#" },
     { label: "Careers", href: "#" },
+    { label: "Contact", href: "/contact" },
     { label: "Press", href: "#" },
   ],
   Resources: [
@@ -50,41 +53,66 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-card/30" role="contentinfo">
+    <footer className="border-t border-border bg-muted/40" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
-          <div className="grid grid-cols-2 gap-8 py-14 md:grid-cols-6">
-            {/* Brand */}
+          {/* Main footer grid */}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 pt-16 pb-12 md:grid-cols-6 lg:gap-x-12">
+            {/* Brand column */}
             <div className="col-span-2">
-              <a
-                href="#"
+              <Link
+                href="/"
                 className="inline-flex items-center gap-2"
                 aria-label="iCoop home"
               >
                 <Image
-                  src="/iCoop_logo_t.png"
+                  src="/iCoop_logo_tc.png"
                   alt="iCoop logo"
-                  width={140}
-                  height={56}
-                  className="h-14 w-auto"
+                  width={130}
+                  height={52}
+                  className="h-7 w-auto"
                 />
-              </a>
-              <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              </Link>
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
                 Cooperative management built for Nigerian cooperatives, unions,
-                and thrift groups. Calm, clear, and actually useful.
+                and thrift groups.
               </p>
-              <div className="mt-5 flex gap-2">
+
+              {/* Contact info */}
+              <div className="mt-6 space-y-2.5">
+                <a
+                  href="mailto:hello@icoop.ng"
+                  className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Mail className="h-3.5 w-3.5 shrink-0" />
+                  info@connexxiongroup.com
+                </a>
+                <a
+                  href="tel:+2348001234567"
+                  className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Phone className="h-3.5 w-3.5 shrink-0" />
+                  +234 916 158 0000
+                </a>
+                <p className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                  <MapPin className="h-3.5 w-3.5 shrink-0" />
+                  2A Iller Crescent, Maitama, Abuja, Nigeria
+                </p>
+              </div>
+
+              {/* Social icons */}
+              <div className="mt-6 flex gap-3">
                 {socials.map((s) => (
                   <a
                     key={s.label}
                     href={s.href}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-all hover:bg-border hover:text-foreground"
                     aria-label={s.label}
                   >
                     <svg
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="h-3.5 w-3.5"
+                      className="h-4 w-4"
                     >
                       <path d={s.d} />
                     </svg>
@@ -96,18 +124,18 @@ export default function Footer() {
             {/* Link columns */}
             {Object.entries(footerLinks).map(([cat, links]) => (
               <div key={cat}>
-                <h3 className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground">
                   {cat}
                 </h3>
-                <ul className="mt-3 space-y-2">
+                <ul className="mt-4 space-y-2.5">
                   {links.map((l) => (
                     <li key={l.label}>
-                      <a
+                      <Link
                         href={l.href}
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                       >
                         {l.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -117,16 +145,31 @@ export default function Footer() {
         </FadeIn>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-border py-5 sm:flex-row">
-          <p className="text-[11px] text-muted-foreground">
-            &copy; {new Date().getFullYear()} iCoop. All rights reserved.
-          </p>
-          <div className="flex gap-5">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-6 sm:flex-row">
+          <div className="flex flex-col items-center gap-2 sm:items-start">
+            <p className="text-xs text-muted-foreground">
+              &copy; {new Date().getFullYear()} iCoop Technologies Ltd. All
+              rights reserved.
+            </p>
+            <div className="inline-flex items-center gap rounded-full py-1.5 ">
+              <svg
+                className="h-3.5 w-3.5 text-primary"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span className="text-sm font-semibold text-primary">
+                Powered by Connexxion Telecoms
+              </span>
+            </div>
+          </div>
+          <div className="flex gap-6">
             {["Privacy", "Terms", "Cookies"].map((t) => (
               <a
                 key={t}
                 href="#"
-                className="text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+                className="text-xs text-muted-foreground/70 transition-colors hover:text-foreground"
               >
                 {t}
               </a>
