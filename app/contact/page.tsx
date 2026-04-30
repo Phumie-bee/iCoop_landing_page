@@ -89,20 +89,20 @@ const hours = [
 
 const faqs = [
   {
-    q: "How quickly do you respond?",
-    a: "We respond to all inquiries within 24 business hours. For urgent matters, please call us directly.",
+    q: "How quickly does iCoop respond to inquiries?",
+    a: "We respond to all inquiries within 24 business hours. For urgent support, call us directly during business hours.",
   },
   {
-    q: "Do you offer a free trial?",
-    a: "Yes! You can try iCoop free for 30 days with full access to all features. No credit card required.",
+    q: "Does iCoop offer a free trial of its cooperative management software?",
+    a: "Yes — try iCoop free for 30 days with full access to all features of our cooperative management platform. No credit card required.",
   },
   {
-    q: "Can I get a personalized demo?",
-    a: "Absolutely. Select 'Request a Demo' in the contact form and our team will schedule a walkthrough tailored to your cooperative's needs.",
+    q: "Can I request a demo for my cooperative society?",
+    a: "Absolutely. Select 'Request a Demo' in the form above and our team will schedule a personalised walkthrough of iCoop tailored to your cooperative society's needs.",
   },
   {
-    q: "Do you provide onboarding support?",
-    a: "Every plan includes onboarding support. Our team guides you through setup, data migration, and member training.",
+    q: "Does iCoop provide onboarding support for Nigerian cooperatives?",
+    a: "Every iCoop plan includes dedicated onboarding support. Our team guides your cooperative through setup, data migration, and member training.",
   },
 ];
 
@@ -182,12 +182,13 @@ export default function ContactPage() {
                 className="font-extrabold tracking-tight leading-[1.08] mb-6"
                 style={{ fontSize: "clamp(2.4rem, 6vw, 4rem)" }}
               >
-                <span className="section-heading block">We&apos;d love to</span>
-                <span className="section-heading block">hear from you</span>
+                <span className="section-heading block">Contact iCoop</span>
+                <span className="section-heading block">We&apos;re here to help</span>
               </h1>
               <p className="text-base sm:text-lg text-text-secondary max-w-lg mx-auto leading-relaxed">
-                Questions about pricing, features, or need a demo &mdash; our
-                team is ready to help your cooperative thrive.
+                Request a demo or ask a question — our team helps Nigerian
+                cooperative societies, unions, and thrift groups get started
+                with iCoop&apos;s cooperative management software.
               </p>
             </FadeIn>
           </div>
@@ -234,10 +235,10 @@ export default function ContactPage() {
                   {/* Card header bar */}
                   <div className="px-8 py-6 border-b border-border bg-surface/60">
                     <h2 className="text-xl font-bold text-foreground">
-                      Send us a message
+                      Request a demo or send a message
                     </h2>
                     <p className="text-sm text-text-secondary mt-1">
-                      Fill in the form and we&apos;ll get back to you shortly.
+                      Tell us about your cooperative and we&apos;ll get back to you within 24 hours.
                     </p>
                   </div>
 
@@ -515,8 +516,8 @@ export default function ContactPage() {
                 Frequently asked questions
               </h2>
               <p className="text-sm text-text-secondary max-w-sm mx-auto leading-relaxed">
-                Can&apos;t find what you&apos;re looking for? Reach out to our
-                team directly.
+                Common questions about iCoop&apos;s cooperative management
+                software, demos, and support for Nigerian cooperatives.
               </p>
             </FadeIn>
 

@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
+import Link from "next/link";
+
+const MotionLink = motion(Link);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -268,8 +271,9 @@ export default function Pricing() {
 
               {/* CTA */}
               <div className="sm:w-32">
-                <motion.button
-                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                <MotionLink
+                  href="/contact"
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
                     tier.recommended
                       ? "bg-primary text-white hover:bg-primary-hover shadow-sm hover:shadow-md"
                       : "bg-surface text-foreground hover:bg-primary/8 hover:text-primary"
@@ -280,7 +284,7 @@ export default function Pricing() {
                 >
                   {tier.cta}
                   <ArrowRight className="w-3.5 h-3.5" />
-                </motion.button>
+                </MotionLink>
               </div>
             </motion.div>
           ))}
