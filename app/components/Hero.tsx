@@ -145,7 +145,7 @@ export default function Hero() {
             animate="visible"
             custom={3}
           >
-            <motion.button
+            {/* <motion.button
               className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-primary hover:bg-primary-hover text-white font-bold text-sm sm:text-base shadow-lg shadow-(--primary)/30 transition-colors flex items-center justify-center gap-2"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
@@ -166,14 +166,14 @@ export default function Hero() {
                   d="M14 5l7 7m0 0l-7 7m7-7H3"
                 />
               </motion.svg>
-            </motion.button>
+            </motion.button> */}
             <motion.button
-              className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-white hover:bg-gray-50 text-foreground font-bold text-sm sm:text-base shadow-sm transition-colors flex items-center justify-center gap-2 border border-black/5"
+              className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-primary hover:bg-primary-hover text-white   font-bold text-sm sm:text-base shadow-(--primary)/30 transition-colors flex items-center justify-center gap-2 border border-black/5"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
             >
               <svg
-                className="w-5 h-5 text-foreground opacity-70"
+                className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

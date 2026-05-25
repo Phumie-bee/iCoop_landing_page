@@ -7,10 +7,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "What is iCoop?", href: "#about" },
-  { label: "Why iCoop?", href: "#why-icoop" },
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "What is iCoop?", href: "/#about" },
+  { label: "Why iCoop?", href: "/#why-icoop" },
+  { label: "Features", href: "/#features" },
+  { label: "Pricing", href: "/#pricing" },
 ];
 
 export default function Navbar() {
@@ -67,7 +67,7 @@ export default function Navbar() {
         {/* Desktop buttons */}
         <div className="hidden md:flex items-center gap-5">
           <Link
-            href="#pricing"
+            href="/#pricing"
             className="text-base font-semibold text-foreground hover:text-primary transition-colors"
           >
             Log in
@@ -115,14 +115,14 @@ export default function Navbar() {
               ))}
               <div className="h-px bg-border w-full my-2" />
               <Link
-                href="#pricing"
+                href="/#pricing"
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 Log in
               </Link>
               <Link
-                href="#cta"
+                href="/#cta"
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-semibold bg-primary text-primary-foreground px-4 py-2.5 rounded-md hover:bg-primary/90 transition-colors text-center shadow-sm"
               >

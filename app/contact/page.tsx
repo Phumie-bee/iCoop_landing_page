@@ -10,16 +10,15 @@ import {
   Clock,
   CheckCircle,
   ChevronDown,
-  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
 } from "../components/AnimationWrapper";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const contactCards = [
   {
@@ -142,26 +141,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" aria-label="iCoop home">
-            <Image
-              src="/iCoop_logo_tc.png"
-              alt="iCoop logo"
-              width={130}
-              height={52}
-              className="h-7 w-auto"
-              priority
-            />
-          </Link>
-          <Link
-            href="#"
-            className="text-sm font-semibold bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-colors shadow-sm"
-          >
-            Log in
-          </Link>
-        </div>
-      </header>
+      <Navbar />
       <main className="pt-16 lg:pt-20">
         {/* ── Hero ─────────────────────────────────────────── */}
         <section className="relative overflow-hidden bg-gradient-to-br from-bg-start via-bg-mid to-bg-end pt-24 pb-36 sm:pt-32 sm:pb-48">
