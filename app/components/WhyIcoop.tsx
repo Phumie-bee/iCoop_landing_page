@@ -1,276 +1,153 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { X, CheckCircle } from "lucide-react";
+import { X, Check, ArrowRight, ArrowDown } from "lucide-react";
+import SectionSpine from "./SectionSpine";
 
-/* ─── Custom easing ─── */
-const smoothEase = [0.22, 1, 0.36, 1] as const;
-
-/* ─── Animation variants ─── */
-
-const sectionFade = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: smoothEase },
-  },
-};
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 22 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      delay: i * 0.12,
-      ease: smoothEase,
-    },
+    transition: { duration: 0.55, delay: i * 0.1, ease },
   }),
 };
 
-const cardSlideLeft = {
-  hidden: { opacity: 0, x: -20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, delay: 0.24, ease: smoothEase },
+const rowStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
+
+const rowItem = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease } },
+};
+
+/* Each pain point mapped to how iCoop solves it (from the iCoop deck) */
+const comparisons = [
+  {
+    problem: "Manual processes mistaken for automation",
+    solution: "True end-to-end automation",
   },
-};
-
-const cardSlideRight = {
-  hidden: { opacity: 0, x: 20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, delay: 0.36, ease: smoothEase },
+  {
+    problem: "Single-user, backend-only systems",
+    solution: "Multi-user, web-based access for everyone",
   },
-};
-
-const listItemLeft = {
-  hidden: { opacity: 0, x: -14 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.4,
-      delay: 0.15 + i * 0.06,
-      ease: smoothEase,
-    },
-  }),
-};
-
-const listItemRight = {
-  hidden: { opacity: 0, x: 14 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.4,
-      delay: 0.2 + i * 0.06,
-      ease: smoothEase,
-    },
-  }),
-};
-
-const iconPop = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.35,
-      delay: 0.2 + i * 0.06,
-      ease: smoothEase,
-    },
-  }),
-};
-
-const dividerGrow = {
-  hidden: { scaleY: 0, opacity: 0 },
-  visible: {
-    scaleY: 1,
-    opacity: 1,
-    transition: { duration: 0.55, delay: 0.3, ease: smoothEase },
+  {
+    problem: "Crowded offices & slow member service",
+    solution: "Self-service, anytime and anywhere",
   },
-};
-
-/* ─── Data ─── */
-
-const problems = [
-  "Manual processes mistaken for automation",
-  "Single-user backend systems",
-  "Crowded offices & slow service",
-  "Poor policy enforcement",
-  "Rigid foreign software",
-];
-
-const solutions = [
-  "Digitized and streamlined processes",
-  "Scalable, sustainable system",
-  "Reduced physical congestion",
-  "Built-in policy enforcement",
-  "Self-service for members & staff",
+  {
+    problem: "Policies that can't be enforced",
+    solution: "Cooperative policy enforced on every form",
+  },
+  {
+    problem: "Rigid, foreign, uncustomizable software",
+    solution: "Fully parameter-driven & self-configurable",
+  },
 ];
 
 export default function WhyIcoop() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
   return (
-    <motion.section
+    <section
       id="why-icoop"
-      className="relative py-20 sm:py-28 lg:py-32 bg-surface/30 overflow-hidden"
-      variants={sectionFade}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      className="relative border-t border-border py-20 sm:py-28 lg:py-32 overflow-hidden"
     >
-      {/* Subtle background blobs — desktop only for performance */}
-      <div
-        className="pointer-events-none absolute inset-0 hidden lg:block"
-        aria-hidden
-      >
-        <div className="absolute -top-28 -right-28 w-96 h-96 rounded-full bg-red-200/10 blur-3xl" />
-        <div className="absolute -bottom-32 -left-32 w-105 h-105 rounded-full bg-primary/4 blur-3xl" />
-      </div>
-
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
+      <SectionSpine index="02" />
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          className="text-center mb-12 sm:mb-16"
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
         >
-          <h2 className="section-heading mb-3 sm:mb-4">Why iCoop?</h2>
-          <motion.p
-            className="text-base sm:text-lg text-text-secondary"
-            variants={fadeUp}
-            custom={1}
-          >
-            Fixing What Traditional Systems Get Wrong
-          </motion.p>
+          <div className="inline-flex items-center gap-3 mb-6">
+            <span className="h-px w-8 bg-primary" />
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-primary-deep">
+              Why iCoop
+            </span>
+            <span className="h-px w-8 bg-primary" />
+          </div>
+          <h2 className="section-heading mb-4">
+            Fixing what traditional systems get wrong
+          </h2>
+          <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
+            iCoop replaces patchwork tools and manual workarounds with one
+            automated, policy-driven platform — purpose-built for cooperatives.
+          </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-12 sm:mb-16">
-          {/* Vertical divider between cards (desktop only) */}
-          <motion.div
-            className="hidden md:block absolute left-1/2 top-8 bottom-8 w-px bg-gray-200 origin-top"
-            variants={dividerGrow}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-          />
-
-          {/* The Problem Card */}
-          <motion.div
-            className="rounded-xl bg-white p-6 sm:p-8 will-change-transform transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.1)]"
-            style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
-            variants={cardSlideLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            animate={{
-              opacity: hoveredCard !== null && hoveredCard !== 0 ? 0.6 : 1,
-            }}
-            transition={{ duration: 0.3 }}
-            onHoverStart={() => setHoveredCard(0)}
-            onHoverEnd={() => setHoveredCard(null)}
-          >
-            <h3 className="text-xl sm:text-2xl font-bold text-red-500 mb-6 sm:mb-8">
-              The Problem
-            </h3>
-            <ul className="space-y-4 sm:space-y-5">
-              {problems.map((item, i) => (
-                <motion.li
-                  key={item}
-                  className="flex items-start gap-3"
-                  variants={listItemLeft}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i}
-                >
-                  <motion.span
-                    className="mt-0.5 shrink-0 w-6 h-6 rounded-md bg-red-50 flex items-center justify-center"
-                    variants={iconPop}
-                    custom={i}
-                  >
-                    <X className="w-3.5 h-3.5 text-red-400" strokeWidth={2.5} />
-                  </motion.span>
-                  <span className="text-sm sm:text-base text-foreground font-medium">
-                    {item}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* The Solution Card */}
-          <motion.div
-            className="rounded-xl bg-white p-6 sm:p-8 will-change-transform transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_-10px_rgba(34,197,94,0.12)]"
-            style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
-            variants={cardSlideRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            animate={{
-              opacity: hoveredCard !== null && hoveredCard !== 1 ? 0.6 : 1,
-            }}
-            transition={{ duration: 0.3 }}
-            onHoverStart={() => setHoveredCard(1)}
-            onHoverEnd={() => setHoveredCard(null)}
-          >
-            <h3 className="text-xl sm:text-2xl font-bold text-green-500 mb-6 sm:mb-8">
-              The Solution
-            </h3>
-            <ul className="space-y-4 sm:space-y-5">
-              {solutions.map((item, i) => (
-                <motion.li
-                  key={item}
-                  className="flex items-start gap-3"
-                  variants={listItemRight}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i}
-                >
-                  <motion.span
-                    className="mt-0.5 shrink-0 w-6 h-6 rounded-full bg-green-50 flex items-center justify-center"
-                    variants={iconPop}
-                    custom={i}
-                  >
-                    <CheckCircle
-                      className="w-4 h-4 text-primary"
-                      strokeWidth={2}
-                    />
-                  </motion.span>
-                  <span className="text-sm sm:text-base text-foreground font-medium">
-                    {item}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+        {/* Column labels (desktop) */}
+        <div className="hidden md:grid grid-cols-[1fr_auto_1fr] gap-5 mb-4 px-1">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-text-muted">
+            The old way
+          </p>
+          <span className="w-5" />
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-deep">
+            With iCoop
+          </p>
         </div>
+
+        {/* Comparison rows */}
+        <motion.div
+          className="space-y-3.5"
+          variants={rowStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
+          {comparisons.map((row) => (
+            <motion.div
+              key={row.problem}
+              className="card-soft p-4 sm:p-5 flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] md:items-center gap-3 md:gap-5 transition-shadow hover:shadow-[0_16px_40px_-16px_rgba(11,31,23,0.18)]"
+              variants={rowItem}
+            >
+              {/* problem */}
+              <div className="flex items-center gap-3">
+                <span className="shrink-0 w-7 h-7 rounded-lg bg-accent-soft flex items-center justify-center">
+                  <X className="w-4 h-4 text-amber-600" strokeWidth={2.5} />
+                </span>
+                <span className="text-sm sm:text-[15px] text-text-secondary">
+                  {row.problem}
+                </span>
+              </div>
+
+              {/* connector */}
+              <div className="flex items-center justify-center text-primary md:px-1">
+                <ArrowRight className="hidden md:block w-5 h-5" />
+                <ArrowDown className="md:hidden w-5 h-5" />
+              </div>
+
+              {/* solution */}
+              <div className="flex items-center gap-3">
+                <span className="shrink-0 w-7 h-7 rounded-lg bg-primary-soft flex items-center justify-center">
+                  <Check className="w-4 h-4 text-primary-deep" strokeWidth={2.5} />
+                </span>
+                <span className="text-sm sm:text-[15px] font-semibold text-foreground">
+                  {row.solution}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Bottom tagline */}
         <motion.p
-          className="text-center text-base sm:text-lg text-text-secondary italic"
+          className="text-center text-lg sm:text-xl font-bold text-foreground mt-12"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          custom={4}
+          custom={1}
         >
-          True automation. Real results.
+          True automation. <span className="text-primary">Real results.</span>
         </motion.p>
       </div>
-    </motion.section>
+    </section>
   );
 }

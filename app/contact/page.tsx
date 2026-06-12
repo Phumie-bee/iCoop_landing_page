@@ -37,16 +37,16 @@ const contactCards = [
     value: "+234 916 158 0000",
     description: "Mon–Fri, 9am – 5pm WAT",
     href: "tel:+2349161580000",
-    iconBg: "bg-violet-50",
-    iconColor: "text-violet-600",
-    accent: "border-t-violet-400",
+    iconBg: "bg-amber-50",
+    iconColor: "text-amber-600",
+    accent: "border-t-amber-400",
   },
   {
     icon: MapPin,
     label: "Visit us",
     value: "Abuja, Nigeria",
     description: "2A Iller Crescent, Maitama, Abuja, Nigeria",
-    href: "https://maps.app.goo.gl/2VkjjzMrkFX2vntA6?g_st=iw    ",
+    href: "https://maps.app.goo.gl/2VkjjzMrkFX2vntA6?g_st=iw",
     iconBg: "bg-amber-50",
     iconColor: "text-amber-600",
     accent: "border-t-amber-400",
@@ -123,7 +123,10 @@ const emptyForm: FormState = {
 
 export default function ContactPage() {
   const [form, setForm] = useState<FormState>(emptyForm);
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleChange = (
@@ -135,8 +138,29 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    await new Promise((r) => setTimeout(r, 1600));
-    setStatus("success");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(
+          data?.error ?? "Something went wrong. Please try again.",
+        );
+      }
+
+      setStatus("success");
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong.",
+      );
+      setStatus("error");
+    }
   };
 
   return (
@@ -144,11 +168,11 @@ export default function ContactPage() {
       <Navbar />
       <main className="pt-16 lg:pt-20">
         {/* ── Hero ─────────────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-bg-start via-bg-mid to-bg-end pt-24 pb-36 sm:pt-32 sm:pb-48">
+        <section className="relative overflow-hidden mesh-light pt-24 pb-36 sm:pt-32 sm:pb-48">
           {/* Decorative blobs */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute -top-32 -right-32 h-125 w-125 rounded-full bg-primary/6 blur-3xl" />
-            <div className="absolute -bottom-16 -left-16 h-72 w-72 rounded-full bg-violet-400/8 blur-3xl" />
+            <div className="absolute -bottom-16 -left-16 h-72 w-72 rounded-full bg-amber-200/8 blur-3xl" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-primary/4 blur-3xl" />
           </div>
 
@@ -352,6 +376,11 @@ export default function ContactPage() {
                           </Field>
 
                           <div className="pt-1">
+                            {status === "error" && (
+                              <p className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm font-medium text-red-700">
+                                {errorMsg}
+                              </p>
+                            )}
                             <button
                               type="submit"
                               disabled={status === "loading"}
@@ -549,12 +578,12 @@ export default function ContactPage() {
             <FadeIn delay={0.3} className="mt-10 text-center">
               <p className="text-sm text-text-secondary">
                 Still have questions?{" "}
-                <Link
-                  href="info@connexxiongroup.com"
+                <a
+                  href="mailto:info@connexxiongroup.com"
                   className="font-semibold text-primary hover:text-primary-hover underline underline-offset-2 transition-colors"
                 >
                   Email our team
-                </Link>
+                </a>
               </p>
             </FadeIn>
           </div>

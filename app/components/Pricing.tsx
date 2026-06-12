@@ -1,56 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
+import SectionSpine from "./SectionSpine";
 
 const MotionLink = motion(Link);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, delay: i * 0.08, ease },
+    transition: { duration: 0.55, delay: i * 0.1, ease },
   }),
 };
 
-const rowReveal = {
-  hidden: { opacity: 0, x: -12 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.4, delay: 0.1 + i * 0.07, ease },
-  }),
-};
-
-const priceReveal = {
-  hidden: { opacity: 0, scale: 0.97 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.4, delay: 0.15 + i * 0.07, ease },
-  }),
-};
-
-const featureItem = {
-  hidden: { opacity: 0, y: 10 },
+const cardVariant = {
+  hidden: { opacity: 0, y: 32, scale: 0.96 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, delay: Math.min(i * 0.03, 0.25), ease },
-  }),
-};
-
-const checkPop = {
-  hidden: { opacity: 0, scale: 0.6 },
-  visible: (i: number) => ({
-    opacity: 1,
     scale: 1,
-    transition: { duration: 0.25, delay: Math.min(i * 0.03, 0.25), ease },
+    transition: { duration: 0.5, delay: i * 0.12, ease },
   }),
 };
 
@@ -105,203 +79,176 @@ const features = [
 ];
 
 export default function Pricing() {
-  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-
   return (
     <section
       id="pricing"
-      className="relative bg-background overflow-hidden py-20 sm:py-28 lg:py-32"
+      className="relative border-t border-border overflow-hidden py-20 sm:py-28 lg:py-32"
     >
-      {/* Subtle bg blobs — desktop only for performance */}
-      <div
-        className="pointer-events-none absolute inset-0 hidden lg:block"
-        aria-hidden
-      >
-        <div className="absolute -top-40 left-1/4 w-105 h-105 rounded-full bg-primary/3 blur-3xl" />
-        <div className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-slate-200/30 blur-3xl" />
-      </div>
-
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
-        {/* ───────── HEADER (left-aligned) ───────── */}
+      <SectionSpine index="07" terminal />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Header */}
         <motion.div
-          className="mb-12 sm:mb-16"
+          className="text-center mb-14 sm:mb-18 lg:mb-20"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
         >
-          <h2 className="section-heading mb-3 text-center">Pricing</h2>
-          <p className="text-base sm:text-lg text-text-secondary max-w-lg text-center mx-auto">
-            Built to grow with cooperatives of every size
-          </p>
-        </motion.div>
-
-        {/* ───────── EVERYTHING INCLUDED ───────── */}
-        <motion.div
-          className="mb-12 sm:mb-14"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          custom={1}
-        >
-          <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-2 text-center">
-            Everything Included
-          </h3>
-          <p className="text-sm text-text-secondary mb-8 text-center">
-            All plans come with the full iCoop platform — no feature gating.
-          </p>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3.5">
-            {features.map((feature, i) => (
-              <motion.div
-                key={feature}
-                className="flex items-center gap-2.5 group"
-                variants={featureItem}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                custom={i}
-              >
-                <motion.div
-                  className="shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center transition-colors duration-200 group-hover:bg-primary/18"
-                  variants={checkPop}
-                  custom={i}
-                >
-                  <Check className="w-3 h-3 text-primary" strokeWidth={2.5} />
-                </motion.div>
-                <span className="text-sm text-text-secondary group-hover:text-foreground transition-colors duration-200">
-                  {feature}
-                </span>
-              </motion.div>
-            ))}
+          <div className="inline-flex items-center gap-3 mb-6">
+            <span className="h-px w-8 bg-primary" />
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-primary-deep">
+              Pricing
+            </span>
+            <span className="h-px w-8 bg-primary" />
           </div>
+          <h2 className="section-heading mb-4 sm:mb-5">
+            Plans that grow <span className="text-primary">with you</span>
+          </h2>
+          <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+            Built for cooperatives of every size. All plans include full access
+            to iCoop&apos;s complete platform.
+          </p>
         </motion.div>
 
-        {/* ───────── PRICING ROWS ───────── */}
+        {/* Pricing Cards Grid — 4 columns responsive */}
         <motion.div
-          className="rounded-2xl bg-white overflow-hidden mb-10 sm:mb-14"
-          style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
-          variants={fadeUp}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 "
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          custom={2}
         >
-          {/* Table header (desktop) */}
-          {/* <div className="hidden sm:grid grid-cols-[1fr_auto_auto] items-center gap-6 px-6 py-3.5 border-b border-border bg-surface/60 text-xs font-semibold text-text-muted uppercase tracking-wider">
-            <span>Plan</span>
-            <span className="w-36 text-right">Price</span>
-            <span className="w-32" />
-          </div> */}
-
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}
-              className={`relative grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] items-center gap-3 sm:gap-6 px-5 sm:px-6 py-5 sm:py-5 border-b border-border last:border-b-0 will-change-transform transition-[background-color,box-shadow] duration-250 ${
-                hoveredRow === i
-                  ? "bg-surface/70"
-                  : tier.recommended
-                    ? "bg-primary/2.5"
-                    : ""
+              className={`relative rounded-2xl transition-all duration-300 will-change-transform ${
+                tier.recommended
+                  ? "lg:ring-2 lg:ring-primary lg:shadow-2xl lg:shadow-primary/10"
+                  : "shadow-lg hover:shadow-xl"
               }`}
               style={{
-                boxShadow:
-                  hoveredRow === i
-                    ? "inset 0 0 0 1px rgba(0,0,0,0.03), 0 2px 8px -2px rgba(0,0,0,0.04)"
-                    : "none",
+                boxShadow: tier.recommended
+                  ? "0 20px 50px -12px rgba(34, 197, 94, 0.15)"
+                  : "0 10px 30px -5px rgba(0, 0, 0, 0.08)",
               }}
-              variants={rowReveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
+              variants={cardVariant}
               custom={i}
-              onHoverStart={() => setHoveredRow(i)}
-              onHoverEnd={() => setHoveredRow(null)}
+              whileHover={{
+                y: tier.recommended ? 0 : -8,
+                transition: { duration: 0.3 },
+              }}
             >
-              {/* Recommended accent bar */}
-              {tier.recommended && (
-                <motion.div
-                  className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary origin-top"
-                  initial={{ scaleY: 0 }}
-                  whileInView={{ scaleY: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.3, ease }}
-                />
-              )}
-
-              {/* Plan info */}
-              <div className="flex items-center gap-3 min-w-0">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-semibold text-foreground">
-                      {tier.name}
-                    </h3>
-                    {tier.recommended && (
-                      <motion.span
-                        className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.35, delay: 0.35, ease }}
-                      >
-                        <Star className="w-2.5 h-2.5" fill="currentColor" />
-                        Recommended
-                      </motion.span>
-                    )}
-                  </div>
-                  <p className="text-sm text-text-muted mt-0.5">{tier.range}</p>
-                </div>
-              </div>
-
-              {/* Price */}
-              <motion.div
-                className="sm:w-36 sm:text-right"
-                variants={priceReveal}
-                custom={i}
+              {/* Card Body */}
+              <div
+                className={`h-full rounded-2xl p-7 sm:p-8 flex flex-col ${
+                  tier.recommended
+                    ? "bg-linear-to-b from-primary/5 to-white border-2 border-primary/20"
+                    : "bg-white border border-border"
+                }`}
               >
-                <span className="text-2xl sm:text-[1.65rem] font-extrabold text-foreground tracking-tight">
-                  {tier.price}
-                </span>
-                <span className="text-xs text-text-muted ml-1.5">
-                  {tier.unit}
-                </span>
-              </motion.div>
+                {/* Recommended Badge */}
+                {tier.recommended && (
+                  <motion.div
+                    className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full mb-5 w-fit"
+                    initial={{ opacity: 0, y: -8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
+                  >
+                    <Star className="w-3.5 h-3.5" fill="currentColor" />
+                    Recommended
+                  </motion.div>
+                )}
 
-              {/* CTA */}
-              <div className="sm:w-32">
+                {/* Plan Header */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-foreground mb-1.5">
+                    {tier.name}
+                  </h3>
+                  <p className="text-xs text-text-muted">{tier.range}</p>
+                </div>
+
+                {/* Price Block */}
+                <div
+                  className={`mb-8 pb-8 ${
+                    tier.recommended
+                      ? "border-b-2 border-primary/15"
+                      : "border-b border-border"
+                  }`}
+                >
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className="text-4xl sm:text-[2.5rem] font-black text-foreground">
+                      {tier.price}
+                    </span>
+                  </div>
+                  <p className="text-xs text-text-muted font-medium">
+                    {tier.unit}
+                  </p>
+                </div>
+
+                {/* Features List */}
+                <div className="mb-8 flex-1">
+                  <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
+                    Includes
+                  </p>
+                  <div className="space-y-3">
+                    {features.map((feature, idx) => (
+                      <motion.div
+                        key={feature}
+                        className="flex items-start gap-3"
+                        initial={{ opacity: 0, x: -8 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{
+                          delay: 0.2 + idx * 0.04,
+                          duration: 0.3,
+                        }}
+                        viewport={{ once: true }}
+                      >
+                        <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        <span className="text-xs text-text-secondary leading-snug">
+                          {feature}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTA Button */}
                 <MotionLink
                   href="/contact"
-                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 w-full ${
                     tier.recommended
-                      ? "bg-primary text-white hover:bg-primary-hover shadow-sm hover:shadow-md"
-                      : "bg-surface text-foreground hover:bg-primary/8 hover:text-primary"
+                      ? "bg-primary text-white hover:bg-primary-hover shadow-lg shadow-primary/20 active:scale-95"
+                      : "bg-surface text-foreground border border-border hover:bg-surface/80 hover:border-primary/40 active:scale-95"
                   }`}
-                  whileHover={{ y: -1, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ duration: 0.2, ease: "easeOut" as const }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
                 >
                   {tier.cta}
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </MotionLink>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Pricing note */}
-        <motion.p
-          className="text-xs text-text-muted mb-14 sm:mb-18"
+        {/* Footer */}
+        <motion.div
+          className="text-center mt-14 sm:mt-18"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          custom={5}
+          custom={4}
         >
-          Pricing is calculated per member annually, ensuring fairness as your
-          cooperative grows.
-        </motion.p>
+          <p className="text-sm text-text-secondary mb-2">
+            <span className="font-semibold">All plans</span> include full
+            platform access with no feature gating
+          </p>
+          <p className="text-xs text-text-muted">
+            Pricing calculated per member annually. Contact us for volume
+            discounts and custom enterprise solutions.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

@@ -18,34 +18,27 @@ export default function CTA() {
   return (
     <section
       id="cta"
-      className="relative py-20 sm:py-28 lg:py-32 bg-[#0f172a] overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 mesh-light border-t border-border overflow-hidden"
     >
-      {/* Subtle background blobs — desktop only for performance */}
-      <div
-        className="pointer-events-none absolute inset-0 hidden lg:block"
-        aria-hidden
-      >
-        <div className="absolute -top-32 left-1/3 w-105 h-105 rounded-full bg-primary/3 blur-3xl" />
-        <div className="absolute -bottom-28 right-1/4 w-96 h-96 rounded-full bg-orange-200/20 blur-3xl" />
-      </div>
+      <div className="absolute inset-0 dot-grid opacity-50 pointer-events-none" />
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
         {/* Heading */}
         <motion.h2
-          className="section-heading mb-4 sm:mb-5 leading-tight !text-white"
-          style={{ WebkitTextFillColor: "white" }}
+          className="section-heading mb-4 sm:mb-5 leading-tight"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
         >
-          Ready to transform your cooperative?
+          Ready to transform your{" "}
+          <span className="text-primary">cooperative?</span>
         </motion.h2>
 
         {/* Subtitle */}
         <motion.p
-          className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
+          className="text-base sm:text-lg text-text-secondary max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -67,22 +60,24 @@ export default function CTA() {
         >
           {/* Request a Demo — primary */}
           <motion.a
-            href="#"
-            className="group inline-flex items-center justify-center gap-2.5 rounded-lg px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold tracking-wide uppercase text-white bg-primary hover:bg-primary/90 shadow-md will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
+            href="/contact"
+            className="group inline-flex items-center justify-center gap-2.5 rounded-full px-8 sm:px-10 py-4 text-sm sm:text-base font-bold text-white bg-primary hover:bg-primary-hover shadow-lg shadow-primary/25 will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
             Request a Demo
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </motion.a>
 
-          {/* Contact Us — secondary outline */}
+          {/* Contact Us — secondary */}
           <motion.a
             href="/contact"
-            className="group inline-flex items-center justify-center gap-2.5 rounded-lg px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold tracking-wide uppercase text-white border border-white/30 hover:border-white/60 hover:bg-white/5 will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
+            className="group inline-flex items-center justify-center gap-2.5 rounded-full px-8 sm:px-10 py-4 text-sm sm:text-base font-bold text-foreground bg-white border border-border hover:border-primary/40 shadow-sm will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
             Contact Us
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="w-4 h-4 text-primary transition-transform duration-200 group-hover:translate-x-1" />
           </motion.a>
         </motion.div>
       </div>

@@ -4,29 +4,38 @@
   /* 🌿 Primary */
   --primary: #22c55e;
   --primary-hover: #16a34a;
+  --primary-deep: #15803d;
   --primary-soft: #dcfce7;
+  --primary-tint: #f0fdf4;
+
+  /* ✨ Accent (amber) */
+  --accent: #f59e0b;
+  --accent-soft: #fef3c7;
 
   /* 🌌 Background */
-  --background: #f8fafc;
+  --background: #f6faf7;
   --bg-start: #e6eef5;
   --bg-mid: #dce8f3;
   --bg-end: #e9e6f4;
 
   /* 🖤 Text */
-  --foreground: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --foreground: #0b1f17;
+  --text-secondary: #475a52;
+  --text-muted: #8a9a92;
 
   /* ⚪ Surface */
   --card: #ffffff;
-  --surface: #f1f5f9;
-  --border: #e2e8f0;
+  --surface: #f1f7f3;
+  --border: #e3ece7;
 }
-
 @theme inline {
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-deep: var(--primary-deep);
   --color-primary-soft: var(--primary-soft);
+  --color-primary-tint: var(--primary-tint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
 
   --color-background: var(--background);
   --color-bg-start: var(--bg-start);
@@ -91,21 +100,60 @@ html {
   background-clip: text;
 }
 
+/* ── Font utilities ───────────────────────────────── */
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+/* ── Light green mesh background ───────────────────── */
+.mesh-light {
+  background-color: #f6faf7;
+  background-image:
+    radial-gradient(42% 38% at 12% 8%, rgba(34, 197, 94, 0.12) 0%, transparent 70%),
+    radial-gradient(38% 34% at 92% 4%, rgba(245, 158, 11, 0.08) 0%, transparent 70%),
+    radial-gradient(50% 50% at 50% 110%, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+}
+
+/* ── Faint dot grid texture ───────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(rgba(11, 31, 23, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ── Pill badge ───────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--primary-deep);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Soft elevated card ───────────────────────────── */
+.card-soft {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(11, 31, 23, 0.04),
+    0 12px 32px -16px rgba(11, 31, 23, 0.12);
+}
+
 /* ── Section heading ──────────────────────────────── */
 .section-heading {
-  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  background: linear-gradient(
-    135deg,
-    #1e293b 0%,
-    #475569 60%,
-    var(--primary) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
 }
 
 /* ── Section divider ──────────────────────────────── */

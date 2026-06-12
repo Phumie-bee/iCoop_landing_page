@@ -53,7 +53,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/40" role="contentinfo">
+    <footer className="border-t border-border bg-surface/50" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           {/* Main footer grid */}
@@ -73,7 +73,7 @@ export default function Footer() {
                   className="h-7 w-auto"
                 />
               </Link>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-text-secondary">
                 Cooperative management built for Nigerian cooperatives, unions,
                 and thrift groups.
               </p>
@@ -82,19 +82,19 @@ export default function Footer() {
               <div className="mt-6 space-y-2.5">
                 <a
                   href="mailto:hello@icoop.ng"
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center gap-2.5 text-sm text-text-secondary transition-colors hover:text-foreground"
                 >
                   <Mail className="h-3.5 w-3.5 shrink-0" />
                   info@connexxiongroup.com
                 </a>
                 <a
                   href="tel:+2348001234567"
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex items-center gap-2.5 text-sm text-text-secondary transition-colors hover:text-foreground"
                 >
                   <Phone className="h-3.5 w-3.5 shrink-0" />
                   +234 916 158 0000
                 </a>
-                <p className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2.5 text-sm text-text-secondary">
                   <MapPin className="h-3.5 w-3.5 shrink-0" />
                   2A Iller Crescent, Maitama, Abuja, Nigeria
                 </p>
@@ -106,7 +106,7 @@ export default function Footer() {
                   <a
                     key={s.label}
                     href={s.href}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-all hover:bg-border hover:text-foreground"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface text-text-secondary transition-all hover:bg-border hover:text-foreground"
                     aria-label={s.label}
                   >
                     <svg
@@ -132,7 +132,7 @@ export default function Footer() {
                     <li key={l.label}>
                       <Link
                         href={l.href}
-                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                        className="text-sm text-text-secondary transition-colors hover:text-foreground"
                       >
                         {l.label}
                       </Link>
@@ -147,7 +147,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-6 sm:flex-row">
           <div className="flex flex-col items-center gap-2 sm:items-start">
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-text-secondary">
               &copy; {new Date().getFullYear()} iCoop Technologies Ltd. All
               rights reserved.
             </p>
@@ -169,7 +169,7 @@ export default function Footer() {
               <a
                 key={t}
                 href="#"
-                className="text-xs text-muted-foreground/70 transition-colors hover:text-foreground"
+                className="text-xs text-text-secondary/70 transition-colors hover:text-foreground"
               >
                 {t}
               </a>

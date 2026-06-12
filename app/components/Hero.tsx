@@ -34,29 +34,9 @@ export default function Hero() {
   const prefersReduced = useReducedMotion();
 
   return (
-    <section
-      className="relative min-h-screen overflow-hidden font-sans selection:bg-primary selection:text-white"
-      style={{
-        backgroundImage: "linear-gradient(135deg, #E6EEF5, #DCE8F3, #E9E6F4)",
-      }}
-    >
-      {/* Background Ambiance — hidden on mobile for performance */}
-      <div className="hidden lg:block absolute inset-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-1/2 h-1/2 bg-white/60 blur-[100px] rounded-full" />
-      </div>
-
-      {/* Mobile/Tablet Background Image */}
-      <div className="lg:hidden absolute inset-0 pointer-events-none">
-        <Image
-          src="/two_people.png"
-          alt=""
-          fill
-          className="object-cover object-center"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#E6EEF5]/95 via-[#DCE8F3]/90 to-[#E9E6F4]/95" />
-      </div>
+    <section className="relative lg:min-h-screen overflow-hidden font-sans selection:bg-primary selection:text-white mesh-light">
+      {/* Faint dot texture — matches the rest of the page */}
+      <div className="absolute inset-0 dot-grid opacity-50 pointer-events-none" />
 
       {/* Right Image — desktop only, absolutely positioned with float animation */}
       <motion.div
@@ -90,7 +70,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pt-44 lg:pb-28">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-16 lg:pt-44 lg:pb-28">
         <div className="max-w-none sm:max-w-xl">
           {/* Badge */}
           {/* <motion.div
@@ -168,7 +148,7 @@ export default function Hero() {
               </motion.svg>
             </motion.button> */}
             <motion.button
-              className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-primary hover:bg-primary-hover text-white   font-bold text-sm sm:text-base shadow-(--primary)/30 transition-colors flex items-center justify-center gap-2 border border-black/5"
+              className="px-5 sm:px-8 py-3 sm:py-4 rounded-full bg-primary hover:bg-primary-hover text-white font-bold text-sm sm:text-base shadow-lg shadow-primary/25 transition-colors flex items-center justify-center gap-2"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
             >

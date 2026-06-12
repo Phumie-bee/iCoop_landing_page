@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import {
   Globe,
@@ -10,6 +10,7 @@ import {
   PiggyBank,
   ShieldCheck,
 } from "lucide-react";
+import SectionSpine from "./SectionSpine";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -18,20 +19,20 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.12, ease: "easeOut" as const },
+    transition: { duration: 0.55, delay: i * 0.1, ease },
   }),
 };
 
 const phases = [
   {
     title: "For Cooperators",
-    description: "Easy Access to Savings, Loans & Requests",
+    description: "Self-service access to savings, loans & requests",
     icon: PiggyBank,
     image: "/forCooperatorss.png",
   },
   {
     title: "For Secretariat Staff",
-    description: "Full Administrative Control & Oversight",
+    description: "Full administrative control & oversight",
     icon: ShieldCheck,
     image: "/forSecretariatStaff.png",
   },
@@ -40,148 +41,145 @@ const phases = [
 const highlights = [
   {
     icon: Globe,
-    title: "Web-Based Access",
-    description: "Access Anywhere, Anytime",
+    title: "Web-based access",
+    description: "Reach your cooperators anywhere, anytime — no installs.",
   },
   {
     icon: MonitorSmartphone,
-    title: "No Installations",
-    description: "Fully Browser-Based",
+    title: "Two-phased solution",
+    description: "Distinct experiences for members and secretariat staff.",
   },
   {
     icon: Network,
-    title: "Interoperable & Scalable",
-    description: "Seamless Integration",
+    title: "Interoperable & scalable",
+    description: "Integrates with your existing systems and grows with you.",
   },
 ];
 
-/* 3D flip for desktop, simple crossfade for mobile */
-const cardVariantsDesktop = {
-  enter: (direction: number) => ({
-    rotateY: direction > 0 ? 90 : -90,
-    opacity: 0,
-  }),
-  center: {
-    rotateY: 0,
-    opacity: 1,
-    transition: { duration: 0.5, ease },
-  },
-  exit: (direction: number) => ({
-    rotateY: direction > 0 ? -90 : 90,
-    opacity: 0,
-    transition: { duration: 0.35, ease },
-  }),
-};
-
-const cardVariantsMobile = {
-  enter: { opacity: 0, x: 20 },
-  center: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.3, ease },
-  },
-  exit: { opacity: 0, x: -20, transition: { duration: 0.2, ease } },
-};
-
 export default function AboutIcoop() {
   const [[activeIndex, direction], setActiveIndex] = useState([0, 1]);
-  const [isDesktop, setIsDesktop] = useState(false);
 
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 1024px)");
-    setIsDesktop(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-
-  // Auto-flip every 4 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIndex(([prev]) => [prev === 0 ? 1 : 0, 1]);
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, []);
 
   const phase = phases[activeIndex];
 
   return (
-    <section
-      id="about"
-      className="min-h-[calc(100vh-3.5rem)] sm:min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-5rem)] flex items-center bg-white py-20 sm:py-28 lg:py-32"
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-10 sm:mb-14 lg:mb-16"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          custom={0}
-        >
-          <h2 className="section-heading mb-4 sm:mb-5">What is iCoop?</h2>
-          <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            A cooperative management system built to handle thrift, savings, and
-            loan operations efficiently.
-          </p>
-        </motion.div>
-
-        {/* Content: Flipping Card (left) + Key Highlights (right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 items-start">
-          {/* ───── Flipping Phase Card ───── */}
+    <section id="about" className="relative border-t border-border py-20 sm:py-28 lg:py-32">
+      <SectionSpine index="01" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* ─────────── Left: editorial copy ─────────── */}
           <motion.div
-            className="lg:col-span-3"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            custom={0}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-px w-8 bg-primary" />
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-primary-deep">
+                About iCoop
+              </span>
+            </div>
+
+            <h2 className="section-heading mb-5">
+              One platform.
+              <br />
+              <span className="text-primary">Two experiences.</span>
+            </h2>
+
+            <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-lg mb-9">
+              iCoop is a web-based{" "}
+              <span className="font-semibold text-foreground">
+                thrift &amp; loans management
+              </span>{" "}
+              platform. Cooperators get self-service access to savings, loans,
+              and requests — while secretariat staff get full administrative
+              control. One system, fully interoperable.
+            </p>
+
+            {/* attribute list */}
+            <div className="space-y-5">
+              {highlights.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  className="flex items-start gap-4"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i + 1}
+                >
+                  <div className="w-11 h-11 shrink-0 rounded-xl bg-primary-soft flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-primary-deep" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-foreground">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-text-secondary leading-relaxed mt-0.5">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ─────────── Right: interactive two-phase card ─────────── */}
+          <motion.div
+            className="relative"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             custom={1}
           >
-            {/* Tab selectors */}
-            <div className="flex gap-2 mb-5">
-              {phases.map((p, i) => (
-                <button
-                  key={p.title}
-                  onClick={() => setActiveIndex([i, i > activeIndex ? 1 : -1])}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-                    activeIndex === i
-                      ? "bg-primary text-white shadow-md shadow-primary/20"
-                      : "bg-surface text-text-secondary hover:bg-surface/80"
-                  }`}
-                >
-                  <p.icon className="w-4 h-4" />
-                  {p.title}
-                </button>
-              ))}
-            </div>
+            {/* decorative offset panel */}
+            <div className="absolute -inset-4 sm:-right-6 sm:-top-6 sm:-bottom-6 sm:left-6 rounded-3xl bg-primary-tint z-0" />
 
-            {/* Card container with perspective */}
-            <div
-              className="relative rounded-2xl border border-border bg-white overflow-hidden"
-              style={{
-                perspective: isDesktop ? "1000px" : undefined,
-                minHeight: "370px",
-              }}
-            >
-              <AnimatePresence mode="wait" custom={direction}>
+            <div className="relative z-10">
+              {/* tab selectors */}
+              <div className="flex gap-2 mb-4">
+                {phases.map((p, i) => (
+                  <button
+                    key={p.title}
+                    onClick={() =>
+                      setActiveIndex([i, i > activeIndex ? 1 : -1])
+                    }
+                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                      activeIndex === i
+                        ? "bg-primary text-white shadow-md shadow-primary/25"
+                        : "bg-white text-text-secondary border border-border hover:border-primary/40"
+                    }`}
+                  >
+                    <p.icon className="w-4 h-4" />
+                    {p.title}
+                  </button>
+                ))}
+              </div>
+
+              {/* card */}
+              <div
+                className="relative card-soft overflow-hidden"
+                style={{ minHeight: "400px" }}
+              >
                 <motion.div
                   key={activeIndex}
                   className="p-6 sm:p-8"
-                  variants={
-                    isDesktop ? cardVariantsDesktop : cardVariantsMobile
-                  }
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  custom={direction}
-                  style={
-                    isDesktop ? { transformOrigin: "center center" } : undefined
-                  }
+                  initial={{ opacity: 0, x: direction > 0 ? 28 : -28 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, ease }}
                 >
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <phase.icon className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center">
+                      <phase.icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-foreground">
@@ -193,69 +191,30 @@ export default function AboutIcoop() {
                     </div>
                   </div>
 
-                  {/* Image */}
-                  <div className="flex justify-center">
+                  <div className="flex justify-center rounded-2xl bg-surface p-4">
                     <Image
                       src={phase.image}
                       alt={phase.title}
-                      width={400}
-                      height={224}
-                      className="w-full max-w-sm h-48 sm:h-56 object-contain"
+                      width={420}
+                      height={240}
+                      className="w-full max-w-sm h-52 sm:h-60 object-contain"
                       priority
                     />
                   </div>
                 </motion.div>
-              </AnimatePresence>
 
-              {/* Progress bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border">
-                <motion.div
-                  className="h-full bg-primary"
-                  key={activeIndex}
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 4, ease: "linear" }}
-                />
+                {/* progress bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-border">
+                  <motion.div
+                    className="h-full bg-primary"
+                    key={activeIndex}
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 4.5, ease: "linear" }}
+                  />
+                </div>
               </div>
             </div>
-          </motion.div>
-
-          {/* ───── Key Highlights (right side) ───── */}
-          <motion.div
-            className="lg:col-span-2 flex flex-col gap-5"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            custom={2}
-          >
-            <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-2">
-              Key Highlights
-            </h3>
-
-            {highlights.map((item, i) => (
-              <motion.div
-                key={item.title}
-                className="group flex items-start gap-4 rounded-xl bg-surface/60 p-5 transition-colors hover:bg-surface"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i + 3}
-              >
-                <div className="w-10 h-10 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center transition-transform group-hover:scale-105">
-                  <item.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-foreground mb-0.5">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-text-secondary leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </div>
