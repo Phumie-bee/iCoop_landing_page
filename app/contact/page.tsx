@@ -111,6 +111,8 @@ type FormState = {
   phone: string;
   topic: string;
   message: string;
+  // Honeypot — must always stay empty for real users (bots tend to fill it).
+  botField: string;
 };
 
 const emptyForm: FormState = {
@@ -119,6 +121,7 @@ const emptyForm: FormState = {
   phone: "",
   topic: "",
   message: "",
+  botField: "",
 };
 
 export default function ContactPage() {
@@ -140,24 +143,58 @@ export default function ContactPage() {
     setStatus("loading");
     setErrorMsg("");
 
+    // Spam honeypot: real users can't see or fill `botField`. If it has a
+    // value, silently pretend it succeeded and send nothing (it's a bot).
+    if (form.botField) {
+      setStatus("success");
+      return;
+    }
+
+    // The key is inlined at build time via the NEXT_PUBLIC_ prefix. If it's
+    // missing, fail loudly instead of showing a false "message sent".
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setErrorMsg(
+        "This form isn't configured to send messages yet. Please email us directly at info@connexxiongroup.com.",
+      );
+      setStatus("error");
+      return;
+    }
+
+    // Send the human-readable topic label, not the internal value ("sales").
+    const topicLabel =
+      topics.find((t) => t.value === form.topic)?.label || form.topic;
+
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New enquiry: ${topicLabel} — ${form.name}`,
+          from_name: "iCoop Website",
+          name: form.name,
+          email: form.email, // Web3Forms uses this as the reply-to address
+          phone: form.phone,
+          topic: topicLabel,
+          message: form.message,
+        }),
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => null);
-        throw new Error(
-          data?.error ?? "Something went wrong. Please try again.",
-        );
-      }
+      const data = await res.json().catch(() => null);
 
-      setStatus("success");
-    } catch (err) {
+      // Only celebrate when Web3Forms confirms it actually received the data.
+      if (res.ok && data?.success) {
+        setStatus("success");
+      } else {
+        throw new Error(data?.message ?? "Submission failed.");
+      }
+    } catch {
       setErrorMsg(
-        err instanceof Error ? err.message : "Something went wrong.",
+        "Sorry — we couldn't send your message right now. Please email us directly at info@connexxiongroup.com and we'll get right back to you.",
       );
       setStatus("error");
     }
@@ -298,6 +335,18 @@ export default function ContactPage() {
                           onSubmit={handleSubmit}
                           className="space-y-6"
                         >
+                          {/* Honeypot — hidden from real users; bots fill it. */}
+                          <input
+                            type="text"
+                            name="botField"
+                            value={form.botField}
+                            onChange={handleChange}
+                            tabIndex={-1}
+                            autoComplete="off"
+                            aria-hidden="true"
+                            className="hidden"
+                          />
+
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <Field label="Full name" htmlFor="name">
                               <input
