@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -10,6 +10,7 @@ import {
   Clock,
   CheckCircle,
   ChevronDown,
+  CalendarDays,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -62,6 +63,33 @@ const topics = [
   { value: "demo", label: "Request a Demo" },
 ];
 
+// Bookable demo slots within business hours (9:00 AM – 4:30 PM WAT).
+const demoTimes = [
+  { value: "09:00", label: "9:00 AM" },
+  { value: "09:30", label: "9:30 AM" },
+  { value: "10:00", label: "10:00 AM" },
+  { value: "10:30", label: "10:30 AM" },
+  { value: "11:00", label: "11:00 AM" },
+  { value: "11:30", label: "11:30 AM" },
+  { value: "12:00", label: "12:00 PM" },
+  { value: "12:30", label: "12:30 PM" },
+  { value: "13:00", label: "1:00 PM" },
+  { value: "13:30", label: "1:30 PM" },
+  { value: "14:00", label: "2:00 PM" },
+  { value: "14:30", label: "2:30 PM" },
+  { value: "15:00", label: "3:00 PM" },
+  { value: "15:30", label: "3:30 PM" },
+  { value: "16:00", label: "4:00 PM" },
+  { value: "16:30", label: "4:30 PM" },
+];
+
+// Parse a yyyy-mm-dd string as a LOCAL date (avoids the UTC off-by-one that
+// `new Date("2026-07-24")` would introduce).
+function parseLocalDate(value: string) {
+  const [y, m, d] = value.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
 const steps = [
   {
     step: "01",
@@ -111,6 +139,9 @@ type FormState = {
   phone: string;
   topic: string;
   message: string;
+  // Only used when the topic is "demo" — the requested slot.
+  preferredDate: string;
+  preferredTime: string;
   // Honeypot — must always stay empty for real users (bots tend to fill it).
   botField: string;
 };
@@ -121,6 +152,8 @@ const emptyForm: FormState = {
   phone: "",
   topic: "",
   message: "",
+  preferredDate: "",
+  preferredTime: "",
   botField: "",
 };
 
@@ -131,6 +164,15 @@ export default function ContactPage() {
   >("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // Earliest bookable demo date = tomorrow. Computed on the client only so the
+  // statically-prerendered HTML doesn't bake in a stale build-time date.
+  const [minDate, setMinDate] = useState("");
+
+  useEffect(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    setMinDate(tomorrow.toISOString().split("T")[0]);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -165,6 +207,31 @@ export default function ContactPage() {
     const topicLabel =
       topics.find((t) => t.value === form.topic)?.label || form.topic;
 
+    // For demo requests, turn the picked date + time into a readable slot and
+    // reject weekends (the native date picker can't disable them itself).
+    let preferredSlot = "";
+    if (form.topic === "demo") {
+      const picked = parseLocalDate(form.preferredDate);
+      const weekday = picked.getDay(); // 0 = Sun, 6 = Sat
+      if (weekday === 0 || weekday === 6) {
+        setErrorMsg(
+          "Demos run Monday–Friday only. Please choose a weekday for your slot.",
+        );
+        setStatus("error");
+        return;
+      }
+      const dateLabel = picked.toLocaleDateString("en-GB", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+      const timeLabel =
+        demoTimes.find((t) => t.value === form.preferredTime)?.label ||
+        form.preferredTime;
+      preferredSlot = `${dateLabel}, ${timeLabel} WAT`;
+    }
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -174,12 +241,16 @@ export default function ContactPage() {
         },
         body: JSON.stringify({
           access_key: accessKey,
-          subject: `New enquiry: ${topicLabel} — ${form.name}`,
+          subject: preferredSlot
+            ? `New demo request: ${form.name} — ${preferredSlot}`
+            : `New enquiry: ${topicLabel} — ${form.name}`,
           from_name: "iCoop Website",
           name: form.name,
           email: form.email, // Web3Forms uses this as the reply-to address
           phone: form.phone,
           topic: topicLabel,
+          // Only present for demo requests; omitted otherwise.
+          ...(preferredSlot && { preferred_demo_time: preferredSlot }),
           message: form.message,
         }),
       });
@@ -410,6 +481,76 @@ export default function ContactPage() {
                               </div>
                             </Field>
                           </div>
+
+                          {/* Demo scheduling — only when "Request a Demo" is chosen. */}
+                          <AnimatePresence initial={false}>
+                            {form.topic === "demo" && (
+                              <motion.div
+                                key="demo-schedule"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{
+                                  duration: 0.25,
+                                  ease: [0.25, 0.4, 0.25, 1],
+                                }}
+                                className="overflow-hidden"
+                              >
+                                <div className="rounded-xl border border-primary/20 bg-primary-soft/40 p-5 space-y-4">
+                                  <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-primary">
+                                    <CalendarDays className="h-3.5 w-3.5" />
+                                    Pick a demo slot
+                                  </p>
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <Field
+                                      label="Preferred date"
+                                      htmlFor="preferredDate"
+                                    >
+                                      <input
+                                        id="preferredDate"
+                                        name="preferredDate"
+                                        type="date"
+                                        required
+                                        min={minDate}
+                                        value={form.preferredDate}
+                                        onChange={handleChange}
+                                        className={inputClass}
+                                      />
+                                    </Field>
+                                    <Field
+                                      label="Preferred time (WAT)"
+                                      htmlFor="preferredTime"
+                                    >
+                                      <div className="relative">
+                                        <select
+                                          id="preferredTime"
+                                          name="preferredTime"
+                                          required
+                                          value={form.preferredTime}
+                                          onChange={handleChange}
+                                          className={`${inputClass} appearance-none pr-10 ${!form.preferredTime ? "text-text-muted" : "text-foreground"}`}
+                                        >
+                                          <option value="" disabled>
+                                            Select a time
+                                          </option>
+                                          {demoTimes.map((t) => (
+                                            <option key={t.value} value={t.value}>
+                                              {t.label}
+                                            </option>
+                                          ))}
+                                        </select>
+                                        <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
+                                      </div>
+                                    </Field>
+                                  </div>
+                                  <p className="text-[11px] text-text-muted leading-relaxed">
+                                    Demos run Mon–Fri, 9:00 AM – 5:00 PM WAT.
+                                    We&apos;ll confirm your slot by email.
+                                  </p>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
 
                           <Field label="Message" htmlFor="message">
                             <textarea
