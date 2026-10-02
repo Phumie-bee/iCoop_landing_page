@@ -102,7 +102,7 @@ export default function ContactLayout({
                   name: "Can I request a personalized demo of iCoop for my cooperative society?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes. Select 'Request a Demo' in the contact form and our team will schedule a walkthrough of iCoop tailored to your cooperative society's needs.",
+                    text: "Yes. Visit our Book a Demo page, pick a weekday slot that suits you, and it is confirmed instantly - you will get a confirmation email straight away and a reminder the day before.",
                   },
                 },
                 {

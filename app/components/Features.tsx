@@ -206,7 +206,7 @@ export default function Features() {
               </p>
             </div>
             <a
-              href="/contact"
+              href="/book-demo"
               className="shrink-0 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold text-primary-deep transition-transform hover:scale-105"
             >
               See it live

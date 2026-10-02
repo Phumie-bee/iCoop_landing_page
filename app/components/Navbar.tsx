@@ -73,10 +73,10 @@ export default function Navbar() {
             Log in
           </Link>
           <Link
-            href="/contact"
+            href="/book-demo"
             className="text-base font-semibold bg-primary text-white px-6 py-2.5 rounded-full hover:bg-primary/90 transition-colors shadow-sm"
           >
-            Contact Us
+            Book a Demo
           </Link>
         </div>
 
@@ -122,11 +122,11 @@ export default function Navbar() {
                 Log in
               </Link>
               <Link
-                href="/contact"
+                href="/book-demo"
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-semibold bg-primary text-white px-4 py-2.5 rounded-md hover:bg-primary/90 transition-colors text-center shadow-sm"
               >
-                Contact Us
+                Book a Demo
               </Link>
             </div>
           </motion.div>

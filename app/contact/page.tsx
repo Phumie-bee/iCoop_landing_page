@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
   Phone,
   MapPin,
   Send,
+  ArrowRight,
   Clock,
   CheckCircle,
   ChevronDown,
@@ -20,6 +21,7 @@ import {
 } from "../components/AnimationWrapper";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { PHONE_FORMAT_ERROR, digitsOnly, isValidPhone } from "@/lib/phone";
 
 const contactCards = [
   {
@@ -63,33 +65,6 @@ const topics = [
   { value: "demo", label: "Request a Demo" },
 ];
 
-// Bookable demo slots within business hours (9:00 AM – 4:30 PM WAT).
-const demoTimes = [
-  { value: "09:00", label: "9:00 AM" },
-  { value: "09:30", label: "9:30 AM" },
-  { value: "10:00", label: "10:00 AM" },
-  { value: "10:30", label: "10:30 AM" },
-  { value: "11:00", label: "11:00 AM" },
-  { value: "11:30", label: "11:30 AM" },
-  { value: "12:00", label: "12:00 PM" },
-  { value: "12:30", label: "12:30 PM" },
-  { value: "13:00", label: "1:00 PM" },
-  { value: "13:30", label: "1:30 PM" },
-  { value: "14:00", label: "2:00 PM" },
-  { value: "14:30", label: "2:30 PM" },
-  { value: "15:00", label: "3:00 PM" },
-  { value: "15:30", label: "3:30 PM" },
-  { value: "16:00", label: "4:00 PM" },
-  { value: "16:30", label: "4:30 PM" },
-];
-
-// Parse a yyyy-mm-dd string as a LOCAL date (avoids the UTC off-by-one that
-// `new Date("2026-07-24")` would introduce).
-function parseLocalDate(value: string) {
-  const [y, m, d] = value.split("-").map(Number);
-  return new Date(y, m - 1, d);
-}
-
 const steps = [
   {
     step: "01",
@@ -125,7 +100,7 @@ const faqs = [
   },
   {
     q: "Can I request a demo for my cooperative society?",
-    a: "Absolutely. Select 'Request a Demo' in the form above and our team will schedule a personalised walkthrough of iCoop tailored to your cooperative society's needs.",
+    a: "Absolutely. Head to our Book a Demo page, pick a weekday slot that suits you, and it's confirmed instantly — you'll get a confirmation email straight away, then a reminder the day before.",
   },
   {
     q: "Does iCoop provide onboarding support for Nigerian cooperatives?",
@@ -139,9 +114,6 @@ type FormState = {
   phone: string;
   topic: string;
   message: string;
-  // Only used when the topic is "demo" — the requested slot.
-  preferredDate: string;
-  preferredTime: string;
   // Honeypot — must always stay empty for real users (bots tend to fill it).
   botField: string;
 };
@@ -152,8 +124,6 @@ const emptyForm: FormState = {
   phone: "",
   topic: "",
   message: "",
-  preferredDate: "",
-  preferredTime: "",
   botField: "",
 };
 
@@ -164,21 +134,23 @@ export default function ContactPage() {
   >("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  // Earliest bookable demo date = tomorrow. Computed on the client only so the
-  // statically-prerendered HTML doesn't bake in a stale build-time date.
-  const [minDate, setMinDate] = useState("");
-
-  useEffect(() => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    setMinDate(tomorrow.toISOString().split("T")[0]);
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  // Digits only, so "0801 234 5678" still lands as 11 digits. An empty field is
+  // left to `required`; anything else that isn't 11 digits blocks submit with
+  // the browser's native message, like the other fields.
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const phone = digitsOnly(e.target.value);
+    e.target.setCustomValidity(
+      phone && !isValidPhone(phone) ? PHONE_FORMAT_ERROR : "",
+    );
+    setForm((prev) => ({ ...prev, phone }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -192,76 +164,35 @@ export default function ContactPage() {
       return;
     }
 
-    // The key is inlined at build time via the NEXT_PUBLIC_ prefix. If it's
-    // missing, fail loudly instead of showing a false "message sent".
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-    if (!accessKey) {
-      setErrorMsg(
-        "This form isn't configured to send messages yet. Please email us directly at info@connexxiongroup.com.",
-      );
-      setStatus("error");
-      return;
-    }
-
-    // Send the human-readable topic label, not the internal value ("sales").
+    // Send the human-readable topic label, not the internal value ("sales") —
+    // it goes straight into the internal alert email and the admin table.
     const topicLabel =
       topics.find((t) => t.value === form.topic)?.label || form.topic;
 
-    // For demo requests, turn the picked date + time into a readable slot and
-    // reject weekends (the native date picker can't disable them itself).
-    let preferredSlot = "";
-    if (form.topic === "demo") {
-      const picked = parseLocalDate(form.preferredDate);
-      const weekday = picked.getDay(); // 0 = Sun, 6 = Sat
-      if (weekday === 0 || weekday === 6) {
-        setErrorMsg(
-          "Demos run Monday–Friday only. Please choose a weekday for your slot.",
-        );
-        setStatus("error");
-        return;
-      }
-      const dateLabel = picked.toLocaleDateString("en-GB", {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      });
-      const timeLabel =
-        demoTimes.find((t) => t.value === form.preferredTime)?.label ||
-        form.preferredTime;
-      preferredSlot = `${dateLabel}, ${timeLabel} WAT`;
-    }
-
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: accessKey,
-          subject: preferredSlot
-            ? `New demo request: ${form.name} — ${preferredSlot}`
-            : `New enquiry: ${topicLabel} — ${form.name}`,
-          from_name: "iCoop Website",
           name: form.name,
-          email: form.email, // Web3Forms uses this as the reply-to address
+          email: form.email,
           phone: form.phone,
           topic: topicLabel,
-          // Only present for demo requests; omitted otherwise.
-          ...(preferredSlot && { preferred_demo_time: preferredSlot }),
           message: form.message,
+          botField: form.botField,
         }),
       });
 
       const data = await res.json().catch(() => null);
 
-      // Only celebrate when Web3Forms confirms it actually received the data.
+      // Only celebrate once the server confirms the lead was actually stored.
       if (res.ok && data?.success) {
         setStatus("success");
       } else {
-        throw new Error(data?.message ?? "Submission failed.");
+        throw new Error(data?.error ?? "Submission failed.");
       }
     } catch {
       setErrorMsg(
@@ -446,14 +377,17 @@ export default function ContactPage() {
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <Field label="Phone (optional)" htmlFor="phone">
+                            <Field label="Phone" htmlFor="phone">
                               <input
                                 id="phone"
                                 name="phone"
                                 type="tel"
+                                inputMode="numeric"
+                                autoComplete="tel"
+                                required
                                 value={form.phone}
-                                onChange={handleChange}
-                                placeholder="+234 800 000 0000"
+                                onChange={handlePhoneChange}
+                                placeholder="08012345678"
                                 className={inputClass}
                               />
                             </Field>
@@ -496,56 +430,30 @@ export default function ContactPage() {
                                 }}
                                 className="overflow-hidden"
                               >
-                                <div className="rounded-xl border border-primary/20 bg-primary-soft/40 p-5 space-y-4">
+                                {/* Demos are booked on /book-demo, where the
+                                    slot is confirmed instantly. Sending them
+                                    there beats collecting a "preferred" time
+                                    here that someone has to chase by hand. */}
+                                <div className="rounded-xl border border-primary/20 bg-primary-soft/40 p-5">
                                   <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-primary">
                                     <CalendarDays className="h-3.5 w-3.5" />
-                                    Pick a demo slot
+                                    Book it instantly
                                   </p>
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <Field
-                                      label="Preferred date"
-                                      htmlFor="preferredDate"
-                                    >
-                                      <input
-                                        id="preferredDate"
-                                        name="preferredDate"
-                                        type="date"
-                                        required
-                                        min={minDate}
-                                        value={form.preferredDate}
-                                        onChange={handleChange}
-                                        className={inputClass}
-                                      />
-                                    </Field>
-                                    <Field
-                                      label="Preferred time (WAT)"
-                                      htmlFor="preferredTime"
-                                    >
-                                      <div className="relative">
-                                        <select
-                                          id="preferredTime"
-                                          name="preferredTime"
-                                          required
-                                          value={form.preferredTime}
-                                          onChange={handleChange}
-                                          className={`${inputClass} appearance-none pr-10 ${!form.preferredTime ? "text-text-muted" : "text-foreground"}`}
-                                        >
-                                          <option value="" disabled>
-                                            Select a time
-                                          </option>
-                                          {demoTimes.map((t) => (
-                                            <option key={t.value} value={t.value}>
-                                              {t.label}
-                                            </option>
-                                          ))}
-                                        </select>
-                                        <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
-                                      </div>
-                                    </Field>
-                                  </div>
-                                  <p className="text-[11px] text-text-muted leading-relaxed">
-                                    Demos run Mon–Fri, 9:00 AM – 5:00 PM WAT.
-                                    We&apos;ll confirm your slot by email.
+                                  <p className="mt-3 text-[13px] leading-relaxed text-text-secondary">
+                                    You can pick a demo slot yourself and get an
+                                    instant confirmation — no waiting on us to
+                                    reply.
+                                  </p>
+                                  <Link
+                                    href="/book-demo"
+                                    className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-primary-hover"
+                                  >
+                                    Pick a demo slot
+                                    <ArrowRight className="h-3.5 w-3.5" />
+                                  </Link>
+                                  <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
+                                    Prefer to ask something first? Just send this
+                                    form instead.
                                   </p>
                                 </div>
                               </motion.div>
