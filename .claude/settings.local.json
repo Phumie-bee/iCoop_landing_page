@@ -1,7 +1,33 @@
 {
   "permissions": {
     "allow": [
-      "mcp__plugin_playwright_playwright__browser_take_screenshot"
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_resize",
+      "Bash(git checkout *)",
+      "PowerShell(Get-ChildItem \"C:\\\\projects\\\\icoop_landing_page\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName)",
+      "Read(//c/Users/lilph/.agents/skills/ui-ux-pro-max/**)",
+      "Bash(python scripts/search.py \"cooperative management SaaS fintech landing page modern\" --design-system -p \"iCoop\" -f markdown)",
+      "Bash(python *)",
+      "PowerShell(Head-Object *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(\\(Get-Item \"C:\\\\Users\\\\lilph\\\\.agents\\\\skills\\\\ui-ux-pro-max\\\\data\"\\).Target; \\(Get-Item \"C:\\\\Users\\\\lilph\\\\.agents\\\\skills\\\\ui-ux-pro-max\\\\scripts\"\\).Target)",
+      "PowerShell(cmd /c \"dir /al C:\\\\Users\\\\lilph\\\\.agents\\\\skills\\\\ui-ux-pro-max\" 2>&1)",
+      "Bash(node -e \"require\\('./lib/helpers'\\).detectDevServers\\(\\).then\\(servers => console.log\\(JSON.stringify\\(servers\\)\\)\\)\")",
+      "Bash(node run.js ' *)",
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "Bash(git -C c:/Projects/icoop_landing_page status --porcelain)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Redesign landing page: unified light canvas, green identity, spine + deck sections' -m 'Design system: *)",
+      "Bash(git merge *)",
+      "Bash(git push *)",
+      "Bash(echo \"=== tsc exit: $? ===\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3137/contact)",
+      "mcp__plugin_playwright_playwright__browser_network_requests",
+      "Bash(taskkill //PID 41056 //F)",
+      "Bash(taskkill //PID 20592 //F)",
+      "Bash(git reset *)",
+      "Bash(grep -E '\\\\.\\(png|jpe?g\\)$')",
+      "Bash(git commit -q -m ' *)"
     ]
   }
 }

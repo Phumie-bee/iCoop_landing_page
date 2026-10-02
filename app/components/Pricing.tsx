@@ -214,7 +214,7 @@ export default function Pricing() {
 
                 {/* CTA Button */}
                 <MotionLink
-                  href="/contact"
+                  href="/book-demo"
                   className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-all duration-200 w-full ${
                     tier.recommended
                       ? "bg-primary text-white hover:bg-primary-hover shadow-lg shadow-primary/20 active:scale-95"

@@ -60,7 +60,7 @@ export default function CTA() {
         >
           {/* Request a Demo — primary */}
           <motion.a
-            href="/contact"
+            href="/book-demo"
             className="group inline-flex items-center justify-center gap-2.5 rounded-full px-8 sm:px-10 py-4 text-sm sm:text-base font-bold text-white bg-primary hover:bg-primary-hover shadow-lg shadow-primary/25 will-change-transform cursor-pointer w-full sm:w-auto transition-all duration-200"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
