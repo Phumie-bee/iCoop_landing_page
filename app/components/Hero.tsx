@@ -70,7 +70,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-16 lg:pt-44 lg:pb-28">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-16 lg:pt-32 lg:pb-28">
         <div className="max-w-none sm:max-w-xl">
           {/* Badge */}
           {/* <motion.div
